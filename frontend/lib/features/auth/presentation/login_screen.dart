@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/auth/session_controller.dart';
+import '../../../core/organisation/organisation_name.dart';
 import '../../../core/theme/maktab_colors.dart';
 import '../../../core/theme/maktab_spacing.dart';
 import '../../../core/widgets/geometric_pattern.dart';
@@ -70,7 +71,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 child: Stack(
                   children: [
                     Positioned.fill(child: GeometricPattern(color: Colors.white.withValues(alpha: 0.07))),
-                    const Center(child: MaktabLogo(size: 52, onDark: true)),
+                    const Center(child: _Header()),
                   ],
                 ),
               ),
@@ -148,6 +149,34 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// The Maktab mark with the mosque's name under it, once the server has told us the name.
+class _Header extends ConsumerWidget {
+  const _Header();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final name = ref.watch(organisationNameProvider).value;
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const MaktabLogo(size: 52, onDark: true),
+        if (name != null) ...[
+          const SizedBox(height: MaktabSpacing.sm),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: MaktabSpacing.lg),
+            child: Text(
+              name,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleMedium
+                  ?.copyWith(color: Colors.white, fontWeight: FontWeight.w600, letterSpacing: 0.3),
+            ),
+          ),
+        ],
+      ],
     );
   }
 }

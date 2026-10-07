@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.POST, PUBLIC_AUTH).permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/actuator/health").permitAll();
+                    auth.requestMatchers(HttpMethod.GET, "/api/public/organisation").permitAll();
                     if (apiDocs) {
                         auth.requestMatchers(API_DOCS).permitAll();
                     }

@@ -10,6 +10,7 @@ With the `dev` profile the live OpenAPI document is at `/v3/api-docs` and Swagge
 | POST | `/api/auth/login` | public | Email + password → access token, refresh token, user |
 | POST | `/api/auth/refresh` | public (refresh token) | Rotate the refresh token, new access token |
 | POST | `/api/auth/logout` | public (refresh token) | Revoke the refresh token |
+| GET | `/api/public/organisation` | public | The mosque's name for the sign-in screen, and nothing else |
 | GET | `/api/me` | signed in | Current user, roles and effective permissions |
 | PUT | `/api/me/password` | signed in | Change own password; ends other sessions |
 | GET | `/api/users?search=&role=&active=&page=&size=` | `USER_MANAGE` | List users |
