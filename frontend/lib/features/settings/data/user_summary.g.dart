@@ -13,4 +13,18 @@ UserSummary _$UserSummaryFromJson(Map<String, dynamic> json) => UserSummary(
   lastName: json['lastName'] as String,
   active: json['active'] as bool,
   roles: (json['roles'] as List<dynamic>).map((e) => e as String).toList(),
+  grantedPermissions:
+      (json['grantedPermissions'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      [],
+  effectivePermissions:
+      (json['effectivePermissions'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList() ??
+      [],
+  mustChangePassword: json['mustChangePassword'] as bool? ?? false,
+  lastLoginAt: json['lastLoginAt'] == null
+      ? null
+      : DateTime.parse(json['lastLoginAt'] as String),
 );

@@ -32,3 +32,8 @@ String genderLabel(String? gender, AppLocalizations l10n) => switch (gender) {
 
 /// The date part of [now], without time.
 DateTime dateOnly(DateTime now) => DateTime(now.year, now.month, now.day);
+
+final _dateTime = DateFormat('d MMM yyyy, HH:mm', 'en');
+
+/// A moment in local time, for example "14 Mar 2026, 09:30".
+String formatDateTime(DateTime moment) => _dateTime.format(moment.toLocal());

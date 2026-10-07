@@ -55,7 +55,8 @@ flutter run --dart-define=API_BASE_URL=http://localhost:8080  # iOS simulator
 ```
 
 For Flutter web during development, add its origin to `CORS_ALLOWED_ORIGINS` in `.env`
-(for example `http://localhost:5000`) and run `flutter run -d chrome --web-port 5000`.
+(for example `http://localhost:5050`) and run `flutter run -d chrome --web-port 5050`. Avoid port 5000 on macOS:
+the AirPlay Receiver already uses it.
 
 ## Tests
 

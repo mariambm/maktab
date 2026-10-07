@@ -558,4 +558,155 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get addUser => 'Add user';
+
+  @override
+  String get editUser => 'Edit user';
+
+  @override
+  String get searchUsersHint => 'Search by name or email';
+
+  @override
+  String get userSaved => 'User saved';
+
+  @override
+  String get rolesSection => 'Roles';
+
+  @override
+  String get rolesRequired => 'Choose at least one role';
+
+  @override
+  String get editRoles => 'Edit roles';
+
+  @override
+  String get extraPermissionsSection => 'Extra permissions';
+
+  @override
+  String get extraPermissionsHint =>
+      'Given on top of what their roles already allow.';
+
+  @override
+  String get noExtraPermissions => 'None';
+
+  @override
+  String get editPermissions => 'Edit extra permissions';
+
+  @override
+  String get accountDetails => 'Account';
+
+  @override
+  String get lastSignInLabel => 'Last sign-in';
+
+  @override
+  String get neverSignedIn => 'Never';
+
+  @override
+  String get statusLabel => 'Status';
+
+  @override
+  String get mustChangePasswordChip => 'Must choose a new password';
+
+  @override
+  String get youLabel => 'You';
+
+  @override
+  String get resetPassword => 'Reset password';
+
+  @override
+  String resetPasswordConfirmTitle(String name) {
+    return 'Reset password for $name?';
+  }
+
+  @override
+  String get resetPasswordConfirmBody =>
+      'They are signed out everywhere and get a new temporary password.';
+
+  @override
+  String get temporaryPasswordTitle => 'Temporary password';
+
+  @override
+  String temporaryPasswordBody(String name) {
+    return 'Give this password to $name in person or by phone. It is shown only once. They choose their own password when they first sign in.';
+  }
+
+  @override
+  String get copy => 'Copy';
+
+  @override
+  String get copied => 'Copied';
+
+  @override
+  String get done => 'Done';
+
+  @override
+  String get deactivateUser => 'Deactivate account';
+
+  @override
+  String get reactivateUser => 'Reactivate account';
+
+  @override
+  String get deactivateUserConfirmBody =>
+      'They are signed out everywhere and can no longer sign in. You can reactivate the account later.';
+
+  @override
+  String get userDeactivated => 'Account deactivated';
+
+  @override
+  String get userReactivated => 'Account reactivated';
+
+  @override
+  String get permUSER_MANAGE => 'Manage users';
+
+  @override
+  String get permSETTINGS_MANAGE => 'Manage settings';
+
+  @override
+  String get permAUDIT_READ => 'View audit log';
+
+  @override
+  String get permSTUDENT_READ => 'View students';
+
+  @override
+  String get permSTUDENT_WRITE => 'Edit students';
+
+  @override
+  String get permPARENT_READ => 'View parents';
+
+  @override
+  String get permPARENT_WRITE => 'Edit parents';
+
+  @override
+  String get permCLASS_READ => 'View classes';
+
+  @override
+  String get permCLASS_MANAGE => 'Manage classes';
+
+  @override
+  String get permCURRICULUM_READ => 'View curriculum';
+
+  @override
+  String get permCURRICULUM_WRITE => 'Edit curriculum';
+
+  @override
+  String get permLESSON_RECORD => 'Record lessons';
+
+  @override
+  String get permPROGRESS_RECORD => 'Record progress';
+
+  @override
+  String get permTARGET_MANAGE => 'Manage targets';
+
+  @override
+  String get permOBSERVATION_RECORD => 'Record observations';
+
+  @override
+  String get permPAYMENT_READ => 'View payments';
+
+  @override
+  String get permPAYMENT_WRITE => 'Record payments';
+
+  @override
+  String get permREPORT_READ => 'View reports';
 }
