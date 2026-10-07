@@ -1,5 +1,6 @@
 package com.maktab.classgroup.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.maktab.classgroup.domain.ClassSchedule;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
@@ -16,6 +17,7 @@ public record ScheduleSlot(
         return new ScheduleSlot(slot.getWeekday(), slot.getStartTime(), slot.getEndTime());
     }
 
+    @JsonIgnore
     @AssertTrue(message = "End time must be after start time")
     public boolean isEndAfterStart() {
         return startTime == null || endTime == null || endTime.isAfter(startTime);

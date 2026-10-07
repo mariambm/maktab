@@ -33,7 +33,8 @@ class ClassIntegrationTest extends SchoolApi {
                 .andExpect(jsonPath("$.studentCount").value(1))
                 .andExpect(jsonPath("$.teachers[0].id").value(teacher.user().id().toString()))
                 .andExpect(jsonPath("$.schedule[0].weekday").value("SATURDAY"))
-                .andExpect(jsonPath("$.schedule[0].startTime").value("10:00:00"));
+                .andExpect(jsonPath("$.schedule[0].startTime").value("10:00:00"))
+                .andExpect(jsonPath("$.schedule[0].endAfterStart").doesNotExist());
     }
 
     @Test
