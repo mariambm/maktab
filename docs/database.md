@@ -26,8 +26,9 @@ PostgreSQL 17. The schema changes only through Flyway migrations in
 | `V9__lessons_and_attendance.sql` | `lesson`, `lesson_topic_covered`, `lesson_attendance` |
 | `V10__mosque_settings_and_subjects.sql` | The organisation becomes Jamiyat Tabligh UL Islam (GBP, Europe/London); the mosque's own absence reasons; `lesson_topic.subject` |
 | `V11__progress_behaviour_uniform.sql` | `progress_scale_level` (seeded with the mosque's scale), `student_progress`, `behaviour_record`, `behaviour_record_item`, `uniform_record` |
+| `V12__student_targets.sql` | `student_target` |
 
-Planned: targets, payments.
+Planned: payments.
 
 ## Phase 1 tables
 
@@ -124,6 +125,9 @@ uniform_record        (id, lesson_id → lesson, student_id → student,
                        reason NULL ∈ HIJAB_MISSING|SHIRT_NOT_ACCORDING_TO_UNIFORM|OTHER, note NULL,
                        recorded_by → app_user, …)
                        UNIQUE (lesson_id, student_id);  CHECK status <> IN_ORDER OR reason IS NULL
+student_target        (id, student_id → student, curriculum_period_id → curriculum_period, subject NULL,
+                       description, target_percentage NULL 0..100, current_percentage NULL 0..100,
+                       progress_score NULL, teacher_note NULL, created_by, updated_by → app_user, …)
 ```
 
 - **One scale for every subject**, as the mosque decided: 2 Low, 3 Medium, 3.5 Almost Good, 4 Good, 4.5 Very Good,
@@ -131,6 +135,8 @@ uniform_record        (id, lesson_id → lesson, student_id → student,
   refuses a score that is not on the scale.
 - **Everything is tied to a lesson**, and so to a date: a score, an observation or a uniform note is about that day,
   never a lasting label on the child. A student's history is read by joining `lesson`.
+- **Targets belong to a four-week period**, which is fixed once the target exists, so a student's targets of
+  earlier periods stay as they were. A new target must use a period of the student's current level.
 - **Several behaviours per observation**: one `behaviour_record` per student per lesson, with its behaviours in
   `behaviour_record_item`.
 
@@ -143,4 +149,4 @@ with two or more children), and three students who moved class four weeks ago so
 `DevTeachingDataSeeder` then adds two four-week curriculum periods per level with a topic per week, and eight weeks
 of past lessons with attendance; today's lesson is deliberately left unopened so the teacher's day has something to
 do. `DevDevelopmentDataSeeder` adds a Quran Recitation score for every student who attended a seeded lesson, plus
-some behaviour observations and uniform notes. Seed data for the other modules is added with their phases.
+some behaviour observations and uniform notes, and a target in the current period for some students. Seed data for the other modules is added with their phases.

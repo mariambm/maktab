@@ -697,7 +697,7 @@ abstract class AppLocalizations {
   /// No description provided for @moreComingNote.
   ///
   /// In en, this message translates to:
-  /// **'Targets and lesson history appear here in a later update.'**
+  /// **'Lesson history appears here in a later update.'**
   String get moreComingNote;
 
   /// No description provided for @relationshipMother.
@@ -2163,6 +2163,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Other'**
   String get uniformOTHER;
+
+  /// No description provided for @targetsOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Targets'**
+  String get targetsOverview;
+
+  /// No description provided for @targetsNoRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'No targets set yet.'**
+  String get targetsNoRecords;
+
+  /// No description provided for @addTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Add target'**
+  String get addTarget;
+
+  /// No description provided for @editTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit target'**
+  String get editTarget;
+
+  /// No description provided for @targetPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Period'**
+  String get targetPeriod;
+
+  /// No description provided for @targetSubjectOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject (optional)'**
+  String get targetSubjectOptional;
+
+  /// No description provided for @targetAnySubject.
+  ///
+  /// In en, this message translates to:
+  /// **'No particular subject'**
+  String get targetAnySubject;
+
+  /// No description provided for @targetDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Target'**
+  String get targetDescription;
+
+  /// No description provided for @targetDescriptionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'For example: recite Surah Al-Fatiha from memory'**
+  String get targetDescriptionHint;
+
+  /// No description provided for @targetDescriptionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Describe the target'**
+  String get targetDescriptionRequired;
+
+  /// No description provided for @targetPercentage.
+  ///
+  /// In en, this message translates to:
+  /// **'Target %'**
+  String get targetPercentage;
+
+  /// No description provided for @currentPercentage.
+  ///
+  /// In en, this message translates to:
+  /// **'Now %'**
+  String get currentPercentage;
+
+  /// No description provided for @percentageInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'0 to 100'**
+  String get percentageInvalid;
+
+  /// No description provided for @targetScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress score (optional)'**
+  String get targetScore;
+
+  /// No description provided for @teacherNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Teacher note (optional)'**
+  String get teacherNote;
+
+  /// No description provided for @targetSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Target saved'**
+  String get targetSaved;
+
+  /// No description provided for @targetNeedsClass.
+  ///
+  /// In en, this message translates to:
+  /// **'Put the student in a class to set targets.'**
+  String get targetNeedsClass;
+
+  /// No description provided for @targetNoPeriods.
+  ///
+  /// In en, this message translates to:
+  /// **'This class\'s level has no curriculum periods yet.'**
+  String get targetNoPeriods;
+
+  /// No description provided for @targetPercentages.
+  ///
+  /// In en, this message translates to:
+  /// **'Target {target}% · now {current}%'**
+  String targetPercentages(String target, String current);
+
+  /// No description provided for @progressChooseClass.
+  ///
+  /// In en, this message translates to:
+  /// **'Class'**
+  String get progressChooseClass;
+
+  /// No description provided for @progressNoClasses.
+  ///
+  /// In en, this message translates to:
+  /// **'You have no classes yet.'**
+  String get progressNoClasses;
+
+  /// No description provided for @progressNoPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'No curriculum period is running for this class today.'**
+  String get progressNoPeriod;
+
+  /// No description provided for @progressNoStudents.
+  ///
+  /// In en, this message translates to:
+  /// **'No students in this class.'**
+  String get progressNoStudents;
+
+  /// No description provided for @progressLatestScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest score'**
+  String get progressLatestScore;
+
+  /// No description provided for @progressNoScoreYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No score yet this period'**
+  String get progressNoScoreYet;
+
+  /// No description provided for @progressPeriodOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{period} · {start} to {end}'**
+  String progressPeriodOf(String period, String start, String end);
 }
 
 class _AppLocalizationsDelegate
