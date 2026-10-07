@@ -25,8 +25,9 @@ PostgreSQL 17. The schema changes only through Flyway migrations in
 | `V8__curriculum.sql` | `curriculum_period`, `curriculum_week`, `lesson_topic` |
 | `V9__lessons_and_attendance.sql` | `lesson`, `lesson_topic_covered`, `lesson_attendance` |
 | `V10__mosque_settings_and_subjects.sql` | The organisation becomes Jamiyat Tabligh UL Islam (GBP, Europe/London); the mosque's own absence reasons; `lesson_topic.subject` |
+| `V11__progress_behaviour_uniform.sql` | `progress_scale_level` (seeded with the mosque's scale), `student_progress`, `behaviour_record`, `behaviour_record_item`, `uniform_record` |
 
-Planned: progress and targets, behaviour and uniform, payments.
+Planned: targets, payments.
 
 ## Phase 1 tables
 
@@ -107,6 +108,32 @@ lesson_attendance     (id, lesson_id → lesson, student_id → student, status 
 - **Observations are per lesson**, never a permanent label on a child: every attendance row belongs to one lesson on
   one date.
 
+## Phase 4 tables
+
+```text
+progress_scale_level  (organisation_id → organisation, score numeric(2,1), label)   PK (organisation_id, score)
+student_progress      (id, lesson_id → lesson, student_id → student, subject, score numeric(2,1), note NULL,
+                       recorded_by → app_user, …)
+                       UNIQUE (lesson_id, student_id, subject)
+behaviour_record      (id, lesson_id → lesson, student_id → student, note NULL, recorded_by → app_user, …)
+                       UNIQUE (lesson_id, student_id)
+behaviour_record_item (behaviour_record_id → behaviour_record ON DELETE CASCADE, behaviour)
+                       PK (behaviour_record_id, behaviour)
+uniform_record        (id, lesson_id → lesson, student_id → student,
+                       status ∈ IN_ORDER|PARTIALLY_IN_ORDER|NOT_IN_ORDER,
+                       reason NULL ∈ HIJAB_MISSING|SHIRT_NOT_ACCORDING_TO_UNIFORM|OTHER, note NULL,
+                       recorded_by → app_user, …)
+                       UNIQUE (lesson_id, student_id);  CHECK status <> IN_ORDER OR reason IS NULL
+```
+
+- **One scale for every subject**, as the mosque decided: 2 Low, 3 Medium, 3.5 Almost Good, 4 Good, 4.5 Very Good,
+  5 Excellent. The labels live in `progress_scale_level`, not in code, so they can change without a release; the API
+  refuses a score that is not on the scale.
+- **Everything is tied to a lesson**, and so to a date: a score, an observation or a uniform note is about that day,
+  never a lasting label on the child. A student's history is read by joining `lesson`.
+- **Several behaviours per observation**: one `behaviour_record` per student per lesson, with its behaviours in
+  `behaviour_record_item`.
+
 ## Seed data
 
 Development accounts are created by `DevDataSeeder` when the `dev` profile is active and the user table is empty.
@@ -115,4 +142,5 @@ there are no students yet: 3 levels, 6 classes with a weekly slot and a teacher 
 with two or more children), and three students who moved class four weeks ago so class history is visible.
 `DevTeachingDataSeeder` then adds two four-week curriculum periods per level with a topic per week, and eight weeks
 of past lessons with attendance; today's lesson is deliberately left unopened so the teacher's day has something to
-do. Seed data for the other modules is added with their phases.
+do. `DevDevelopmentDataSeeder` adds a Quran Recitation score for every student who attended a seeded lesson, plus
+some behaviour observations and uniform notes. Seed data for the other modules is added with their phases.

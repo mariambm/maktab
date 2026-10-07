@@ -83,6 +83,21 @@ modules built in later phases.
 - **Student Profile** gains an attendance card: the percentage, the lesson count, and present / late / absent, with
   a warning when the student is below the organisation's threshold.
 
+## Phase 4 screens
+
+- **Lesson** gains three sections under the register, each saved on its own:
+  - **Progress**: choose the subject (it starts on the subject of this week's first topic, otherwise Quran
+    Recitation) and tap a score per student on the mosque's scale (2, 3, 3.5, 4, 4.5, 5). The chosen score's label
+    shows next to the name, tapping it again clears it, and absent students get no score.
+  - **Behaviour**: one row per student who was there, "Nothing noted" until the teacher taps it. A sheet offers
+    the good behaviours and the ones that need attention as chips, any number of each, plus an optional note; Done
+    and Clear stay in view.
+  - **Uniform**: In order, Partly in order or Not in order per student, with an optional reason when it is not in
+    order. Nothing is assumed: "All in order" fills in only the students not noted yet.
+  Without `PROGRESS_RECORD` or `OBSERVATION_RECORD` the sections are read-only text.
+- **Student Profile** gains Progress, Behaviour and Uniform cards: the five most recent entries, each with its
+  lesson date, and "Show all" for the rest.
+
 Create and edit routes need the module's write permission; a teacher typing `/students/new` is sent to the dashboard.
 Failed loads show the error with "Try again" rather than retrying silently.
 

@@ -74,6 +74,28 @@ assigned to, and any other id answers `404 NOT_FOUND`.
 | GET | `/api/curriculum/periods/{id}` | `CURRICULUM_READ` | One period with its weeks and topics |
 | POST, PUT | `/api/curriculum/periods`, `/api/curriculum/periods/{id}` | `CURRICULUM_WRITE` | Create or update a period with its four weeks and their topics. The end date follows from the start date; overlapping periods of one level are refused |
 
+## Phase 4 endpoints
+
+Progress, behaviour and uniform are recorded per lesson and use the lesson's scope: an id outside the caller's
+classes answers `404 NOT_FOUND`, and a student who is not in the lesson's class now is refused with `400`. Each
+`PUT` sends the whole picture (for progress: of one subject), so a student left out no longer has a record.
+
+| Method | Path | Permission | Purpose |
+| --- | --- | --- | --- |
+| GET | `/api/progress/scale` | signed in | The organisation's progress scale, lowest first: `{score, label}` (2 Low, 3 Medium, 3.5 Almost Good, 4 Good, 4.5 Very Good, 5 Excellent) |
+| GET, PUT | `/api/lessons/{id}/progress` | `CLASS_READ`, `PROGRESS_RECORD` | Every score in the lesson; a `PUT` sends `{subject, entries: [{studentId, score, note}]}` and a score off the scale is refused |
+| GET | `/api/progress?studentId=` | `STUDENT_READ` | A student's scores with lesson date, class, subject and label, newest first |
+| GET, PUT | `/api/lessons/{id}/behaviour` | `CLASS_READ`, `OBSERVATION_RECORD` | Observations in the lesson: `{studentId, behaviours: [...], note}`; any number of behaviours each, and an entry with nothing selected and no note removes that student's observation |
+| GET | `/api/behaviour?studentId=` | `STUDENT_READ` | A student's observations, each with its lesson date |
+| GET, PUT | `/api/lessons/{id}/uniform` | `CLASS_READ`, `OBSERVATION_RECORD` | Uniform in the lesson: `{studentId, status, reason, note}`; `IN_ORDER` may not carry a reason |
+| GET | `/api/uniform?studentId=` | `STUDENT_READ` | A student's uniform records, each with its lesson date |
+
+Behaviour values: `GOOD_QURAN_RECITATION`, `LEARNED_ISLAMIC_STUDIES`, `LEARNED_NAMAZ_AND_DUAS`,
+`LEARNED_NAAT_OR_SPEECH`, `LISTENED_TO_TEACHER`, `BEEN_HELPFUL`, `ORGANISED`, `RESPECTFUL`, `GOOD_GROUP_WORK`,
+`USING_TIME_EFFECTIVELY` (good) and `OFF_TASK`, `NOT_LISTENING`, `DISTRACTING`, `TALKING`, `DISORGANISED`,
+`LACK_OF_EFFORT`, `WASTING_TIME`, `SHOUTING`, `WALKING_OR_RUNNING_AROUND` (needs attention). Uniform statuses:
+`IN_ORDER`, `PARTIALLY_IN_ORDER`, `NOT_IN_ORDER`; reasons: `HIJAB_MISSING`, `SHIRT_NOT_ACCORDING_TO_UNIFORM`, `OTHER`.
+
 ## Permissions per role
 
 | Permission | ADMIN | ADMINISTRATOR | TEACHER |

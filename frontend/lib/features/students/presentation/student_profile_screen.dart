@@ -11,8 +11,15 @@ import '../../../core/widgets/async_view.dart';
 import '../../../core/widgets/section_card.dart';
 import '../../../core/widgets/state_views.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../behaviour/data/behaviour_repository.dart';
+import '../../behaviour/presentation/student_behaviour_card.dart';
 import '../../classes/data/classes_repository.dart';
+import '../../lessons/data/lessons_repository.dart';
 import '../../lessons/presentation/student_attendance_card.dart';
+import '../../progress/data/progress_repository.dart';
+import '../../progress/presentation/student_progress_card.dart';
+import '../../uniform/data/uniform_repository.dart';
+import '../../uniform/presentation/student_uniform_card.dart';
 import '../data/student_models.dart';
 import '../data/students_repository.dart';
 import 'manage_parents_sheet.dart';
@@ -20,8 +27,8 @@ import 'move_class_sheet.dart';
 
 enum _MenuAction { deactivate, reactivate, removeFromClass }
 
-/// Student Profile: personal information, class with history, and parents. Later phases add attendance, progress,
-/// targets, behaviour, uniform and lesson history as further sections.
+/// Student Profile: personal information, class with history, parents, attendance, progress, behaviour and uniform.
+/// Targets and lesson history are added as further sections.
 class StudentProfileScreen extends ConsumerWidget {
   const StudentProfileScreen({super.key, required this.studentId});
 
@@ -60,7 +67,12 @@ class StudentProfileScreen extends ConsumerWidget {
       ),
       body: RefreshIndicator(
         onRefresh: () {
-          ref.invalidate(enrollmentsProvider(studentId));
+          ref
+            ..invalidate(enrollmentsProvider(studentId))
+            ..invalidate(studentAttendanceStatisticsProvider(studentId))
+            ..invalidate(studentProgressProvider(studentId))
+            ..invalidate(studentBehaviourProvider(studentId))
+            ..invalidate(studentUniformProvider(studentId));
           return ref.refresh(studentProvider(studentId).future);
         },
         child: AsyncView(
@@ -208,6 +220,12 @@ class _Profile extends StatelessWidget {
                 _ParentsSection(student: student, canWrite: canWrite),
                 const SizedBox(height: MaktabSpacing.sm),
                 StudentAttendanceCard(studentId: student.id),
+                const SizedBox(height: MaktabSpacing.sm),
+                StudentProgressCard(studentId: student.id),
+                const SizedBox(height: MaktabSpacing.sm),
+                StudentBehaviourCard(studentId: student.id),
+                const SizedBox(height: MaktabSpacing.sm),
+                StudentUniformCard(studentId: student.id),
                 const SizedBox(height: MaktabSpacing.md),
                 Text(
                   l10n.moreComingNote,

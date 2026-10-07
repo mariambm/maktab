@@ -325,7 +325,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get moreComingNote =>
-      'Attendance, progress, behaviour and lesson history appear here in later phases.';
+      'Targets and lesson history appear here in a later update.';
 
   @override
   String get relationshipMother => 'Mother';
@@ -968,4 +968,164 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subjectNAATS_AND_SPEECHES => 'Naats and Speeches';
+
+  @override
+  String get progressSection => 'Progress';
+
+  @override
+  String get progressSubjectHint => 'Scores for';
+
+  @override
+  String get progressNoScore => 'No score';
+
+  @override
+  String get progressAbsent => 'Absent, no score';
+
+  @override
+  String get saveProgress => 'Save progress';
+
+  @override
+  String get progressSaved => 'Progress saved';
+
+  @override
+  String get progressOverview => 'Progress';
+
+  @override
+  String get progressNoRecords => 'No scores recorded yet.';
+
+  @override
+  String get behaviourSection => 'Behaviour';
+
+  @override
+  String get behaviourNothingNoted => 'Nothing noted';
+
+  @override
+  String get behaviourGood => 'Good behaviour';
+
+  @override
+  String get behaviourNeedsAttention => 'Needs attention';
+
+  @override
+  String get behaviourNote => 'Note (optional)';
+
+  @override
+  String get behaviourEdit => 'Note behaviour';
+
+  @override
+  String get saveBehaviour => 'Save behaviour';
+
+  @override
+  String get behaviourSaved => 'Behaviour saved';
+
+  @override
+  String get behaviourOverview => 'Behaviour';
+
+  @override
+  String get behaviourNoRecords => 'No behaviour noted yet.';
+
+  @override
+  String get clear => 'Clear';
+
+  @override
+  String get showAll => 'Show all';
+
+  @override
+  String get showLess => 'Show less';
+
+  @override
+  String get behaviourGOOD_QURAN_RECITATION => 'Good Quran recitation';
+
+  @override
+  String get behaviourLEARNED_ISLAMIC_STUDIES => 'Learned Islamic studies';
+
+  @override
+  String get behaviourLEARNED_NAMAZ_AND_DUAS => 'Learned Namaz and Duas';
+
+  @override
+  String get behaviourLEARNED_NAAT_OR_SPEECH => 'Learned Naat and/or speech';
+
+  @override
+  String get behaviourLISTENED_TO_TEACHER => 'Listened to teacher';
+
+  @override
+  String get behaviourBEEN_HELPFUL => 'Been helpful';
+
+  @override
+  String get behaviourORGANISED => 'Organised';
+
+  @override
+  String get behaviourRESPECTFUL => 'Respectful';
+
+  @override
+  String get behaviourGOOD_GROUP_WORK => 'Good group work';
+
+  @override
+  String get behaviourUSING_TIME_EFFECTIVELY => 'Using time effectively';
+
+  @override
+  String get behaviourOFF_TASK => 'Off task';
+
+  @override
+  String get behaviourNOT_LISTENING => 'Not listening';
+
+  @override
+  String get behaviourDISTRACTING => 'Distracting';
+
+  @override
+  String get behaviourTALKING => 'Talking';
+
+  @override
+  String get behaviourDISORGANISED => 'Disorganised';
+
+  @override
+  String get behaviourLACK_OF_EFFORT => 'Lack of effort';
+
+  @override
+  String get behaviourWASTING_TIME => 'Wasting time';
+
+  @override
+  String get behaviourSHOUTING => 'Shouting';
+
+  @override
+  String get behaviourWALKING_OR_RUNNING_AROUND => 'Walking/running around';
+
+  @override
+  String get uniformSection => 'Uniform';
+
+  @override
+  String get uniformAllInOrder => 'All in order';
+
+  @override
+  String get uniformReason => 'Reason (optional)';
+
+  @override
+  String get saveUniform => 'Save uniform';
+
+  @override
+  String get uniformSaved => 'Uniform saved';
+
+  @override
+  String get uniformOverview => 'Uniform';
+
+  @override
+  String get uniformNoRecords => 'No uniform noted yet.';
+
+  @override
+  String get uniformIN_ORDER => 'In order';
+
+  @override
+  String get uniformPARTIALLY_IN_ORDER => 'Partly in order';
+
+  @override
+  String get uniformNOT_IN_ORDER => 'Not in order';
+
+  @override
+  String get uniformHIJAB_MISSING => 'Hijab missing';
+
+  @override
+  String get uniformSHIRT_NOT_ACCORDING_TO_UNIFORM =>
+      'Shirt not according to uniform';
+
+  @override
+  String get uniformOTHER => 'Other';
 }

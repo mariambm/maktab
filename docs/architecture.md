@@ -39,9 +39,13 @@ service layer.
 | `classgroup` | Curriculum levels, classes, weekly schedules, teacher assignments, enrolments, `AccessScopeService` (Phase 2) |
 | `curriculum` | Four-week periods, their weeks and lesson topics (Phase 3) |
 | `lesson` | Lessons, topics covered, the attendance register and attendance figures (Phase 3) |
+| `progress` | The progress scale and scores per lesson and subject (Phase 4) |
+| `behaviour` | Behaviour observations per lesson (Phase 4) |
+| `uniform` | Uniform observations per lesson (Phase 4) |
 | `dev` | Development seed accounts and fake school data (`dev` profile only) |
 
-Modules for progress, behaviour, uniform, payments and reports are added in their phases.
+The Phase 4 modules reach lessons and students through `LessonAccess` and `StudentAccess`, so they apply the same
+scope as the register. Modules for targets, payments and reports are added in their phases.
 
 ## Authentication and authorisation
 
@@ -67,7 +71,7 @@ Modules for progress, behaviour, uniform, payments and reports are added in thei
 | Spring Boot "current GA" | Spring Boot 4.1.1, Java 21 | Latest stable at Phase 1 start |
 | Teachers read classes through their existing permissions | New `CLASS_READ` permission (all roles) | Reading a class list is not "student" data; a clear permission keeps `CLASS_MANAGE` for changes only |
 | Optional Excel import of students in Phase 2 | Not built | Waits for a sample export of the current spreadsheet (fake or redacted data) |
-| `/api/students/{id}/summary` and per-module tabs | Profile shows details, class history, parents and attendance | Progress and observations arrive in Phase 4 |
+| `/api/students/{id}/summary` and per-module tabs | Profile shows details, class history, parents, attendance, progress, behaviour and uniform | Each module has its own endpoint, so the profile loads them independently |
 | Attendance percentages stored per student | Counted from `lesson_attendance` on every request | A stored figure goes stale the moment a lesson is corrected |
 
 ## Flutter app (`frontend/lib`)

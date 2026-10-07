@@ -9,14 +9,21 @@ import '../../../core/widgets/async_view.dart';
 import '../../../core/widgets/section_card.dart';
 import '../../../core/widgets/state_views.dart';
 import '../../../l10n/generated/app_localizations.dart';
+import '../../behaviour/data/behaviour_repository.dart';
+import '../../behaviour/presentation/behaviour_recorder.dart';
 import '../../curriculum/data/curriculum_models.dart';
+import '../../progress/data/progress_repository.dart';
+import '../../progress/presentation/progress_recorder.dart';
+import '../../uniform/data/uniform_repository.dart';
+import '../../uniform/presentation/uniform_recorder.dart';
 import '../data/lesson_models.dart';
 import '../data/lessons_repository.dart';
 import 'attendance_register.dart';
 import 'lesson_content_editor.dart';
 import 'lesson_labels.dart';
 
-/// One lesson: the register first, because that is what a teacher opens the screen for, then what was taught.
+/// One lesson: the register first, because that is what a teacher opens the screen for, then what was taught, then
+/// progress, behaviour and uniform for the students who were there.
 class LessonDetailScreen extends ConsumerWidget {
   const LessonDetailScreen({super.key, required this.lessonId});
 
@@ -26,11 +33,20 @@ class LessonDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final lesson = ref.watch(lessonProvider(lessonId));
-    final canRecord = ref.watch(sessionControllerProvider).value?.can(Permissions.lessonRecord) ?? false;
+    final user = ref.watch(sessionControllerProvider).value;
+    final canRecord = user?.can(Permissions.lessonRecord) ?? false;
+    final canScore = user?.can(Permissions.progressRecord) ?? false;
+    final canObserve = user?.can(Permissions.observationRecord) ?? false;
     return Scaffold(
       appBar: AppBar(title: Text(lesson.value?.className ?? l10n.navLessons)),
       body: RefreshIndicator(
-        onRefresh: () => ref.refresh(lessonProvider(lessonId).future),
+        onRefresh: () {
+          ref
+            ..invalidate(lessonProgressProvider(lessonId))
+            ..invalidate(lessonBehaviourProvider(lessonId))
+            ..invalidate(lessonUniformProvider(lessonId));
+          return ref.refresh(lessonProvider(lessonId).future);
+        },
         child: AsyncView(
           value: lesson,
           onRetry: () => ref.invalidate(lessonProvider(lessonId)),
@@ -42,6 +58,12 @@ class LessonDetailScreen extends ConsumerWidget {
               AttendanceRegister(lesson: detail, readOnly: !canRecord),
               const SizedBox(height: MaktabSpacing.sm),
               LessonContentEditor(lesson: detail, readOnly: !canRecord),
+              const SizedBox(height: MaktabSpacing.sm),
+              ProgressRecorder(lesson: detail, readOnly: !canScore),
+              const SizedBox(height: MaktabSpacing.sm),
+              BehaviourRecorder(lesson: detail, readOnly: !canObserve),
+              const SizedBox(height: MaktabSpacing.sm),
+              UniformRecorder(lesson: detail, readOnly: !canObserve),
             ],
           ),
         ),
