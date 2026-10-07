@@ -11,7 +11,7 @@ void main() {
     final visible = ids(visibleDestinations(testUser()));
     expect(visible, isNot(contains('payments')));
     expect(visible, isNot(contains('parents')));
-    expect(visible, containsAll(['dashboard', 'lessons', 'students', 'progress', 'settings']));
+    expect(visible, containsAll(['dashboard', 'lessons', 'students', 'classes', 'progress', 'settings']));
   });
 
   test('a teacher explicitly granted PAYMENT_READ sees payments', () {

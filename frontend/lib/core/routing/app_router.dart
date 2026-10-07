@@ -5,10 +5,19 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/presentation/change_password_screen.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/splash_screen.dart';
+import '../../features/classes/presentation/class_detail_screen.dart';
+import '../../features/classes/presentation/class_form_screen.dart';
+import '../../features/classes/presentation/classes_screen.dart';
 import '../../features/dashboard/presentation/dashboard_screen.dart';
 import '../../features/modules/presentation/module_placeholder_screen.dart';
+import '../../features/parents/presentation/parent_detail_screen.dart';
+import '../../features/parents/presentation/parent_form_screen.dart';
+import '../../features/parents/presentation/parents_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/settings/presentation/users_screen.dart';
+import '../../features/students/presentation/student_form_screen.dart';
+import '../../features/students/presentation/student_profile_screen.dart';
+import '../../features/students/presentation/students_screen.dart';
 import '../auth/session_controller.dart';
 import '../widgets/maktab_shell.dart';
 import 'destinations.dart';
@@ -32,6 +41,57 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state, child) => MaktabShell(location: state.matchedLocation, child: child),
         routes: [
           GoRoute(path: Routes.dashboard, builder: (_, _) => const DashboardScreen()),
+          GoRoute(
+            path: '/students',
+            builder: (_, _) => const StudentsScreen(),
+            routes: [
+              GoRoute(path: 'new', builder: (_, _) => const StudentFormScreen()),
+              GoRoute(
+                path: ':id',
+                builder: (_, state) => StudentProfileScreen(studentId: state.pathParameters['id']!),
+                routes: [
+                  GoRoute(
+                    path: 'edit',
+                    builder: (_, state) => StudentFormScreen(studentId: state.pathParameters['id']),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          GoRoute(
+            path: '/parents',
+            builder: (_, _) => const ParentsScreen(),
+            routes: [
+              GoRoute(path: 'new', builder: (_, _) => const ParentFormScreen()),
+              GoRoute(
+                path: ':id',
+                builder: (_, state) => ParentDetailScreen(parentId: state.pathParameters['id']!),
+                routes: [
+                  GoRoute(
+                    path: 'edit',
+                    builder: (_, state) => ParentFormScreen(parentId: state.pathParameters['id']),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          GoRoute(
+            path: '/classes',
+            builder: (_, _) => const ClassesScreen(),
+            routes: [
+              GoRoute(path: 'new', builder: (_, _) => const ClassFormScreen()),
+              GoRoute(
+                path: ':id',
+                builder: (_, state) => ClassDetailScreen(classId: state.pathParameters['id']!),
+                routes: [
+                  GoRoute(
+                    path: 'edit',
+                    builder: (_, state) => ClassFormScreen(classId: state.pathParameters['id']),
+                  ),
+                ],
+              ),
+            ],
+          ),
           for (final module in _placeholderModules)
             GoRoute(
               path: module.$1,
@@ -52,9 +112,6 @@ final routerProvider = Provider<GoRouter>((ref) {
 
 /// Modules built in later phases: (path, destination id, roadmap phase).
 const _placeholderModules = [
-  ('/students', 'students', 2),
-  ('/parents', 'parents', 2),
-  ('/classes', 'classes', 2),
   ('/lessons', 'lessons', 3),
   ('/curriculum', 'curriculum', 3),
   ('/progress', 'progress', 4),

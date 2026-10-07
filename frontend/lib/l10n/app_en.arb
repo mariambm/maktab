@@ -32,7 +32,9 @@
   "greeting": "Assalamu alaikum, {name}",
   "@greeting": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "teacherDashboardHint": "Your lessons for today will appear here once classes are set up.",
@@ -40,13 +42,17 @@
   "moduleComingTitle": "{module} is on its way",
   "@moduleComingTitle": {
     "placeholders": {
-      "module": {"type": "String"}
+      "module": {
+        "type": "String"
+      }
     }
   },
   "moduleComingBody": "This part of Maktab is built in phase {phase} of the roadmap.",
   "@moduleComingBody": {
     "placeholders": {
-      "phase": {"type": "int"}
+      "phase": {
+        "type": "int"
+      }
     }
   },
   "changePasswordTitle": "Change password",
@@ -64,5 +70,201 @@
   "roleAdministrator": "Administrator",
   "roleTeacher": "Teacher",
   "inactive": "Inactive",
-  "sessionExpired": "Your session has expired. Please sign in again."
+  "sessionExpired": "Your session has expired. Please sign in again.",
+  "add": "Add",
+  "edit": "Edit",
+  "close": "Close",
+  "remove": "Remove",
+  "notSet": "Not set",
+  "optional": "Optional",
+  "filterAll": "All",
+  "statusActive": "Active",
+  "selectDate": "Select date",
+  "firstNameLabel": "First name",
+  "lastNameLabel": "Last name",
+  "firstNameRequired": "First name is required",
+  "lastNameRequired": "Last name is required",
+  "nameRequired": "Name is required",
+  "searchStudentsHint": "Search by name",
+  "filterAllClasses": "All classes",
+  "studentsEmpty": "No students found",
+  "studentsEmptyHint": "Try another search or filter.",
+  "studentsEmptyTeacher": "Students appear here once you are assigned to a class.",
+  "addStudent": "Add Student",
+  "editStudent": "Edit student",
+  "studentNoClass": "No class",
+  "personalInformation": "Personal information",
+  "dateOfBirthLabel": "Date of birth",
+  "dateOfBirthRequired": "Date of birth is required",
+  "genderLabel": "Gender",
+  "genderFemale": "Female",
+  "genderMale": "Male",
+  "genderNotRecorded": "Not recorded",
+  "joinedOnLabel": "Joined on",
+  "leftOnLabel": "Left on",
+  "notesLabel": "Notes",
+  "notesHint": "Anything teachers should know, for example how the child is collected",
+  "classSection": "Class",
+  "classHistory": "Class history",
+  "moveToClass": "Move to another class",
+  "placeInClass": "Place in a class",
+  "removeFromClass": "Remove from class",
+  "parentsSection": "Parents & Guardians",
+  "noParents": "No parents or guardians linked yet",
+  "primaryContact": "Primary contact",
+  "makePrimaryContact": "Make primary contact",
+  "manageParents": "Manage parents",
+  "deactivateStudent": "Deactivate",
+  "reactivateStudent": "Reactivate",
+  "deactivateConfirmBody": "They leave their class today. Their history is kept and you can reactivate them later.",
+  "studentDeactivated": "Student deactivated",
+  "studentReactivated": "Student reactivated",
+  "studentSaved": "Student saved",
+  "studentCreated": "Student added",
+  "moreComingNote": "Attendance, progress, behaviour and lesson history appear here in later phases.",
+  "relationshipMother": "Mother",
+  "relationshipFather": "Father",
+  "relationshipGuardian": "Guardian",
+  "relationshipOther": "Other",
+  "relationshipLabel": "Relationship",
+  "classOptionalLabel": "Class (optional)",
+  "noClassOption": "No class yet",
+  "chooseClass": "Choose a class",
+  "addParentLink": "Add parent or guardian",
+  "newParent": "New parent or guardian",
+  "chooseExistingParent": "Choose an existing parent or guardian",
+  "moveDateLabel": "Start date in the new class",
+  "parentsEmpty": "No parents or guardians found",
+  "searchParentsHint": "Search by name, phone or email",
+  "addParentTitle": "Add parent or guardian",
+  "editParent": "Edit parent or guardian",
+  "phoneLabel": "Phone",
+  "phoneRequired": "Phone number is required",
+  "phoneInvalid": "Enter a valid phone number",
+  "emailOptionalLabel": "Email (optional)",
+  "childrenSection": "Children",
+  "noChildren": "No children linked yet",
+  "parentSaved": "Parent or guardian saved",
+  "contactSection": "Contact",
+  "classesEmpty": "No classes yet",
+  "classesEmptyTeacher": "You are not assigned to a class yet.",
+  "addClass": "Add class",
+  "editClass": "Edit class",
+  "classNameLabel": "Class name",
+  "levelLabel": "Curriculum level",
+  "levelRequired": "Choose a curriculum level",
+  "newLevel": "New level",
+  "levelNameLabel": "Level name",
+  "roomLabel": "Room",
+  "classActiveLabel": "Class is active",
+  "classInactiveHint": "Inactive classes cannot take new students.",
+  "teachersSection": "Teachers",
+  "noTeachers": "No teacher assigned",
+  "editTeachers": "Edit teachers",
+  "scheduleSection": "Weekly schedule",
+  "noSchedule": "No schedule yet",
+  "editSchedule": "Edit schedule",
+  "addSlot": "Add time slot",
+  "startTimeLabel": "Start",
+  "endTimeLabel": "End",
+  "endAfterStart": "End time must be after start time",
+  "studentsSection": "Students",
+  "classNoStudents": "No students in this class yet",
+  "classSaved": "Class saved",
+  "weekdayMONDAY": "Monday",
+  "weekdayTUESDAY": "Tuesday",
+  "weekdayWEDNESDAY": "Wednesday",
+  "weekdayTHURSDAY": "Thursday",
+  "weekdayFRIDAY": "Friday",
+  "weekdaySATURDAY": "Saturday",
+  "weekdaySUNDAY": "Sunday",
+  "ageYears": "{age} years",
+  "@ageYears": {
+    "placeholders": {
+      "age": {
+        "type": "int"
+      }
+    }
+  },
+  "showingSome": "Showing {shown} of {total}. Search to narrow the list.",
+  "@showingSome": {
+    "placeholders": {
+      "shown": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "currentClassSince": "Since {date}",
+  "@currentClassSince": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "enrollmentPeriod": "{from} to {to}",
+  "@enrollmentPeriod": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "enrollmentSince": "From {from}",
+  "@enrollmentSince": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      }
+    }
+  },
+  "removeFromClassConfirm": "{name} will no longer be in {className}. Their class history is kept.",
+  "@removeFromClassConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "className": {
+        "type": "String"
+      }
+    }
+  },
+  "deactivateConfirmTitle": "Deactivate {name}?",
+  "@deactivateConfirmTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "movedToClass": "Moved to {className}",
+  "@movedToClass": {
+    "placeholders": {
+      "className": {
+        "type": "String"
+      }
+    }
+  },
+  "childrenCount": "{count, plural, =0{No children} =1{1 child} other{{count} children}}",
+  "@childrenCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "studentCount": "{count, plural, =0{No students} =1{1 student} other{{count} students}}",
+  "@studentCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
