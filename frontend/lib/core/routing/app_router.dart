@@ -14,6 +14,8 @@ import '../../features/parents/presentation/parent_detail_screen.dart';
 import '../../features/parents/presentation/parent_form_screen.dart';
 import '../../features/parents/presentation/parents_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
+import '../../features/settings/presentation/user_detail_screen.dart';
+import '../../features/settings/presentation/user_form_screen.dart';
 import '../../features/settings/presentation/users_screen.dart';
 import '../../features/students/presentation/student_form_screen.dart';
 import '../../features/students/presentation/student_profile_screen.dart';
@@ -100,7 +102,25 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/settings',
             builder: (_, _) => const SettingsScreen(),
-            routes: [GoRoute(path: 'users', builder: (_, _) => const UsersScreen())],
+            routes: [
+              GoRoute(
+                path: 'users',
+                builder: (_, _) => const UsersScreen(),
+                routes: [
+                  GoRoute(path: 'new', builder: (_, _) => const UserFormScreen()),
+                  GoRoute(
+                    path: ':id',
+                    builder: (_, state) => UserDetailScreen(userId: state.pathParameters['id']!),
+                    routes: [
+                      GoRoute(
+                        path: 'edit',
+                        builder: (_, state) => UserFormScreen(userId: state.pathParameters['id']),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),

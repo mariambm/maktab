@@ -266,5 +266,67 @@
         "type": "int"
       }
     }
-  }
+  },
+  "addUser": "Add user",
+  "editUser": "Edit user",
+  "searchUsersHint": "Search by name or email",
+  "userSaved": "User saved",
+  "rolesSection": "Roles",
+  "rolesRequired": "Choose at least one role",
+  "editRoles": "Edit roles",
+  "extraPermissionsSection": "Extra permissions",
+  "extraPermissionsHint": "Given on top of what their roles already allow.",
+  "noExtraPermissions": "None",
+  "editPermissions": "Edit extra permissions",
+  "accountDetails": "Account",
+  "lastSignInLabel": "Last sign-in",
+  "neverSignedIn": "Never",
+  "statusLabel": "Status",
+  "mustChangePasswordChip": "Must choose a new password",
+  "youLabel": "You",
+  "resetPassword": "Reset password",
+  "resetPasswordConfirmTitle": "Reset password for {name}?",
+  "@resetPasswordConfirmTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "resetPasswordConfirmBody": "They are signed out everywhere and get a new temporary password.",
+  "temporaryPasswordTitle": "Temporary password",
+  "temporaryPasswordBody": "Give this password to {name} in person or by phone. It is shown only once. They choose their own password when they first sign in.",
+  "@temporaryPasswordBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "copy": "Copy",
+  "copied": "Copied",
+  "done": "Done",
+  "deactivateUser": "Deactivate account",
+  "reactivateUser": "Reactivate account",
+  "deactivateUserConfirmBody": "They are signed out everywhere and can no longer sign in. You can reactivate the account later.",
+  "userDeactivated": "Account deactivated",
+  "userReactivated": "Account reactivated",
+  "permUSER_MANAGE": "Manage users",
+  "permSETTINGS_MANAGE": "Manage settings",
+  "permAUDIT_READ": "View audit log",
+  "permSTUDENT_READ": "View students",
+  "permSTUDENT_WRITE": "Edit students",
+  "permPARENT_READ": "View parents",
+  "permPARENT_WRITE": "Edit parents",
+  "permCLASS_READ": "View classes",
+  "permCLASS_MANAGE": "Manage classes",
+  "permCURRICULUM_READ": "View curriculum",
+  "permCURRICULUM_WRITE": "Edit curriculum",
+  "permLESSON_RECORD": "Record lessons",
+  "permPROGRESS_RECORD": "Record progress",
+  "permTARGET_MANAGE": "Manage targets",
+  "permOBSERVATION_RECORD": "Record observations",
+  "permPAYMENT_READ": "View payments",
+  "permPAYMENT_WRITE": "Record payments",
+  "permREPORT_READ": "View reports"
 }

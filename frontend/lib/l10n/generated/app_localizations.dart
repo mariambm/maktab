@@ -1095,6 +1095,294 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =0{No students} =1{1 student} other{{count} students}}'**
   String studentCount(int count);
+
+  /// No description provided for @addUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Add user'**
+  String get addUser;
+
+  /// No description provided for @editUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit user'**
+  String get editUser;
+
+  /// No description provided for @searchUsersHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name or email'**
+  String get searchUsersHint;
+
+  /// No description provided for @userSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'User saved'**
+  String get userSaved;
+
+  /// No description provided for @rolesSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Roles'**
+  String get rolesSection;
+
+  /// No description provided for @rolesRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose at least one role'**
+  String get rolesRequired;
+
+  /// No description provided for @editRoles.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit roles'**
+  String get editRoles;
+
+  /// No description provided for @extraPermissionsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Extra permissions'**
+  String get extraPermissionsSection;
+
+  /// No description provided for @extraPermissionsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Given on top of what their roles already allow.'**
+  String get extraPermissionsHint;
+
+  /// No description provided for @noExtraPermissions.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get noExtraPermissions;
+
+  /// No description provided for @editPermissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit extra permissions'**
+  String get editPermissions;
+
+  /// No description provided for @accountDetails.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get accountDetails;
+
+  /// No description provided for @lastSignInLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Last sign-in'**
+  String get lastSignInLabel;
+
+  /// No description provided for @neverSignedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Never'**
+  String get neverSignedIn;
+
+  /// No description provided for @statusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get statusLabel;
+
+  /// No description provided for @mustChangePasswordChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Must choose a new password'**
+  String get mustChangePasswordChip;
+
+  /// No description provided for @youLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get youLabel;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password'**
+  String get resetPassword;
+
+  /// No description provided for @resetPasswordConfirmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password for {name}?'**
+  String resetPasswordConfirmTitle(String name);
+
+  /// No description provided for @resetPasswordConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'They are signed out everywhere and get a new temporary password.'**
+  String get resetPasswordConfirmBody;
+
+  /// No description provided for @temporaryPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Temporary password'**
+  String get temporaryPasswordTitle;
+
+  /// No description provided for @temporaryPasswordBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Give this password to {name} in person or by phone. It is shown only once. They choose their own password when they first sign in.'**
+  String temporaryPasswordBody(String name);
+
+  /// No description provided for @copy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get copy;
+
+  /// No description provided for @copied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied'**
+  String get copied;
+
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
+  /// No description provided for @deactivateUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Deactivate account'**
+  String get deactivateUser;
+
+  /// No description provided for @reactivateUser.
+  ///
+  /// In en, this message translates to:
+  /// **'Reactivate account'**
+  String get reactivateUser;
+
+  /// No description provided for @deactivateUserConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'They are signed out everywhere and can no longer sign in. You can reactivate the account later.'**
+  String get deactivateUserConfirmBody;
+
+  /// No description provided for @userDeactivated.
+  ///
+  /// In en, this message translates to:
+  /// **'Account deactivated'**
+  String get userDeactivated;
+
+  /// No description provided for @userReactivated.
+  ///
+  /// In en, this message translates to:
+  /// **'Account reactivated'**
+  String get userReactivated;
+
+  /// No description provided for @permUSER_MANAGE.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage users'**
+  String get permUSER_MANAGE;
+
+  /// No description provided for @permSETTINGS_MANAGE.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage settings'**
+  String get permSETTINGS_MANAGE;
+
+  /// No description provided for @permAUDIT_READ.
+  ///
+  /// In en, this message translates to:
+  /// **'View audit log'**
+  String get permAUDIT_READ;
+
+  /// No description provided for @permSTUDENT_READ.
+  ///
+  /// In en, this message translates to:
+  /// **'View students'**
+  String get permSTUDENT_READ;
+
+  /// No description provided for @permSTUDENT_WRITE.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit students'**
+  String get permSTUDENT_WRITE;
+
+  /// No description provided for @permPARENT_READ.
+  ///
+  /// In en, this message translates to:
+  /// **'View parents'**
+  String get permPARENT_READ;
+
+  /// No description provided for @permPARENT_WRITE.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit parents'**
+  String get permPARENT_WRITE;
+
+  /// No description provided for @permCLASS_READ.
+  ///
+  /// In en, this message translates to:
+  /// **'View classes'**
+  String get permCLASS_READ;
+
+  /// No description provided for @permCLASS_MANAGE.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage classes'**
+  String get permCLASS_MANAGE;
+
+  /// No description provided for @permCURRICULUM_READ.
+  ///
+  /// In en, this message translates to:
+  /// **'View curriculum'**
+  String get permCURRICULUM_READ;
+
+  /// No description provided for @permCURRICULUM_WRITE.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit curriculum'**
+  String get permCURRICULUM_WRITE;
+
+  /// No description provided for @permLESSON_RECORD.
+  ///
+  /// In en, this message translates to:
+  /// **'Record lessons'**
+  String get permLESSON_RECORD;
+
+  /// No description provided for @permPROGRESS_RECORD.
+  ///
+  /// In en, this message translates to:
+  /// **'Record progress'**
+  String get permPROGRESS_RECORD;
+
+  /// No description provided for @permTARGET_MANAGE.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage targets'**
+  String get permTARGET_MANAGE;
+
+  /// No description provided for @permOBSERVATION_RECORD.
+  ///
+  /// In en, this message translates to:
+  /// **'Record observations'**
+  String get permOBSERVATION_RECORD;
+
+  /// No description provided for @permPAYMENT_READ.
+  ///
+  /// In en, this message translates to:
+  /// **'View payments'**
+  String get permPAYMENT_READ;
+
+  /// No description provided for @permPAYMENT_WRITE.
+  ///
+  /// In en, this message translates to:
+  /// **'Record payments'**
+  String get permPAYMENT_WRITE;
+
+  /// No description provided for @permREPORT_READ.
+  ///
+  /// In en, this message translates to:
+  /// **'View reports'**
+  String get permREPORT_READ;
 }
 
 class _AppLocalizationsDelegate

@@ -42,7 +42,7 @@ module by URL redirects to the dashboard, and the backend refuses the data regar
 ## Phase 1 screens
 
 Login, change password (forced after a temporary password), dashboard (greeting and what will appear), settings
-(account, change password, sign out, Users & Permissions for ADMIN), a read-only users list, and placeholders for
+(account, change password, sign out, Users & Permissions for ADMIN), a users list, and placeholders for
 modules built in later phases.
 
 ## Phase 2 screens
@@ -58,6 +58,11 @@ modules built in later phases.
 - **Parents & Guardians**: search by name, phone or email; detail shows contact details and children.
 - **Classes Overview** and **class detail**: level, room, weekly schedule, teachers and the current students.
   Administrators edit everything about a class, including teachers and schedule, in one form.
+- **Users & Permissions** (ADMIN only, under Settings): search accounts and add one with name, email and roles. The
+  temporary password is shown once in a dialog with a copy button; the person must choose their own at first sign-in.
+  A user's page shows status, last sign-in, roles and extra permissions (each edited in a sheet; permissions a role
+  already gives are shown ticked and locked), plus Reset password and Deactivate / Reactivate. Admins cannot
+  deactivate themselves.
 
 Create and edit routes need the module's write permission; a teacher typing `/students/new` is sent to the dashboard.
 Failed loads show the error with "Try again" rather than retrying silently.
