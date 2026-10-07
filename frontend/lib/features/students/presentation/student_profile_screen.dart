@@ -12,6 +12,7 @@ import '../../../core/widgets/section_card.dart';
 import '../../../core/widgets/state_views.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../classes/data/classes_repository.dart';
+import '../../lessons/presentation/student_attendance_card.dart';
 import '../data/student_models.dart';
 import '../data/students_repository.dart';
 import 'manage_parents_sheet.dart';
@@ -205,6 +206,8 @@ class _Profile extends StatelessWidget {
                 _ClassSection(student: student, canWrite: canWrite),
                 const SizedBox(height: MaktabSpacing.sm),
                 _ParentsSection(student: student, canWrite: canWrite),
+                const SizedBox(height: MaktabSpacing.sm),
+                StudentAttendanceCard(studentId: student.id),
                 const SizedBox(height: MaktabSpacing.md),
                 Text(
                   l10n.moreComingNote,

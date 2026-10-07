@@ -27,7 +27,10 @@ public abstract class SchoolApi extends IntegrationTest {
     }
 
     protected UUID createClass(Session admin) throws Exception {
-        UUID levelId = createLevel(admin);
+        return createClassInLevel(admin, createLevel(admin));
+    }
+
+    protected UUID createClassInLevel(Session admin, UUID levelId) throws Exception {
         return idOf(mvc.perform(as(admin, post("/api/classes"))
                         .content("{\"name\":\"" + unique("Class") + "\",\"curriculumLevelId\":\"" + levelId
                                 + "\",\"room\":\"Room 1\"}"))
@@ -60,6 +63,37 @@ public abstract class SchoolApi extends IntegrationTest {
                                 + "\"dateOfBirth\":\"2017-03-14\",\"gender\":\"FEMALE\",\"joinedOn\":\"2026-09-01\","
                                 + "\"classId\":" + classJson + ",\"parents\":" + parentsJson + "}"))
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString());
+    }
+
+    /** Gives the class a weekly slot and returns its id. */
+    protected UUID addSchedule(Session admin, UUID classId, String weekday, String start, String end)
+            throws Exception {
+        String body = mvc.perform(as(admin, put("/api/classes/{id}/schedule", classId))
+                        .content("{\"slots\":[{\"weekday\":\"" + weekday + "\",\"startTime\":\"" + start
+                                + "\",\"endTime\":\"" + end + "\"}]}"))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        return UUID.fromString(JsonPath.read(body, "$.id"));
+    }
+
+    /** Opens (and so creates) a lesson for a class on a date, outside the weekly schedule. */
+    protected UUID openLesson(Session actor, UUID classId, String date, String start, String end) throws Exception {
+        return idOf(mvc.perform(as(actor, post("/api/lessons"))
+                        .content("{\"classGroupId\":\"" + classId + "\",\"lessonDate\":\"" + date
+                                + "\",\"startTime\":\"" + start + "\",\"endTime\":\"" + end + "\"}"))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString());
+    }
+
+    /** Creates a four-week curriculum period for a level, with one topic in each week. */
+    protected String createPeriod(Session admin, UUID levelId, int number, String startDate) throws Exception {
+        return mvc.perform(as(admin, post("/api/curriculum/periods"))
+                        .content("{\"curriculumLevelId\":\"" + levelId + "\",\"number\":" + number
+                                + ",\"name\":\"Period " + number + "\",\"startDate\":\"" + startDate + "\","
+                                + "\"weeks\":[{\"weekNumber\":1,\"topics\":[{\"title\":\"Alphabet\","
+                                + "\"learningObjective\":\"Read the first five letters\"}]},"
+                                + "{\"weekNumber\":2,\"topics\":[{\"title\":\"Short vowels\"}]},"
+                                + "{\"weekNumber\":3,\"topics\":[{\"title\":\"Joining letters\"}]},"
+                                + "{\"weekNumber\":4,\"review\":true,\"topics\":[{\"title\":\"Review\"}]}]}"))
+                .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
     }
 
     protected static UUID idOf(String json) {

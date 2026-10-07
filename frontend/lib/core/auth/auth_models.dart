@@ -21,6 +21,7 @@ abstract final class Permissions {
   static const classRead = 'CLASS_READ';
   static const classManage = 'CLASS_MANAGE';
   static const curriculumRead = 'CURRICULUM_READ';
+  static const curriculumWrite = 'CURRICULUM_WRITE';
   static const lessonRecord = 'LESSON_RECORD';
   static const progressRecord = 'PROGRESS_RECORD';
   static const paymentRead = 'PAYMENT_READ';

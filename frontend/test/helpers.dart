@@ -43,6 +43,7 @@ AuthUser adminUser() => testUser(
     Permissions.classRead,
     Permissions.classManage,
     Permissions.curriculumRead,
+    Permissions.curriculumWrite,
     Permissions.lessonRecord,
     Permissions.progressRecord,
     Permissions.paymentRead,

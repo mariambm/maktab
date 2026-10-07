@@ -37,3 +37,8 @@ final _dateTime = DateFormat('d MMM yyyy, HH:mm', 'en');
 
 /// A moment in local time, for example "14 Mar 2026, 09:30".
 String formatDateTime(DateTime moment) => _dateTime.format(moment.toLocal());
+
+const _weekdays = ['MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY'];
+
+/// The API's spelling of a date's weekday, for example `SATURDAY`.
+String apiWeekday(DateTime date) => _weekdays[date.weekday - 1];

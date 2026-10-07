@@ -17,6 +17,8 @@ public interface ClassGroupRepository extends JpaRepository<ClassGroup, UUID> {
 
     List<ClassGroup> findByIdIn(Collection<UUID> ids);
 
+    List<ClassGroup> findByOrganisationIdAndActiveTrue(UUID organisationId);
+
     boolean existsByOrganisationIdAndNameIgnoreCase(UUID organisationId, String name);
 
     @Query("""

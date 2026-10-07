@@ -64,6 +64,23 @@ modules built in later phases.
   already gives are shown ticked and locked), plus Reset password and Deactivate / Reactivate. Admins cannot
   deactivate themselves.
 
+## Phase 3 screens
+
+- **Lessons (Today)**: the day's lessons for the classes you can see, with the previous/next day arrows and a
+  "Today" shortcut. Each card shows the time, class, room, how many students, and whether the lesson has been
+  started and the register saved. Tapping a scheduled slot opens the lesson and goes straight to its register;
+  because opening is idempotent, a double tap still lands on one lesson.
+- **Lesson**: the register first, because that is why a teacher opens the screen. Everyone starts as Present, so
+  only the exceptions need a tap: Late asks how many minutes, Absent asks for a reason, and both can carry a short
+  note. "All present" resets the list, and the whole register is saved in one request. Below it, the topics of that
+  curriculum week can be ticked off, with a note about what was taught and whether the lesson went ahead. Someone
+  without `LESSON_RECORD` sees the same register as read-only text.
+- **Curriculum**: the four-week periods per level, the one running now marked, and a period's page showing weeks 1
+  to 4 with their topics and learning objectives; week 4 is marked as the review week. Administrators add or edit a
+  period and its topics in one form; the end date is not asked for, since a period always runs four weeks.
+- **Student Profile** gains an attendance card: the percentage, the lesson count, and present / late / absent, with
+  a warning when the student is below the organisation's threshold.
+
 Create and edit routes need the module's write permission; a teacher typing `/students/new` is sent to the dashboard.
 Failed loads show the error with "Try again" rather than retrying silently.
 
