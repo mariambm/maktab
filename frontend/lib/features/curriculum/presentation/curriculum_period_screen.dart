@@ -11,6 +11,7 @@ import '../../../core/widgets/section_card.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../data/curriculum_models.dart';
 import '../data/curriculum_repository.dart';
+import 'subject_labels.dart';
 
 /// One period: four weeks of topics, with their learning objectives.
 class CurriculumPeriodScreen extends ConsumerWidget {
@@ -91,7 +92,10 @@ class _WeekCard extends StatelessWidget {
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.bookmark_border),
             title: Text(topic.title),
-            subtitle: topic.learningObjective == null ? null : Text(topic.learningObjective!),
+            subtitle: switch (topicSubtitle(topic, l10n)) {
+              final text? => Text(text),
+              null => null,
+            },
           ),
       ],
     );

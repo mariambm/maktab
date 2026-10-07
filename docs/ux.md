@@ -71,12 +71,13 @@ modules built in later phases.
   started and the register saved. Tapping a scheduled slot opens the lesson and goes straight to its register;
   because opening is idempotent, a double tap still lands on one lesson.
 - **Lesson**: the register first, because that is why a teacher opens the screen. Everyone starts as Present, so
-  only the exceptions need a tap: Late asks how many minutes, Absent asks for a reason, and both can carry a short
-  note. "All present" resets the list, and the whole register is saved in one request. Below it, the topics of that
+  only the exceptions need a tap: Late asks how many minutes, Absent offers the mosque's reasons (authorised, non authorised,
+  sick, holiday, not reading) without picking one for the teacher, and both can carry a short note. "All present" resets the list, and the whole register is saved in one request. Below it, the topics of that
   curriculum week can be ticked off, with a note about what was taught and whether the lesson went ahead. Someone
   without `LESSON_RECORD` sees the same register as read-only text.
 - **Curriculum**: the four-week periods per level, the one running now marked, and a period's page showing weeks 1
-  to 4 with their topics and learning objectives; week 4 is marked as the review week. Administrators add or edit a
+  to 4 with their topics, each with its subject from the teaching list (Quran Recitation, Islamic Studies, Namaz
+  and Duas, Arabic, Naats and Speeches) and its learning objective; week 4 is marked as the review week. Administrators add or edit a
   period and its topics in one form; the end date is not asked for, since a period always runs four weeks.
 - **Student Profile** gains an attendance card: the percentage, the lesson count, and present / late / absent, with
   a warning when the student is below the organisation's threshold.

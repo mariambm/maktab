@@ -14,6 +14,7 @@ import '../../classes/data/class_models.dart';
 import '../../classes/data/classes_repository.dart';
 import '../data/curriculum_models.dart';
 import '../data/curriculum_repository.dart';
+import 'subject_labels.dart';
 
 /// Add or edit a four-week period with the topics of each week.
 class CurriculumPeriodFormScreen extends ConsumerWidget {
@@ -40,16 +41,18 @@ class CurriculumPeriodFormScreen extends ConsumerWidget {
 
 /// A topic being edited; the controllers live as long as the row does.
 class _EditableTopic {
-  _EditableTopic({String title = '', String objective = ''})
+  _EditableTopic({this.subject, String title = '', String objective = ''})
     : title = TextEditingController(text: title),
       objective = TextEditingController(text: objective);
 
+  String? subject;
   final TextEditingController title;
   final TextEditingController objective;
 
   bool get isBlank => title.text.trim().isEmpty && objective.text.trim().isEmpty;
 
-  LessonTopicDraft toDraft() => LessonTopicDraft(title: title.text, learningObjective: objective.text);
+  LessonTopicDraft toDraft() =>
+      LessonTopicDraft(subject: subject!, title: title.text, learningObjective: objective.text);
 
   void dispose() {
     title.dispose();
@@ -83,7 +86,7 @@ class _PeriodFormState extends ConsumerState<_PeriodForm> {
       for (var week = 1; week <= curriculumWeeksPerPeriod; week++)
         week: [
           for (final topic in weeks[week]?.topics ?? const <LessonTopic>[])
-            _EditableTopic(title: topic.title, objective: topic.learningObjective ?? ''),
+            _EditableTopic(subject: topic.subject, title: topic.title, objective: topic.learningObjective ?? ''),
         ],
     };
   }
@@ -269,6 +272,17 @@ class _WeekEditor extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
+                      DropdownButtonFormField<String>(
+                        initialValue: topic.subject,
+                        decoration: InputDecoration(labelText: l10n.subjectLabel),
+                        items: [
+                          for (final subject in Subjects.all)
+                            DropdownMenuItem(value: subject, child: Text(subjectLabel(subject, l10n))),
+                        ],
+                        onChanged: (value) => topic.subject = value,
+                        validator: (value) => value == null && !topic.isBlank ? l10n.subjectRequired : null,
+                      ),
+                      const SizedBox(height: MaktabSpacing.xs),
                       TextFormField(
                         controller: topic.title,
                         decoration: InputDecoration(labelText: l10n.topicTitleLabel),

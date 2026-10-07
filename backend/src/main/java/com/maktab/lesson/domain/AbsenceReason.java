@@ -1,9 +1,10 @@
 package com.maktab.lesson.domain;
 
+/** The mosque's own absence reasons. */
 public enum AbsenceReason {
+    AUTHORISED,
+    UNAUTHORISED,
     SICK,
-    FAMILY_REASON,
     HOLIDAY,
-    UNKNOWN,
-    OTHER
+    NOT_READING
 }

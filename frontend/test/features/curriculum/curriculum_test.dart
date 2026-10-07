@@ -25,6 +25,7 @@ Map<String, Object?> periodJson() => {
       'topics': [
         {
           'id': 't1',
+          'subject': 'ARABIC',
           'title': 'Letters alif to jim',
           'learningObjective': 'Recognise and sound each letter',
           'sortOrder': 0,
@@ -57,7 +58,14 @@ void main() {
             CurriculumWeekDraft(
               weekNumber: week,
               review: week == curriculumReviewWeek,
-              topics: [if (week == 1) const LessonTopicDraft(title: 'Letters alif to jim', learningObjective: '  ')],
+              topics: [
+                if (week == 1)
+                  const LessonTopicDraft(
+                    subject: Subjects.arabic,
+                    title: 'Letters alif to jim',
+                    learningObjective: '  ',
+                  ),
+              ],
             ),
         ],
       ),
@@ -71,7 +79,7 @@ void main() {
     final weeks = body['weeks']! as List<Object?>;
     expect(weeks.length, 4);
     expect((weeks.first as Map)['topics'], [
-      {'title': 'Letters alif to jim', 'learningObjective': null},
+      {'subject': 'ARABIC', 'title': 'Letters alif to jim', 'learningObjective': null},
     ]);
     expect([for (final week in weeks) (week as Map)['review']], [false, false, false, true]);
   });
@@ -83,7 +91,7 @@ void main() {
 
     expect(find.text('Week 1'), findsOne);
     expect(find.text('Letters alif to jim'), findsOne);
-    expect(find.text('Recognise and sound each letter'), findsOne);
+    expect(find.text('Arabic · Recognise and sound each letter'), findsOne);
     expect(find.text('Review week'), findsOne);
     expect(find.text('No topics yet'), findsOne, reason: 'week 4 has no topics yet');
   });

@@ -22,9 +22,11 @@ PostgreSQL 17. The schema changes only through Flyway migrations in
 | `V5__students_and_parents.sql` | `student`, `parent_guardian`, `student_parent` |
 | `V6__curriculum_levels_and_classes.sql` | `curriculum_level`, `class_group` |
 | `V7__class_schedule_teachers_enrolments.sql` | `class_schedule`, `class_teacher`, `class_enrollment` |
+| `V8__curriculum.sql` | `curriculum_period`, `curriculum_week`, `lesson_topic` |
+| `V9__lessons_and_attendance.sql` | `lesson`, `lesson_topic_covered`, `lesson_attendance` |
+| `V10__mosque_settings_and_subjects.sql` | The organisation becomes Jamiyat Tabligh UL Islam (GBP, Europe/London); the mosque's own absence reasons; `lesson_topic.subject` |
 
-Planned (from the proposal): V8 curriculum, V9 lessons and attendance, V10 progress and targets, V11 behaviour and
-uniform, V12 payments.
+Planned: progress and targets, behaviour and uniform, payments.
 
 ## Phase 1 tables
 
@@ -78,14 +80,15 @@ curriculum_period     (id, organisation_id, curriculum_level_id → curriculum_l
                        CHECK end_date = start_date + 27 (four weeks);  UNIQUE (curriculum_level_id, number)
 curriculum_week       (id, curriculum_period_id → curriculum_period, week_number 1..4, is_review)
                        UNIQUE (curriculum_period_id, week_number)
-lesson_topic          (id, curriculum_week_id → curriculum_week, title, learning_objective NULL, sort_order)
+lesson_topic          (id, curriculum_week_id → curriculum_week, subject NULL ∈ QURAN_RECITATION|ISLAMIC_STUDIES|
+                       NAMAZ_AND_DUAS|ARABIC|NAATS_AND_SPEECHES, title, learning_objective NULL, sort_order)
 lesson                (id, class_group_id → class_group, class_schedule_id NULL → class_schedule
                        (ON DELETE SET NULL), lesson_date, start_time, end_time, teacher_user_id → app_user,
                        content_notes NULL, status ∈ PLANNED|COMPLETED|CANCELLED)
                        CHECK end_time > start_time;  UNIQUE (class_group_id, lesson_date, start_time)
 lesson_topic_covered  (lesson_id → lesson, lesson_topic_id → lesson_topic)   PK (lesson_id, lesson_topic_id)
 lesson_attendance     (id, lesson_id → lesson, student_id → student, status ∈ PRESENT|LATE|ABSENT,
-                       minutes_late NULL 1..300, absence_reason NULL ∈ SICK|FAMILY_REASON|HOLIDAY|UNKNOWN|OTHER,
+                       minutes_late NULL 1..300, absence_reason NULL ∈ AUTHORISED|UNAUTHORISED|SICK|HOLIDAY|NOT_READING,
                        note NULL, recorded_by → app_user, …)
                        UNIQUE (lesson_id, student_id)
                        CHECK (status = LATE) = (minutes_late IS NOT NULL)
@@ -98,6 +101,9 @@ lesson_attendance     (id, lesson_id → lesson, student_id → student, status 
   `lesson_attendance` on every request, so a corrected lesson is reflected at once.
 - **One lesson per class, date and start time**, so opening a lesson twice returns the same one instead of creating a
   duplicate register.
+- **Subjects.** Every topic belongs to one subject of the mosque's teaching list. The column is nullable only for
+  topics written before subjects existed; the API requires a subject for every topic it saves.
+- **Absence reasons** are the mosque's own. A reason is optional and never guessed by the app.
 - **Observations are per lesson**, never a permanent label on a child: every attendance row belongs to one lesson on
   one date.
 

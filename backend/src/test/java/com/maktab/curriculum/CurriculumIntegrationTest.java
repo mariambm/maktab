@@ -80,6 +80,25 @@ class CurriculumIntegrationTest extends SchoolApi {
     }
 
     @Test
+    void everyTopicNeedsASubjectFromTheTeachingList() throws Exception {
+        Session admin = loginAs(Role.ADMIN);
+        UUID levelId = createLevel(admin);
+        String start = LocalDate.now().minusDays(7).toString();
+        String withoutSubject = "{\"curriculumLevelId\":\"" + levelId + "\",\"number\":1,\"name\":\"P1\","
+                + "\"startDate\":\"" + start + "\",\"weeks\":[{\"weekNumber\":1,\"topics\":[{\"title\":\"Wudu\"}]}]}";
+
+        mvc.perform(as(admin, post("/api/curriculum/periods")).content(withoutSubject))
+                .andExpect(status().isBadRequest());
+        mvc.perform(as(admin, post("/api/curriculum/periods"))
+                        .content(withoutSubject.replace("{\"title\"", "{\"subject\":\"MATHS\",\"title\"")))
+                .andExpect(status().isBadRequest());
+        mvc.perform(as(admin, post("/api/curriculum/periods"))
+                        .content(withoutSubject.replace("{\"title\"", "{\"subject\":\"NAMAZ_AND_DUAS\",\"title\"")))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.weeks[0].topics[0].subject").value("NAMAZ_AND_DUAS"));
+    }
+
+    @Test
     void updatingAPeriodReplacesItsTopics() throws Exception {
         Session admin = loginAs(Role.ADMIN);
         UUID levelId = createLevel(admin);
@@ -89,12 +108,13 @@ class CurriculumIntegrationTest extends SchoolApi {
         mvc.perform(as(admin, put("/api/curriculum/periods/{id}", periodId))
                         .content("{\"curriculumLevelId\":\"" + levelId + "\",\"number\":1,\"name\":\"Renamed\","
                                 + "\"startDate\":\"" + start + "\",\"weeks\":[{\"weekNumber\":1,\"topics\":["
-                                + "{\"title\":\"New topic\"}]}]}"))
+                                + "{\"subject\":\"QURAN_RECITATION\",\"title\":\"New topic\"}]}]}"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("Renamed"))
                 .andExpect(jsonPath("$.weeks", hasSize(4)))
                 .andExpect(jsonPath("$.weeks[0].topics", hasSize(1)))
                 .andExpect(jsonPath("$.weeks[0].topics[0].title").value("New topic"))
+                .andExpect(jsonPath("$.weeks[0].topics[0].subject").value("QURAN_RECITATION"))
                 .andExpect(jsonPath("$.weeks[1].topics", hasSize(0)));
     }
 }

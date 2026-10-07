@@ -16,11 +16,11 @@ IconData attendanceIcon(String status) => switch (status) {
 };
 
 String absenceReasonLabel(String reason, AppLocalizations l10n) => switch (reason) {
+  AbsenceReasons.authorised => l10n.absenceAUTHORISED,
+  AbsenceReasons.unauthorised => l10n.absenceUNAUTHORISED,
   AbsenceReasons.sick => l10n.absenceSICK,
-  AbsenceReasons.familyReason => l10n.absenceFAMILY_REASON,
   AbsenceReasons.holiday => l10n.absenceHOLIDAY,
-  AbsenceReasons.unknown => l10n.absenceUNKNOWN,
-  _ => l10n.absenceOTHER,
+  _ => l10n.absenceNOT_READING,
 };
 
 String lessonStatusLabel(String status, AppLocalizations l10n) => switch (status) {

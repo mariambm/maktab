@@ -1534,17 +1534,23 @@ abstract class AppLocalizations {
   /// **'Reason'**
   String get absenceReason;
 
+  /// No description provided for @absenceAUTHORISED.
+  ///
+  /// In en, this message translates to:
+  /// **'Authorised absence'**
+  String get absenceAUTHORISED;
+
+  /// No description provided for @absenceUNAUTHORISED.
+  ///
+  /// In en, this message translates to:
+  /// **'Non authorised absence'**
+  String get absenceUNAUTHORISED;
+
   /// No description provided for @absenceSICK.
   ///
   /// In en, this message translates to:
   /// **'Sick'**
   String get absenceSICK;
-
-  /// No description provided for @absenceFAMILY_REASON.
-  ///
-  /// In en, this message translates to:
-  /// **'Family reason'**
-  String get absenceFAMILY_REASON;
 
   /// No description provided for @absenceHOLIDAY.
   ///
@@ -1552,17 +1558,17 @@ abstract class AppLocalizations {
   /// **'Holiday'**
   String get absenceHOLIDAY;
 
-  /// No description provided for @absenceUNKNOWN.
+  /// No description provided for @absenceNOT_READING.
   ///
   /// In en, this message translates to:
-  /// **'Unknown'**
-  String get absenceUNKNOWN;
+  /// **'Not reading'**
+  String get absenceNOT_READING;
 
-  /// No description provided for @absenceOTHER.
+  /// No description provided for @absenceReasonHint.
   ///
   /// In en, this message translates to:
-  /// **'Other'**
-  String get absenceOTHER;
+  /// **'Choose a reason'**
+  String get absenceReasonHint;
 
   /// No description provided for @attendanceNote.
   ///
@@ -1797,6 +1803,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dates'**
   String get periodDatesLabel;
+
+  /// No description provided for @subjectLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get subjectLabel;
+
+  /// No description provided for @subjectRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a subject'**
+  String get subjectRequired;
+
+  /// No description provided for @subjectQURAN_RECITATION.
+  ///
+  /// In en, this message translates to:
+  /// **'Quran Recitation'**
+  String get subjectQURAN_RECITATION;
+
+  /// No description provided for @subjectISLAMIC_STUDIES.
+  ///
+  /// In en, this message translates to:
+  /// **'Islamic Studies'**
+  String get subjectISLAMIC_STUDIES;
+
+  /// No description provided for @subjectNAMAZ_AND_DUAS.
+  ///
+  /// In en, this message translates to:
+  /// **'Namaz and Duas'**
+  String get subjectNAMAZ_AND_DUAS;
+
+  /// No description provided for @subjectARABIC.
+  ///
+  /// In en, this message translates to:
+  /// **'Arabic'**
+  String get subjectARABIC;
+
+  /// No description provided for @subjectNAATS_AND_SPEECHES.
+  ///
+  /// In en, this message translates to:
+  /// **'Naats and Speeches'**
+  String get subjectNAATS_AND_SPEECHES;
 }
 
 class _AppLocalizationsDelegate

@@ -16,7 +16,8 @@ API over HTTPS, authenticated with a JWT. Docker Compose runs PostgreSQL and the
 3. ADMIN manages users, roles, permissions, settings and the audit log; ADMINISTRATOR runs day-to-day operations.
 4. 15-minute access tokens plus 30-day rotating refresh tokens.
 5. Android and iOS first; web administration later.
-6. Europe/Amsterdam time zone and EUR currency as organisation settings.
+6. Time zone and currency as organisation settings: Europe/London and GBP for Jamiyat Tabligh UL Islam (Hilton
+   building). Other buildings are linked later, with the multi-location work.
 7. Teachers see only their assigned classes (enforced from Phase 2); payment access can be granted per user.
 
 ## Backend modules (`com.maktab`)

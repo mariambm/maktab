@@ -178,11 +178,11 @@ class _StudentRow extends StatelessWidget {
   }
 }
 
-/// Switching status fills in what that status needs, so a saved row is always complete.
+/// Switching to late fills in the minutes the server requires. An absence reason is never guessed: it stays empty
+/// until the teacher picks one.
 AttendanceEntry _withStatus(AttendanceEntry entry, String status) => entry.copyWith(
   status: status,
   minutesLate: status == AttendanceStatuses.late ? (entry.minutesLate ?? _minuteOptions.first) : null,
-  absenceReason: status == AttendanceStatuses.absent ? (entry.absenceReason ?? AbsenceReasons.unknown) : null,
 );
 
 class _MinutesField extends StatelessWidget {
@@ -222,7 +222,8 @@ class _ReasonField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: MaktabSpacing.sm),
       child: DropdownButtonFormField<String>(
-        initialValue: entry.absenceReason ?? AbsenceReasons.unknown,
+        initialValue: entry.absenceReason,
+        hint: Text(l10n.absenceReasonHint),
         decoration: InputDecoration(labelText: l10n.absenceReason),
         items: [
           for (final reason in AbsenceReasons.all)

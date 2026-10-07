@@ -26,7 +26,7 @@ public class OrganisationCalendar {
         ZoneId zone = organisations.findById(organisationId)
                 .map(Organisation::getTimeZone)
                 .map(ZoneId::of)
-                .orElse(ZoneId.of("Europe/Amsterdam"));
+                .orElse(ZoneId.of("Europe/London"));
         return LocalDate.now(clock.withZone(zone));
     }
 }

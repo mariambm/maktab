@@ -88,11 +88,11 @@ public abstract class SchoolApi extends IntegrationTest {
         return mvc.perform(as(admin, post("/api/curriculum/periods"))
                         .content("{\"curriculumLevelId\":\"" + levelId + "\",\"number\":" + number
                                 + ",\"name\":\"Period " + number + "\",\"startDate\":\"" + startDate + "\","
-                                + "\"weeks\":[{\"weekNumber\":1,\"topics\":[{\"title\":\"Alphabet\","
+                                + "\"weeks\":[{\"weekNumber\":1,\"topics\":[{\"subject\":\"QURAN_RECITATION\",\"title\":\"Alphabet\","
                                 + "\"learningObjective\":\"Read the first five letters\"}]},"
-                                + "{\"weekNumber\":2,\"topics\":[{\"title\":\"Short vowels\"}]},"
-                                + "{\"weekNumber\":3,\"topics\":[{\"title\":\"Joining letters\"}]},"
-                                + "{\"weekNumber\":4,\"review\":true,\"topics\":[{\"title\":\"Review\"}]}]}"))
+                                + "{\"weekNumber\":2,\"topics\":[{\"subject\":\"QURAN_RECITATION\",\"title\":\"Short vowels\"}]},"
+                                + "{\"weekNumber\":3,\"topics\":[{\"subject\":\"QURAN_RECITATION\",\"title\":\"Joining letters\"}]},"
+                                + "{\"weekNumber\":4,\"review\":true,\"topics\":[{\"subject\":\"QURAN_RECITATION\",\"title\":\"Review\"}]}]}"))
                 .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
     }
 

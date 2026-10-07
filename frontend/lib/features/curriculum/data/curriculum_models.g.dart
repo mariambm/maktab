@@ -8,6 +8,7 @@ part of 'curriculum_models.dart';
 
 LessonTopic _$LessonTopicFromJson(Map<String, dynamic> json) => LessonTopic(
   id: json['id'] as String,
+  subject: json['subject'] as String?,
   title: json['title'] as String,
   learningObjective: json['learningObjective'] as String?,
   sortOrder: (json['sortOrder'] as num).toInt(),

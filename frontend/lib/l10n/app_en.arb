@@ -376,11 +376,12 @@
     }
   },
   "absenceReason": "Reason",
+  "absenceAUTHORISED": "Authorised absence",
+  "absenceUNAUTHORISED": "Non authorised absence",
   "absenceSICK": "Sick",
-  "absenceFAMILY_REASON": "Family reason",
   "absenceHOLIDAY": "Holiday",
-  "absenceUNKNOWN": "Unknown",
-  "absenceOTHER": "Other",
+  "absenceNOT_READING": "Not reading",
+  "absenceReasonHint": "Choose a reason",
   "attendanceNote": "Note (optional)",
   "markAllPresent": "All present",
   "saveAttendance": "Save attendance",
@@ -445,5 +446,12 @@
   "allLevels": "All levels",
   "periodNumberRequired": "Enter a period number of 1 or higher",
   "classLabel": "Class",
-  "periodDatesLabel": "Dates"
+  "periodDatesLabel": "Dates",
+  "subjectLabel": "Subject",
+  "subjectRequired": "Choose a subject",
+  "subjectQURAN_RECITATION": "Quran Recitation",
+  "subjectISLAMIC_STUDIES": "Islamic Studies",
+  "subjectNAMAZ_AND_DUAS": "Namaz and Duas",
+  "subjectARABIC": "Arabic",
+  "subjectNAATS_AND_SPEECHES": "Naats and Speeches"
 }
