@@ -95,7 +95,14 @@ modules built in later phases.
     order. Nothing is assumed: "All in order" fills in only the students not noted yet.
   Without `PROGRESS_RECORD` or `OBSERVATION_RECORD` the sections are read-only text.
 - **Student Profile** gains Progress, Behaviour and Uniform cards: the five most recent entries, each with its
-  lesson date, and "Show all" for the rest.
+  lesson date, and "Show all" for the rest. A Targets card lists the targets per period, the latest first, and
+  someone with `TARGET_MANAGE` adds one (for a period of the student's level, the one running now preselected) or
+  taps one to edit it.
+- **Progress**: pick a class to see the period running now and, per student, the latest score with its subject and
+  date plus their targets for the period. A target can be added or edited right there, and tapping a student opens
+  their profile.
+- **Target form** (a sheet): period, an optional subject, the target itself, target and current percentage, a
+  score on the mosque's scale and a teacher note. Only the target itself is required.
 
 Create and edit routes need the module's write permission; a teacher typing `/students/new` is sent to the dashboard.
 Failed loads show the error with "Try again" rather than retrying silently.

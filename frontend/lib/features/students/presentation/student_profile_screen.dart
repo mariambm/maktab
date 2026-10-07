@@ -18,6 +18,7 @@ import '../../lessons/data/lessons_repository.dart';
 import '../../lessons/presentation/student_attendance_card.dart';
 import '../../progress/data/progress_repository.dart';
 import '../../progress/presentation/student_progress_card.dart';
+import '../../progress/presentation/student_targets_card.dart';
 import '../../uniform/data/uniform_repository.dart';
 import '../../uniform/presentation/student_uniform_card.dart';
 import '../data/student_models.dart';
@@ -27,8 +28,8 @@ import 'move_class_sheet.dart';
 
 enum _MenuAction { deactivate, reactivate, removeFromClass }
 
-/// Student Profile: personal information, class with history, parents, attendance, progress, behaviour and uniform.
-/// Targets and lesson history are added as further sections.
+/// Student Profile: personal information, class with history, parents, attendance, targets, progress, behaviour
+/// and uniform. Lesson history is added as a further section.
 class StudentProfileScreen extends ConsumerWidget {
   const StudentProfileScreen({super.key, required this.studentId});
 
@@ -70,6 +71,7 @@ class StudentProfileScreen extends ConsumerWidget {
           ref
             ..invalidate(enrollmentsProvider(studentId))
             ..invalidate(studentAttendanceStatisticsProvider(studentId))
+            ..invalidate(studentTargetsProvider(studentId))
             ..invalidate(studentProgressProvider(studentId))
             ..invalidate(studentBehaviourProvider(studentId))
             ..invalidate(studentUniformProvider(studentId));
@@ -220,6 +222,8 @@ class _Profile extends StatelessWidget {
                 _ParentsSection(student: student, canWrite: canWrite),
                 const SizedBox(height: MaktabSpacing.sm),
                 StudentAttendanceCard(studentId: student.id),
+                const SizedBox(height: MaktabSpacing.sm),
+                StudentTargetsCard(student: student),
                 const SizedBox(height: MaktabSpacing.sm),
                 StudentProgressCard(studentId: student.id),
                 const SizedBox(height: MaktabSpacing.sm),
