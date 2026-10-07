@@ -25,6 +25,7 @@ Material 3 with `MaktabTheme.light()`:
 | Spacing scale | 4, 8, 16, 24, 32 |
 
 The only decorative Islamic motif is a faint eight-pointed star pattern behind the logo on the login screen.
+The mosque's name sits under the logo there; if the server cannot be reached the screen simply shows the logo.
 
 ## Navigation
 

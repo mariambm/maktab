@@ -5,6 +5,7 @@ import 'package:maktab/app.dart';
 import 'package:maktab/core/api/api_providers.dart';
 import 'package:maktab/core/auth/auth_repository.dart';
 import 'package:maktab/core/errors/api_exception.dart';
+import 'package:maktab/core/organisation/organisation_name.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../helpers.dart';
@@ -25,7 +26,10 @@ void main() {
     addTearDown(tester.view.reset);
     await tester.pumpWidget(
       ProviderScope(
-        overrides: [authRepositoryProvider.overrideWithValue(repository)],
+        overrides: [
+          authRepositoryProvider.overrideWithValue(repository),
+          organisationNameProvider.overrideWith((ref) async => 'Jamiyat Tabligh UL Islam'),
+        ],
         child: const MaktabApp(),
       ),
     );
@@ -35,6 +39,7 @@ void main() {
   testWidgets('starts on the login screen when signed out', (tester) async {
     await pumpApp(tester);
     expect(find.text('Welcome to Maktab'), findsOneWidget);
+    expect(find.text('Jamiyat Tabligh UL Islam'), findsOneWidget);
   });
 
   testWidgets('validates the form before calling the server', (tester) async {

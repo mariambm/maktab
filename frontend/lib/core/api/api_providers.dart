@@ -21,6 +21,9 @@ final tokenStorageProvider = Provider<TokenStorage>((ref) => TokenStorage(const 
 
 final authApiProvider = Provider<AuthApi>((ref) => AuthApi(Dio(_baseOptions())));
 
+/// For the few calls made before anyone signs in; it carries no token.
+final publicDioProvider = Provider<Dio>((ref) => Dio(_baseOptions()));
+
 /// The Dio instance every feature repository uses: authenticated, with transparent token refresh.
 final apiDioProvider = Provider<Dio>((ref) {
   final storage = ref.watch(tokenStorageProvider);
