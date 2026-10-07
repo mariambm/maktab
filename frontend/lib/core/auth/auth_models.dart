@@ -24,6 +24,7 @@ abstract final class Permissions {
   static const curriculumWrite = 'CURRICULUM_WRITE';
   static const lessonRecord = 'LESSON_RECORD';
   static const progressRecord = 'PROGRESS_RECORD';
+  static const observationRecord = 'OBSERVATION_RECORD';
   static const paymentRead = 'PAYMENT_READ';
   static const reportRead = 'REPORT_READ';
 }

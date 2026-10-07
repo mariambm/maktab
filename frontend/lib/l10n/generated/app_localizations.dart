@@ -697,7 +697,7 @@ abstract class AppLocalizations {
   /// No description provided for @moreComingNote.
   ///
   /// In en, this message translates to:
-  /// **'Attendance, progress, behaviour and lesson history appear here in later phases.'**
+  /// **'Targets and lesson history appear here in a later update.'**
   String get moreComingNote;
 
   /// No description provided for @relationshipMother.
@@ -1845,6 +1845,324 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Naats and Speeches'**
   String get subjectNAATS_AND_SPEECHES;
+
+  /// No description provided for @progressSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get progressSection;
+
+  /// No description provided for @progressSubjectHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Scores for'**
+  String get progressSubjectHint;
+
+  /// No description provided for @progressNoScore.
+  ///
+  /// In en, this message translates to:
+  /// **'No score'**
+  String get progressNoScore;
+
+  /// No description provided for @progressAbsent.
+  ///
+  /// In en, this message translates to:
+  /// **'Absent, no score'**
+  String get progressAbsent;
+
+  /// No description provided for @saveProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Save progress'**
+  String get saveProgress;
+
+  /// No description provided for @progressSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress saved'**
+  String get progressSaved;
+
+  /// No description provided for @progressOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get progressOverview;
+
+  /// No description provided for @progressNoRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'No scores recorded yet.'**
+  String get progressNoRecords;
+
+  /// No description provided for @behaviourSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Behaviour'**
+  String get behaviourSection;
+
+  /// No description provided for @behaviourNothingNoted.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing noted'**
+  String get behaviourNothingNoted;
+
+  /// No description provided for @behaviourGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good behaviour'**
+  String get behaviourGood;
+
+  /// No description provided for @behaviourNeedsAttention.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs attention'**
+  String get behaviourNeedsAttention;
+
+  /// No description provided for @behaviourNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get behaviourNote;
+
+  /// No description provided for @behaviourEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Note behaviour'**
+  String get behaviourEdit;
+
+  /// No description provided for @saveBehaviour.
+  ///
+  /// In en, this message translates to:
+  /// **'Save behaviour'**
+  String get saveBehaviour;
+
+  /// No description provided for @behaviourSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Behaviour saved'**
+  String get behaviourSaved;
+
+  /// No description provided for @behaviourOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Behaviour'**
+  String get behaviourOverview;
+
+  /// No description provided for @behaviourNoRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'No behaviour noted yet.'**
+  String get behaviourNoRecords;
+
+  /// No description provided for @clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get clear;
+
+  /// No description provided for @showAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all'**
+  String get showAll;
+
+  /// No description provided for @showLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Show less'**
+  String get showLess;
+
+  /// No description provided for @behaviourGOOD_QURAN_RECITATION.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Quran recitation'**
+  String get behaviourGOOD_QURAN_RECITATION;
+
+  /// No description provided for @behaviourLEARNED_ISLAMIC_STUDIES.
+  ///
+  /// In en, this message translates to:
+  /// **'Learned Islamic studies'**
+  String get behaviourLEARNED_ISLAMIC_STUDIES;
+
+  /// No description provided for @behaviourLEARNED_NAMAZ_AND_DUAS.
+  ///
+  /// In en, this message translates to:
+  /// **'Learned Namaz and Duas'**
+  String get behaviourLEARNED_NAMAZ_AND_DUAS;
+
+  /// No description provided for @behaviourLEARNED_NAAT_OR_SPEECH.
+  ///
+  /// In en, this message translates to:
+  /// **'Learned Naat and/or speech'**
+  String get behaviourLEARNED_NAAT_OR_SPEECH;
+
+  /// No description provided for @behaviourLISTENED_TO_TEACHER.
+  ///
+  /// In en, this message translates to:
+  /// **'Listened to teacher'**
+  String get behaviourLISTENED_TO_TEACHER;
+
+  /// No description provided for @behaviourBEEN_HELPFUL.
+  ///
+  /// In en, this message translates to:
+  /// **'Been helpful'**
+  String get behaviourBEEN_HELPFUL;
+
+  /// No description provided for @behaviourORGANISED.
+  ///
+  /// In en, this message translates to:
+  /// **'Organised'**
+  String get behaviourORGANISED;
+
+  /// No description provided for @behaviourRESPECTFUL.
+  ///
+  /// In en, this message translates to:
+  /// **'Respectful'**
+  String get behaviourRESPECTFUL;
+
+  /// No description provided for @behaviourGOOD_GROUP_WORK.
+  ///
+  /// In en, this message translates to:
+  /// **'Good group work'**
+  String get behaviourGOOD_GROUP_WORK;
+
+  /// No description provided for @behaviourUSING_TIME_EFFECTIVELY.
+  ///
+  /// In en, this message translates to:
+  /// **'Using time effectively'**
+  String get behaviourUSING_TIME_EFFECTIVELY;
+
+  /// No description provided for @behaviourOFF_TASK.
+  ///
+  /// In en, this message translates to:
+  /// **'Off task'**
+  String get behaviourOFF_TASK;
+
+  /// No description provided for @behaviourNOT_LISTENING.
+  ///
+  /// In en, this message translates to:
+  /// **'Not listening'**
+  String get behaviourNOT_LISTENING;
+
+  /// No description provided for @behaviourDISTRACTING.
+  ///
+  /// In en, this message translates to:
+  /// **'Distracting'**
+  String get behaviourDISTRACTING;
+
+  /// No description provided for @behaviourTALKING.
+  ///
+  /// In en, this message translates to:
+  /// **'Talking'**
+  String get behaviourTALKING;
+
+  /// No description provided for @behaviourDISORGANISED.
+  ///
+  /// In en, this message translates to:
+  /// **'Disorganised'**
+  String get behaviourDISORGANISED;
+
+  /// No description provided for @behaviourLACK_OF_EFFORT.
+  ///
+  /// In en, this message translates to:
+  /// **'Lack of effort'**
+  String get behaviourLACK_OF_EFFORT;
+
+  /// No description provided for @behaviourWASTING_TIME.
+  ///
+  /// In en, this message translates to:
+  /// **'Wasting time'**
+  String get behaviourWASTING_TIME;
+
+  /// No description provided for @behaviourSHOUTING.
+  ///
+  /// In en, this message translates to:
+  /// **'Shouting'**
+  String get behaviourSHOUTING;
+
+  /// No description provided for @behaviourWALKING_OR_RUNNING_AROUND.
+  ///
+  /// In en, this message translates to:
+  /// **'Walking/running around'**
+  String get behaviourWALKING_OR_RUNNING_AROUND;
+
+  /// No description provided for @uniformSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Uniform'**
+  String get uniformSection;
+
+  /// No description provided for @uniformAllInOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'All in order'**
+  String get uniformAllInOrder;
+
+  /// No description provided for @uniformReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason (optional)'**
+  String get uniformReason;
+
+  /// No description provided for @saveUniform.
+  ///
+  /// In en, this message translates to:
+  /// **'Save uniform'**
+  String get saveUniform;
+
+  /// No description provided for @uniformSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Uniform saved'**
+  String get uniformSaved;
+
+  /// No description provided for @uniformOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Uniform'**
+  String get uniformOverview;
+
+  /// No description provided for @uniformNoRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'No uniform noted yet.'**
+  String get uniformNoRecords;
+
+  /// No description provided for @uniformIN_ORDER.
+  ///
+  /// In en, this message translates to:
+  /// **'In order'**
+  String get uniformIN_ORDER;
+
+  /// No description provided for @uniformPARTIALLY_IN_ORDER.
+  ///
+  /// In en, this message translates to:
+  /// **'Partly in order'**
+  String get uniformPARTIALLY_IN_ORDER;
+
+  /// No description provided for @uniformNOT_IN_ORDER.
+  ///
+  /// In en, this message translates to:
+  /// **'Not in order'**
+  String get uniformNOT_IN_ORDER;
+
+  /// No description provided for @uniformHIJAB_MISSING.
+  ///
+  /// In en, this message translates to:
+  /// **'Hijab missing'**
+  String get uniformHIJAB_MISSING;
+
+  /// No description provided for @uniformSHIRT_NOT_ACCORDING_TO_UNIFORM.
+  ///
+  /// In en, this message translates to:
+  /// **'Shirt not according to uniform'**
+  String get uniformSHIRT_NOT_ACCORDING_TO_UNIFORM;
+
+  /// No description provided for @uniformOTHER.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get uniformOTHER;
 }
 
 class _AppLocalizationsDelegate

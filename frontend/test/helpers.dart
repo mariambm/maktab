@@ -17,6 +17,7 @@ AuthUser testUser({
     Permissions.curriculumRead,
     Permissions.lessonRecord,
     Permissions.progressRecord,
+    Permissions.observationRecord,
     Permissions.reportRead,
   },
   bool mustChangePassword = false,
