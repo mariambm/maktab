@@ -36,10 +36,11 @@ service layer.
 | `student` | Students, parent links, class moves (Phase 2) |
 | `parent` | Parents and guardians (Phase 2) |
 | `classgroup` | Curriculum levels, classes, weekly schedules, teacher assignments, enrolments, `AccessScopeService` (Phase 2) |
+| `curriculum` | Four-week periods, their weeks and lesson topics (Phase 3) |
+| `lesson` | Lessons, topics covered, the attendance register and attendance figures (Phase 3) |
 | `dev` | Development seed accounts and fake school data (`dev` profile only) |
 
-Modules for lessons, attendance, curriculum, progress, behaviour, uniform, payments and reports are added in their
-phases.
+Modules for progress, behaviour, uniform, payments and reports are added in their phases.
 
 ## Authentication and authorisation
 
@@ -51,7 +52,7 @@ phases.
 - Endpoints declare `@PreAuthorize("hasAuthority('…')")`. `EndpointSecurityCoverageTest` fails if any endpoint does
   not.
 - Lookups are scoped to the caller's organisation; out-of-scope ids return 404.
-- Student and class reads are also scoped by `AccessScope`: everything for ADMIN and ADMINISTRATOR, otherwise the
+- Student, class and lesson reads are also scoped by `AccessScope`: everything for ADMIN and ADMINISTRATOR, otherwise the
   classes with an open `class_teacher` row for the caller. The scope is a query parameter, so filtering happens in
   SQL. Changing an id in a request therefore cannot reach another teacher's students.
 - Five failed logins for an email within 15 minutes lock it for 15 minutes (HTTP 429).
@@ -65,7 +66,8 @@ phases.
 | Spring Boot "current GA" | Spring Boot 4.1.1, Java 21 | Latest stable at Phase 1 start |
 | Teachers read classes through their existing permissions | New `CLASS_READ` permission (all roles) | Reading a class list is not "student" data; a clear permission keeps `CLASS_MANAGE` for changes only |
 | Optional Excel import of students in Phase 2 | Not built | Waits for a sample export of the current spreadsheet (fake or redacted data) |
-| `/api/students/{id}/summary` and per-module tabs | Profile shows details, class history and parents | Attendance, progress and observations arrive in Phases 3 and 4 |
+| `/api/students/{id}/summary` and per-module tabs | Profile shows details, class history, parents and attendance | Progress and observations arrive in Phase 4 |
+| Attendance percentages stored per student | Counted from `lesson_attendance` on every request | A stored figure goes stale the moment a lesson is corrected |
 
 ## Flutter app (`frontend/lib`)
 

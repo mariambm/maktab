@@ -1383,6 +1383,420 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View reports'**
   String get permREPORT_READ;
+
+  /// No description provided for @lessonsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get lessonsToday;
+
+  /// No description provided for @lessonsForDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons'**
+  String get lessonsForDate;
+
+  /// No description provided for @lessonsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No lessons on this day'**
+  String get lessonsEmpty;
+
+  /// No description provided for @lessonsEmptyTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing is scheduled for your classes on this day.'**
+  String get lessonsEmptyTeacher;
+
+  /// No description provided for @lessonNotOpened.
+  ///
+  /// In en, this message translates to:
+  /// **'Not started'**
+  String get lessonNotOpened;
+
+  /// No description provided for @lessonAttendanceDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Attendance saved'**
+  String get lessonAttendanceDone;
+
+  /// No description provided for @lessonAttendancePartial.
+  ///
+  /// In en, this message translates to:
+  /// **'{recorded} of {total} recorded'**
+  String lessonAttendancePartial(int recorded, int total);
+
+  /// No description provided for @openLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Start lesson'**
+  String get openLesson;
+
+  /// No description provided for @previousDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous day'**
+  String get previousDay;
+
+  /// No description provided for @nextDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Next day'**
+  String get nextDay;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @attendanceSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Attendance'**
+  String get attendanceSection;
+
+  /// No description provided for @lessonContentSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson content'**
+  String get lessonContentSection;
+
+  /// No description provided for @lessonTopicsSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Topics covered'**
+  String get lessonTopicsSection;
+
+  /// No description provided for @lessonNoTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'No curriculum topics for this week.'**
+  String get lessonNoTopics;
+
+  /// No description provided for @lessonNoStudents.
+  ///
+  /// In en, this message translates to:
+  /// **'No students in this class yet.'**
+  String get lessonNoStudents;
+
+  /// No description provided for @curriculumWeekOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Week {week} of {period}'**
+  String curriculumWeekOf(int week, String period);
+
+  /// No description provided for @curriculumWeekLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Week {week}'**
+  String curriculumWeekLabel(int week);
+
+  /// No description provided for @curriculumReviewWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Review week'**
+  String get curriculumReviewWeek;
+
+  /// No description provided for @attendancePRESENT.
+  ///
+  /// In en, this message translates to:
+  /// **'Present'**
+  String get attendancePRESENT;
+
+  /// No description provided for @attendanceLATE.
+  ///
+  /// In en, this message translates to:
+  /// **'Late'**
+  String get attendanceLATE;
+
+  /// No description provided for @attendanceABSENT.
+  ///
+  /// In en, this message translates to:
+  /// **'Absent'**
+  String get attendanceABSENT;
+
+  /// No description provided for @minutesLate.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes late'**
+  String get minutesLate;
+
+  /// No description provided for @minutesLateShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min late'**
+  String minutesLateShort(int minutes);
+
+  /// No description provided for @absenceReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get absenceReason;
+
+  /// No description provided for @absenceSICK.
+  ///
+  /// In en, this message translates to:
+  /// **'Sick'**
+  String get absenceSICK;
+
+  /// No description provided for @absenceFAMILY_REASON.
+  ///
+  /// In en, this message translates to:
+  /// **'Family reason'**
+  String get absenceFAMILY_REASON;
+
+  /// No description provided for @absenceHOLIDAY.
+  ///
+  /// In en, this message translates to:
+  /// **'Holiday'**
+  String get absenceHOLIDAY;
+
+  /// No description provided for @absenceUNKNOWN.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get absenceUNKNOWN;
+
+  /// No description provided for @absenceOTHER.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get absenceOTHER;
+
+  /// No description provided for @attendanceNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get attendanceNote;
+
+  /// No description provided for @markAllPresent.
+  ///
+  /// In en, this message translates to:
+  /// **'All present'**
+  String get markAllPresent;
+
+  /// No description provided for @saveAttendance.
+  ///
+  /// In en, this message translates to:
+  /// **'Save attendance'**
+  String get saveAttendance;
+
+  /// No description provided for @attendanceSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Attendance saved'**
+  String get attendanceSaved;
+
+  /// No description provided for @lessonSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson saved'**
+  String get lessonSaved;
+
+  /// No description provided for @lessonStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson'**
+  String get lessonStatusLabel;
+
+  /// No description provided for @lessonPLANNED.
+  ///
+  /// In en, this message translates to:
+  /// **'Planned'**
+  String get lessonPLANNED;
+
+  /// No description provided for @lessonCOMPLETED.
+  ///
+  /// In en, this message translates to:
+  /// **'Taught'**
+  String get lessonCOMPLETED;
+
+  /// No description provided for @lessonCANCELLED.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancelled'**
+  String get lessonCANCELLED;
+
+  /// No description provided for @lessonNotesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'What was taught'**
+  String get lessonNotesLabel;
+
+  /// No description provided for @lessonNotesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A short note about this lesson'**
+  String get lessonNotesHint;
+
+  /// No description provided for @saveLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Save lesson'**
+  String get saveLesson;
+
+  /// No description provided for @attendanceOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Attendance'**
+  String get attendanceOverview;
+
+  /// No description provided for @attendancePercentage.
+  ///
+  /// In en, this message translates to:
+  /// **'{percentage}% attended'**
+  String attendancePercentage(int percentage);
+
+  /// No description provided for @attendanceNoRecords.
+  ///
+  /// In en, this message translates to:
+  /// **'No lessons recorded yet.'**
+  String get attendanceNoRecords;
+
+  /// No description provided for @attendanceLessonsCounted.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 lesson} other{{count} lessons}}'**
+  String attendanceLessonsCounted(int count);
+
+  /// No description provided for @attendanceBelowThreshold.
+  ///
+  /// In en, this message translates to:
+  /// **'Below the {threshold}% threshold'**
+  String attendanceBelowThreshold(int threshold);
+
+  /// No description provided for @curriculumEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No curriculum periods yet'**
+  String get curriculumEmpty;
+
+  /// No description provided for @curriculumEmptyManage.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a period of four weeks with the topics for each week.'**
+  String get curriculumEmptyManage;
+
+  /// No description provided for @curriculumEmptyTeacher.
+  ///
+  /// In en, this message translates to:
+  /// **'An administrator sets up the curriculum periods.'**
+  String get curriculumEmptyTeacher;
+
+  /// No description provided for @addPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Add period'**
+  String get addPeriod;
+
+  /// No description provided for @editPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit period'**
+  String get editPeriod;
+
+  /// No description provided for @periodNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Period number'**
+  String get periodNumberLabel;
+
+  /// No description provided for @periodNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get periodNameLabel;
+
+  /// No description provided for @periodStartLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'First day'**
+  String get periodStartLabel;
+
+  /// No description provided for @periodRange.
+  ///
+  /// In en, this message translates to:
+  /// **'{start} – {end}'**
+  String periodRange(String start, String end);
+
+  /// No description provided for @periodNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Period {number}'**
+  String periodNumber(int number);
+
+  /// No description provided for @periodRunsNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Running now'**
+  String get periodRunsNow;
+
+  /// No description provided for @periodFourWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'A period always runs for four weeks; week 4 is the review week.'**
+  String get periodFourWeeks;
+
+  /// No description provided for @topicTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Topic'**
+  String get topicTitleLabel;
+
+  /// No description provided for @topicObjectiveLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning objective (optional)'**
+  String get topicObjectiveLabel;
+
+  /// No description provided for @addTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Add topic'**
+  String get addTopic;
+
+  /// No description provided for @removeTopic.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove topic'**
+  String get removeTopic;
+
+  /// No description provided for @weekNoTopics.
+  ///
+  /// In en, this message translates to:
+  /// **'No topics yet'**
+  String get weekNoTopics;
+
+  /// No description provided for @periodSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Period saved'**
+  String get periodSaved;
+
+  /// No description provided for @allLevels.
+  ///
+  /// In en, this message translates to:
+  /// **'All levels'**
+  String get allLevels;
+
+  /// No description provided for @periodNumberRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a period number of 1 or higher'**
+  String get periodNumberRequired;
+
+  /// No description provided for @classLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Class'**
+  String get classLabel;
+
+  /// No description provided for @periodDatesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Dates'**
+  String get periodDatesLabel;
 }
 
 class _AppLocalizationsDelegate

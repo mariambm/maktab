@@ -17,8 +17,11 @@ uniform, payments and reports. It replaces an Excel-based administration.
   navigation in the app.
 - Phase 2 (Administration) is done: students, parents and guardians, classes with curriculum levels, weekly
   schedules and teachers, and class enrolments with history. Teachers only see their own classes and students.
+- Phase 3 (Teaching) is done: four-week curriculum periods with weekly topics, lessons taken from the weekly
+  schedule, and a per-lesson attendance register (present, late with minutes, absent with a reason). Attendance
+  figures are calculated on request and never stored.
 
-Modules from Phase 3 onwards show a placeholder screen. See the roadmap in
+Modules from Phase 4 onwards show a placeholder screen. See the roadmap in
 [docs/architecture.md](docs/architecture.md#roadmap).
 
 ## Run it locally

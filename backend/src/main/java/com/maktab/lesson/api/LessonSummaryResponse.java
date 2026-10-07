@@ -1,5 +1,7 @@
 package com.maktab.lesson.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.maktab.lesson.domain.LessonStatus;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -22,6 +24,7 @@ public record LessonSummaryResponse(
         long studentCount,
         long attendanceRecorded) {
 
+    @JsonIgnore
     public boolean isOpened() {
         return id != null;
     }

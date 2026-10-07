@@ -709,4 +709,239 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get permREPORT_READ => 'View reports';
+
+  @override
+  String get lessonsToday => 'Today';
+
+  @override
+  String get lessonsForDate => 'Lessons';
+
+  @override
+  String get lessonsEmpty => 'No lessons on this day';
+
+  @override
+  String get lessonsEmptyTeacher =>
+      'Nothing is scheduled for your classes on this day.';
+
+  @override
+  String get lessonNotOpened => 'Not started';
+
+  @override
+  String get lessonAttendanceDone => 'Attendance saved';
+
+  @override
+  String lessonAttendancePartial(int recorded, int total) {
+    return '$recorded of $total recorded';
+  }
+
+  @override
+  String get openLesson => 'Start lesson';
+
+  @override
+  String get previousDay => 'Previous day';
+
+  @override
+  String get nextDay => 'Next day';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get attendanceSection => 'Attendance';
+
+  @override
+  String get lessonContentSection => 'Lesson content';
+
+  @override
+  String get lessonTopicsSection => 'Topics covered';
+
+  @override
+  String get lessonNoTopics => 'No curriculum topics for this week.';
+
+  @override
+  String get lessonNoStudents => 'No students in this class yet.';
+
+  @override
+  String curriculumWeekOf(int week, String period) {
+    return 'Week $week of $period';
+  }
+
+  @override
+  String curriculumWeekLabel(int week) {
+    return 'Week $week';
+  }
+
+  @override
+  String get curriculumReviewWeek => 'Review week';
+
+  @override
+  String get attendancePRESENT => 'Present';
+
+  @override
+  String get attendanceLATE => 'Late';
+
+  @override
+  String get attendanceABSENT => 'Absent';
+
+  @override
+  String get minutesLate => 'Minutes late';
+
+  @override
+  String minutesLateShort(int minutes) {
+    return '$minutes min late';
+  }
+
+  @override
+  String get absenceReason => 'Reason';
+
+  @override
+  String get absenceSICK => 'Sick';
+
+  @override
+  String get absenceFAMILY_REASON => 'Family reason';
+
+  @override
+  String get absenceHOLIDAY => 'Holiday';
+
+  @override
+  String get absenceUNKNOWN => 'Unknown';
+
+  @override
+  String get absenceOTHER => 'Other';
+
+  @override
+  String get attendanceNote => 'Note (optional)';
+
+  @override
+  String get markAllPresent => 'All present';
+
+  @override
+  String get saveAttendance => 'Save attendance';
+
+  @override
+  String get attendanceSaved => 'Attendance saved';
+
+  @override
+  String get lessonSaved => 'Lesson saved';
+
+  @override
+  String get lessonStatusLabel => 'Lesson';
+
+  @override
+  String get lessonPLANNED => 'Planned';
+
+  @override
+  String get lessonCOMPLETED => 'Taught';
+
+  @override
+  String get lessonCANCELLED => 'Cancelled';
+
+  @override
+  String get lessonNotesLabel => 'What was taught';
+
+  @override
+  String get lessonNotesHint => 'A short note about this lesson';
+
+  @override
+  String get saveLesson => 'Save lesson';
+
+  @override
+  String get attendanceOverview => 'Attendance';
+
+  @override
+  String attendancePercentage(int percentage) {
+    return '$percentage% attended';
+  }
+
+  @override
+  String get attendanceNoRecords => 'No lessons recorded yet.';
+
+  @override
+  String attendanceLessonsCounted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lessons',
+      one: '1 lesson',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String attendanceBelowThreshold(int threshold) {
+    return 'Below the $threshold% threshold';
+  }
+
+  @override
+  String get curriculumEmpty => 'No curriculum periods yet';
+
+  @override
+  String get curriculumEmptyManage =>
+      'Add a period of four weeks with the topics for each week.';
+
+  @override
+  String get curriculumEmptyTeacher =>
+      'An administrator sets up the curriculum periods.';
+
+  @override
+  String get addPeriod => 'Add period';
+
+  @override
+  String get editPeriod => 'Edit period';
+
+  @override
+  String get periodNumberLabel => 'Period number';
+
+  @override
+  String get periodNameLabel => 'Name';
+
+  @override
+  String get periodStartLabel => 'First day';
+
+  @override
+  String periodRange(String start, String end) {
+    return '$start – $end';
+  }
+
+  @override
+  String periodNumber(int number) {
+    return 'Period $number';
+  }
+
+  @override
+  String get periodRunsNow => 'Running now';
+
+  @override
+  String get periodFourWeeks =>
+      'A period always runs for four weeks; week 4 is the review week.';
+
+  @override
+  String get topicTitleLabel => 'Topic';
+
+  @override
+  String get topicObjectiveLabel => 'Learning objective (optional)';
+
+  @override
+  String get addTopic => 'Add topic';
+
+  @override
+  String get removeTopic => 'Remove topic';
+
+  @override
+  String get weekNoTopics => 'No topics yet';
+
+  @override
+  String get periodSaved => 'Period saved';
+
+  @override
+  String get allLevels => 'All levels';
+
+  @override
+  String get periodNumberRequired => 'Enter a period number of 1 or higher';
+
+  @override
+  String get classLabel => 'Class';
+
+  @override
+  String get periodDatesLabel => 'Dates';
 }

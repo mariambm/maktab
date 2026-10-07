@@ -53,6 +53,26 @@ they are currently assigned to and the students currently in them. Any other id 
 
 Lists return `{ "items": [...], "page": 0, "size": 25, "totalItems": 7 }`.
 
+## Phase 3 endpoints
+
+Lessons and attendance are scoped the same way: a teacher reaches only the lessons of the classes they are currently
+assigned to, and any other id answers `404 NOT_FOUND`.
+
+| Method | Path | Permission | Purpose |
+| --- | --- | --- | --- |
+| GET | `/api/lessons/today?date=` | `CLASS_READ` | The caller's day: lessons already opened plus the scheduled slots that are not. A slot has `"id": null` until it is opened |
+| GET | `/api/lessons?classId=&from=&to=&page=&size=` | `CLASS_READ` | Lessons, newest first |
+| GET | `/api/lessons/{id}` | `CLASS_READ` | The lesson with its register, that week's curriculum topics and the topics covered |
+| POST | `/api/lessons` | `LESSON_RECORD` | Open a lesson for a class and date, from a `classScheduleId` or with explicit times. Idempotent: opening the same slot twice returns the same lesson. A future date is refused |
+| PUT | `/api/lessons/{id}` | `LESSON_RECORD` | What was taught: `contentNotes`, `status` (`PLANNED`/`COMPLETED`/`CANCELLED`) and `coveredTopicIds`, which must belong to that class's current period |
+| PUT | `/api/lessons/{id}/attendance` | `LESSON_RECORD` | The whole register in one request. `LATE` requires `minutesLate`, only `ABSENT` may carry an `absenceReason`, and a student who is not in the class is refused |
+| GET | `/api/attendance?studentId=&from=&to=` | `STUDENT_READ` | One student's attendance history |
+| GET | `/api/attendance/statistics?studentId=&from=&to=` | `STUDENT_READ` | Counts and `attendancePercentage` (present and late count as attended), with the organisation's threshold. Calculated per request, never stored |
+| GET | `/api/curriculum/periods?levelId=` | `CURRICULUM_READ` | Four-week periods |
+| GET | `/api/curriculum/periods/current?levelId=` | `CURRICULUM_READ` | The period covering today, with its weeks and topics |
+| GET | `/api/curriculum/periods/{id}` | `CURRICULUM_READ` | One period with its weeks and topics |
+| POST, PUT | `/api/curriculum/periods`, `/api/curriculum/periods/{id}` | `CURRICULUM_WRITE` | Create or update a period with its four weeks and their topics. The end date follows from the start date; overlapping periods of one level are refused |
+
 ## Permissions per role
 
 | Permission | ADMIN | ADMINISTRATOR | TEACHER |

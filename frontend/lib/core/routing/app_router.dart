@@ -8,7 +8,12 @@ import '../../features/auth/presentation/splash_screen.dart';
 import '../../features/classes/presentation/class_detail_screen.dart';
 import '../../features/classes/presentation/class_form_screen.dart';
 import '../../features/classes/presentation/classes_screen.dart';
+import '../../features/curriculum/presentation/curriculum_period_form_screen.dart';
+import '../../features/curriculum/presentation/curriculum_period_screen.dart';
+import '../../features/curriculum/presentation/curriculum_screen.dart';
 import '../../features/dashboard/presentation/dashboard_screen.dart';
+import '../../features/lessons/presentation/lesson_detail_screen.dart';
+import '../../features/lessons/presentation/lessons_screen.dart';
 import '../../features/modules/presentation/module_placeholder_screen.dart';
 import '../../features/parents/presentation/parent_detail_screen.dart';
 import '../../features/parents/presentation/parent_form_screen.dart';
@@ -94,6 +99,34 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
+          GoRoute(
+            path: '/lessons',
+            builder: (_, _) => const LessonsScreen(),
+            routes: [
+              GoRoute(
+                path: ':id',
+                builder: (_, state) => LessonDetailScreen(lessonId: state.pathParameters['id']!),
+              ),
+            ],
+          ),
+          GoRoute(
+            path: '/curriculum',
+            builder: (_, _) => const CurriculumScreen(),
+            routes: [
+              GoRoute(path: 'new', builder: (_, _) => const CurriculumPeriodFormScreen()),
+              GoRoute(
+                path: ':id',
+                builder: (_, state) => CurriculumPeriodScreen(periodId: state.pathParameters['id']!),
+                routes: [
+                  GoRoute(
+                    path: 'edit',
+                    builder: (_, state) =>
+                        CurriculumPeriodFormScreen(periodId: state.pathParameters['id']),
+                  ),
+                ],
+              ),
+            ],
+          ),
           for (final module in _placeholderModules)
             GoRoute(
               path: module.$1,
@@ -132,8 +165,6 @@ final routerProvider = Provider<GoRouter>((ref) {
 
 /// Modules built in later phases: (path, destination id, roadmap phase).
 const _placeholderModules = [
-  ('/lessons', 'lessons', 3),
-  ('/curriculum', 'curriculum', 3),
   ('/progress', 'progress', 4),
   ('/payments', 'payments', 5),
   ('/reports', 'reports', 6),

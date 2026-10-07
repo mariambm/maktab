@@ -328,5 +328,122 @@
   "permOBSERVATION_RECORD": "Record observations",
   "permPAYMENT_READ": "View payments",
   "permPAYMENT_WRITE": "Record payments",
-  "permREPORT_READ": "View reports"
+  "permREPORT_READ": "View reports",
+  "lessonsToday": "Today",
+  "lessonsForDate": "Lessons",
+  "lessonsEmpty": "No lessons on this day",
+  "lessonsEmptyTeacher": "Nothing is scheduled for your classes on this day.",
+  "lessonNotOpened": "Not started",
+  "lessonAttendanceDone": "Attendance saved",
+  "lessonAttendancePartial": "{recorded} of {total} recorded",
+  "@lessonAttendancePartial": {
+    "placeholders": {
+      "recorded": { "type": "int" },
+      "total": { "type": "int" }
+    }
+  },
+  "openLesson": "Start lesson",
+  "previousDay": "Previous day",
+  "nextDay": "Next day",
+  "today": "Today",
+  "attendanceSection": "Attendance",
+  "lessonContentSection": "Lesson content",
+  "lessonTopicsSection": "Topics covered",
+  "lessonNoTopics": "No curriculum topics for this week.",
+  "lessonNoStudents": "No students in this class yet.",
+  "curriculumWeekOf": "Week {week} of {period}",
+  "@curriculumWeekOf": {
+    "placeholders": {
+      "week": { "type": "int" },
+      "period": { "type": "String" }
+    }
+  },
+  "curriculumWeekLabel": "Week {week}",
+  "@curriculumWeekLabel": {
+    "placeholders": {
+      "week": { "type": "int" }
+    }
+  },
+  "curriculumReviewWeek": "Review week",
+  "attendancePRESENT": "Present",
+  "attendanceLATE": "Late",
+  "attendanceABSENT": "Absent",
+  "minutesLate": "Minutes late",
+  "minutesLateShort": "{minutes} min late",
+  "@minutesLateShort": {
+    "placeholders": {
+      "minutes": { "type": "int" }
+    }
+  },
+  "absenceReason": "Reason",
+  "absenceSICK": "Sick",
+  "absenceFAMILY_REASON": "Family reason",
+  "absenceHOLIDAY": "Holiday",
+  "absenceUNKNOWN": "Unknown",
+  "absenceOTHER": "Other",
+  "attendanceNote": "Note (optional)",
+  "markAllPresent": "All present",
+  "saveAttendance": "Save attendance",
+  "attendanceSaved": "Attendance saved",
+  "lessonSaved": "Lesson saved",
+  "lessonStatusLabel": "Lesson",
+  "lessonPLANNED": "Planned",
+  "lessonCOMPLETED": "Taught",
+  "lessonCANCELLED": "Cancelled",
+  "lessonNotesLabel": "What was taught",
+  "lessonNotesHint": "A short note about this lesson",
+  "saveLesson": "Save lesson",
+  "attendanceOverview": "Attendance",
+  "attendancePercentage": "{percentage}% attended",
+  "@attendancePercentage": {
+    "placeholders": {
+      "percentage": { "type": "int" }
+    }
+  },
+  "attendanceNoRecords": "No lessons recorded yet.",
+  "attendanceLessonsCounted": "{count, plural, =1{1 lesson} other{{count} lessons}}",
+  "@attendanceLessonsCounted": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "attendanceBelowThreshold": "Below the {threshold}% threshold",
+  "@attendanceBelowThreshold": {
+    "placeholders": {
+      "threshold": { "type": "int" }
+    }
+  },
+  "curriculumEmpty": "No curriculum periods yet",
+  "curriculumEmptyManage": "Add a period of four weeks with the topics for each week.",
+  "curriculumEmptyTeacher": "An administrator sets up the curriculum periods.",
+  "addPeriod": "Add period",
+  "editPeriod": "Edit period",
+  "periodNumberLabel": "Period number",
+  "periodNameLabel": "Name",
+  "periodStartLabel": "First day",
+  "periodRange": "{start} – {end}",
+  "@periodRange": {
+    "placeholders": {
+      "start": { "type": "String" },
+      "end": { "type": "String" }
+    }
+  },
+  "periodNumber": "Period {number}",
+  "@periodNumber": {
+    "placeholders": {
+      "number": { "type": "int" }
+    }
+  },
+  "periodRunsNow": "Running now",
+  "periodFourWeeks": "A period always runs for four weeks; week 4 is the review week.",
+  "topicTitleLabel": "Topic",
+  "topicObjectiveLabel": "Learning objective (optional)",
+  "addTopic": "Add topic",
+  "removeTopic": "Remove topic",
+  "weekNoTopics": "No topics yet",
+  "periodSaved": "Period saved",
+  "allLevels": "All levels",
+  "periodNumberRequired": "Enter a period number of 1 or higher",
+  "classLabel": "Class",
+  "periodDatesLabel": "Dates"
 }
