@@ -8,6 +8,7 @@ import '../data/lesson_models.dart';
 import '../data/lessons_repository.dart';
 import 'lesson_detail_screen.dart';
 import 'lesson_labels.dart';
+import '../../curriculum/presentation/subject_labels.dart';
 
 /// What was taught: the topics of this curriculum week, a free note, and whether the lesson went ahead.
 class LessonContentEditor extends ConsumerStatefulWidget {
@@ -54,7 +55,10 @@ class _LessonContentEditorState extends ConsumerState<LessonContentEditor> {
               controlAffinity: ListTileControlAffinity.leading,
               value: _covered.contains(topic.id),
               title: Text(topic.title),
-              subtitle: topic.learningObjective == null ? null : Text(topic.learningObjective!),
+              subtitle: switch (topicSubtitle(topic, l10n)) {
+                final text? => Text(text),
+                null => null,
+              },
               onChanged: widget.readOnly
                   ? null
                   : (checked) => setState(() {

@@ -183,7 +183,7 @@ public class CurriculumService {
             if (requestedWeek != null) {
                 int order = 0;
                 for (LessonTopicRequest topic : requestedWeek.topicsOrEmpty()) {
-                    topics.save(new LessonTopic(week.getId(), topic.title().trim(),
+                    topics.save(new LessonTopic(week.getId(), topic.subject(), topic.title().trim(),
                             blankToNull(topic.learningObjective()), order++));
                 }
             }

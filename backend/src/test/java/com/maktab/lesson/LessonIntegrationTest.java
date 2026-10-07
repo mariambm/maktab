@@ -122,6 +122,26 @@ class LessonIntegrationTest extends SchoolApi {
     }
 
     @Test
+    void absenceUsesTheMosquesOwnReasons() throws Exception {
+        Session admin = loginAs(Role.ADMIN);
+        UUID classId = createClass(admin);
+        UUID studentId = createStudent(admin, "Amina", classId, null);
+        UUID lessonId = openLesson(admin, classId, TODAY, "10:00", "12:00");
+
+        for (String reason : new String[] {"AUTHORISED", "UNAUTHORISED", "SICK", "HOLIDAY", "NOT_READING"}) {
+            mvc.perform(as(admin, put("/api/lessons/{id}/attendance", lessonId))
+                            .content("{\"entries\":[{\"studentId\":\"" + studentId
+                                    + "\",\"status\":\"ABSENT\",\"absenceReason\":\"" + reason + "\"}]}"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.students[0].absenceReason").value(reason));
+        }
+        mvc.perform(as(admin, put("/api/lessons/{id}/attendance", lessonId))
+                        .content("{\"entries\":[{\"studentId\":\"" + studentId
+                                + "\",\"status\":\"ABSENT\",\"absenceReason\":\"FAMILY_REASON\"}]}"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void aStudentFromAnotherClassCannotBeOnTheRegister() throws Exception {
         Session admin = loginAs(Role.ADMIN);
         UUID classId = createClass(admin);

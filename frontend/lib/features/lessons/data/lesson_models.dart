@@ -15,13 +15,13 @@ abstract final class AttendanceStatuses {
 
 /// Reasons for an absence, as sent by the API.
 abstract final class AbsenceReasons {
+  static const authorised = 'AUTHORISED';
+  static const unauthorised = 'UNAUTHORISED';
   static const sick = 'SICK';
-  static const familyReason = 'FAMILY_REASON';
   static const holiday = 'HOLIDAY';
-  static const unknown = 'UNKNOWN';
-  static const other = 'OTHER';
+  static const notReading = 'NOT_READING';
 
-  static const all = [sick, familyReason, holiday, unknown, other];
+  static const all = [authorised, unauthorised, sick, holiday, notReading];
 }
 
 /// Lesson statuses as sent by the API.

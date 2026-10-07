@@ -795,19 +795,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get absenceReason => 'Reason';
 
   @override
-  String get absenceSICK => 'Sick';
+  String get absenceAUTHORISED => 'Authorised absence';
 
   @override
-  String get absenceFAMILY_REASON => 'Family reason';
+  String get absenceUNAUTHORISED => 'Non authorised absence';
+
+  @override
+  String get absenceSICK => 'Sick';
 
   @override
   String get absenceHOLIDAY => 'Holiday';
 
   @override
-  String get absenceUNKNOWN => 'Unknown';
+  String get absenceNOT_READING => 'Not reading';
 
   @override
-  String get absenceOTHER => 'Other';
+  String get absenceReasonHint => 'Choose a reason';
 
   @override
   String get attendanceNote => 'Note (optional)';
@@ -944,4 +947,25 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get periodDatesLabel => 'Dates';
+
+  @override
+  String get subjectLabel => 'Subject';
+
+  @override
+  String get subjectRequired => 'Choose a subject';
+
+  @override
+  String get subjectQURAN_RECITATION => 'Quran Recitation';
+
+  @override
+  String get subjectISLAMIC_STUDIES => 'Islamic Studies';
+
+  @override
+  String get subjectNAMAZ_AND_DUAS => 'Namaz and Duas';
+
+  @override
+  String get subjectARABIC => 'Arabic';
+
+  @override
+  String get subjectNAATS_AND_SPEECHES => 'Naats and Speeches';
 }

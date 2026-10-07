@@ -6,14 +6,34 @@ part 'curriculum_models.g.dart';
 const curriculumWeeksPerPeriod = 4;
 const curriculumReviewWeek = 4;
 
+/// The mosque's teaching list, as sent by the API.
+abstract final class Subjects {
+  static const quranRecitation = 'QURAN_RECITATION';
+  static const islamicStudies = 'ISLAMIC_STUDIES';
+  static const namazAndDuas = 'NAMAZ_AND_DUAS';
+  static const arabic = 'ARABIC';
+  static const naatsAndSpeeches = 'NAATS_AND_SPEECHES';
+
+  static const all = [quranRecitation, islamicStudies, namazAndDuas, arabic, naatsAndSpeeches];
+}
+
 /// One topic of a curriculum week, with the objective the students should reach.
 @JsonSerializable(createToJson: false)
 class LessonTopic {
-  const LessonTopic({required this.id, required this.title, this.learningObjective, required this.sortOrder});
+  const LessonTopic({
+    required this.id,
+    this.subject,
+    required this.title,
+    this.learningObjective,
+    required this.sortOrder,
+  });
 
   factory LessonTopic.fromJson(Map<String, dynamic> json) => _$LessonTopicFromJson(json);
 
   final String id;
+
+  /// Null only for topics written before subjects existed.
+  final String? subject;
   final String title;
   final String? learningObjective;
   final int sortOrder;
@@ -82,12 +102,14 @@ class CurriculumPeriod {
 
 /// A topic as the period form sends it.
 class LessonTopicDraft {
-  const LessonTopicDraft({required this.title, this.learningObjective});
+  const LessonTopicDraft({required this.subject, required this.title, this.learningObjective});
 
+  final String subject;
   final String title;
   final String? learningObjective;
 
   Map<String, dynamic> toJson() => {
+    'subject': subject,
     'title': title.trim(),
     'learningObjective': learningObjective == null || learningObjective!.trim().isEmpty
         ? null

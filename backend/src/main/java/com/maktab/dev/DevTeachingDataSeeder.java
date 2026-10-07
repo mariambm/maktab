@@ -13,6 +13,7 @@ import com.maktab.classgroup.persistence.CurriculumLevelRepository;
 import com.maktab.curriculum.domain.CurriculumPeriod;
 import com.maktab.curriculum.domain.CurriculumWeek;
 import com.maktab.curriculum.domain.LessonTopic;
+import com.maktab.curriculum.domain.Subject;
 import com.maktab.curriculum.persistence.CurriculumPeriodRepository;
 import com.maktab.curriculum.persistence.CurriculumWeekRepository;
 import com.maktab.curriculum.persistence.LessonTopicRepository;
@@ -56,6 +57,13 @@ public class DevTeachingDataSeeder implements ApplicationRunner {
     private static final UUID ORG = Organisation.DEFAULT_ID;
 
     /** Topics per level, four weeks each; the fourth week is review. */
+    /** A second topic each week, the same for every level: (subject, title, objective). */
+    private static final String[][] SHARED_TOPICS = {
+        {"NAMAZ_AND_DUAS", "Wudu step by step", "Perform wudu in the right order"},
+        {"ISLAMIC_STUDIES", "The five pillars of Islam", "Name and explain the five pillars"},
+        {"NAATS_AND_SPEECHES", "A short naat", "Recite a short naat with confidence"},
+        {"NAMAZ_AND_DUAS", "Duas before and after eating", "Recite both duas from memory"}};
+
     private static final Map<String, String[][]> TOPICS = Map.of(
             "Beginners", new String[][] {
                     {"The Arabic alphabet: alif to jim", "Recognise and pronounce the first five letters"},
@@ -122,12 +130,14 @@ public class DevTeachingDataSeeder implements ApplicationRunner {
         Map<UUID, List<LessonTopic>> topicsByLevel = new java.util.HashMap<>();
         for (CurriculumLevel level : levelList) {
             String[][] weekTopics = TOPICS.getOrDefault(level.getName(), TOPICS.get("Beginners"));
+            // Beginners learn the Arabic letters; Qaida and Quran are recitation.
+            Subject subject = "Beginners".equals(level.getName()) ? Subject.ARABIC : Subject.QURAN_RECITATION;
             CurriculumPeriod previous = periods.save(
                     new CurriculumPeriod(level.getId(), 1, "Period 1", periodStart.minusDays(28)));
-            addWeeks(previous, weekTopics, new ArrayList<>());
+            addWeeks(previous, subject, weekTopics, new ArrayList<>());
             CurriculumPeriod current = periods.save(new CurriculumPeriod(level.getId(), 2, "Period 2", periodStart));
             List<LessonTopic> saved = new ArrayList<>();
-            addWeeks(current, weekTopics, saved);
+            addWeeks(current, subject, weekTopics, saved);
             topicsByLevel.put(level.getId(), saved);
         }
 
@@ -184,12 +194,16 @@ public class DevTeachingDataSeeder implements ApplicationRunner {
                 attendanceCount);
     }
 
-    private void addWeeks(CurriculumPeriod period, String[][] weekTopics, List<LessonTopic> collect) {
+    private void addWeeks(CurriculumPeriod period, Subject subject, String[][] weekTopics,
+            List<LessonTopic> collect) {
         for (int number = 1; number <= 4; number++) {
             CurriculumWeek week = weeks.save(
                     new CurriculumWeek(period.getId(), number, number == CurriculumWeek.REVIEW_WEEK));
             String[] topic = weekTopics[number - 1];
-            collect.add(topics.save(new LessonTopic(week.getId(), topic[0], topic[1], 0)));
+            collect.add(topics.save(new LessonTopic(week.getId(), subject, topic[0], topic[1], 0)));
+            String[] shared = SHARED_TOPICS[number - 1];
+            collect.add(topics.save(new LessonTopic(week.getId(), Subject.valueOf(shared[0]), shared[1], shared[2],
+                    1)));
         }
     }
 }

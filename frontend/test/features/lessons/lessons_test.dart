@@ -132,20 +132,32 @@ void main() {
     expect(find.text('Attendance saved'), findsOne);
   });
 
-  testWidgets('an absent student is saved with a reason without the teacher picking one', (tester) async {
+  testWidgets('an absence reason is never guessed, and the mosque\'s own reasons can be picked', (tester) async {
     final api = FakeApi((request) => (200, lessonJson()));
-    final lesson = LessonDetail.fromJson(lessonJson(students: [student('s1', 'Amina')]));
+    final lesson = LessonDetail.fromJson(lessonJson(students: [student('s1', 'Amina'), student('s2', 'Bilal')]));
     await tester.pumpWidget(app(api, AttendanceRegister(lesson: lesson)));
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Absent'));
+    await tester.tap(find.text('Absent').first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Absent').last);
+    await tester.pumpAndSettle();
+    expect(find.text('Choose a reason'), findsNWidgets(2));
+
+    await tester.tap(find.text('Choose a reason').last);
+    await tester.pumpAndSettle();
+    for (final label in ['Authorised absence', 'Non authorised absence', 'Sick', 'Holiday', 'Not reading']) {
+      expect(find.text(label), findsWidgets);
+    }
+    await tester.tap(find.text('Not reading').last);
     await tester.pumpAndSettle();
     await tester.tap(find.text('Save attendance'));
     await tester.pumpAndSettle();
 
     expect(api.requests.single.data, {
       'entries': [
-        {'studentId': 's1', 'status': 'ABSENT', 'absenceReason': 'UNKNOWN'},
+        {'studentId': 's1', 'status': 'ABSENT'},
+        {'studentId': 's2', 'status': 'ABSENT', 'absenceReason': 'NOT_READING'},
       ],
     });
   });
