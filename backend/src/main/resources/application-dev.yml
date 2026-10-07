@@ -1,0 +1,10 @@
+# Local development only. Never enable this profile in production.
+maktab:
+  dev:
+    seed-password: ${DEV_SEED_PASSWORD}
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

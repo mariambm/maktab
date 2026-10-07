@@ -1,0 +1,68 @@
+{
+  "@@locale": "en",
+  "appName": "Maktab",
+  "appTagline": "Mosque Education Management",
+  "navDashboard": "Dashboard",
+  "navStudents": "Students",
+  "navParents": "Parents & Guardians",
+  "navClasses": "Classes",
+  "navLessons": "Lessons",
+  "navCurriculum": "Curriculum",
+  "navProgress": "Progress",
+  "navPayments": "Payments",
+  "navReports": "Reports",
+  "navSettings": "Settings",
+  "navMore": "More",
+  "loginTitle": "Welcome to Maktab",
+  "loginSubtitle": "Sign in to continue",
+  "emailLabel": "Email",
+  "passwordLabel": "Password",
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+  "signIn": "Sign in",
+  "signOut": "Sign out",
+  "emailRequired": "Email is required",
+  "emailInvalid": "Enter a valid email address",
+  "passwordRequired": "Password is required",
+  "retry": "Try again",
+  "save": "Save",
+  "cancel": "Cancel",
+  "genericError": "Something went wrong. Please try again.",
+  "networkError": "Cannot reach the server. Check your connection and try again.",
+  "greeting": "Assalamu alaikum, {name}",
+  "@greeting": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "teacherDashboardHint": "Your lessons for today will appear here once classes are set up.",
+  "adminDashboardHint": "An overview of attendance, progress and payments will appear here.",
+  "moduleComingTitle": "{module} is on its way",
+  "@moduleComingTitle": {
+    "placeholders": {
+      "module": {"type": "String"}
+    }
+  },
+  "moduleComingBody": "This part of Maktab is built in phase {phase} of the roadmap.",
+  "@moduleComingBody": {
+    "placeholders": {
+      "phase": {"type": "int"}
+    }
+  },
+  "changePasswordTitle": "Change password",
+  "changePasswordIntro": "Please choose a new password before you continue.",
+  "currentPasswordLabel": "Current password",
+  "newPasswordLabel": "New password",
+  "confirmPasswordLabel": "Confirm new password",
+  "newPasswordTooShort": "Use at least 10 characters",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "passwordChanged": "Your password has been changed",
+  "accountSection": "Account",
+  "usersAndPermissions": "Users & Permissions",
+  "usersEmpty": "No users found",
+  "roleAdmin": "Admin",
+  "roleAdministrator": "Administrator",
+  "roleTeacher": "Teacher",
+  "inactive": "Inactive",
+  "sessionExpired": "Your session has expired. Please sign in again."
+}

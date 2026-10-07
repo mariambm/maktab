@@ -1,0 +1,22 @@
+# Secrets
+.env
+
+# Backend
+backend/target/
+*.iml
+.idea/
+
+# Flutter
+frontend/.dart_tool/
+frontend/build/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/android/.gradle/
+frontend/android/local.properties
+frontend/ios/Pods/
+frontend/ios/Flutter/Generated.xcconfig
+frontend/ios/Flutter/flutter_export_environment.sh
+frontend/coverage/
+
+# OS
+.DS_Store
