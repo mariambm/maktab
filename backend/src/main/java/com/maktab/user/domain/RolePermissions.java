@@ -16,11 +16,11 @@ public final class RolePermissions {
     private static final Map<Role, Set<Permission>> BY_ROLE = Map.of(
             Role.ADMIN, EnumSet.allOf(Permission.class),
             Role.ADMINISTRATOR, EnumSet.of(
-                    STUDENT_READ, STUDENT_WRITE, PARENT_READ, PARENT_WRITE, CLASS_MANAGE,
+                    STUDENT_READ, STUDENT_WRITE, PARENT_READ, PARENT_WRITE, CLASS_READ, CLASS_MANAGE,
                     CURRICULUM_READ, CURRICULUM_WRITE, LESSON_RECORD, PROGRESS_RECORD, TARGET_MANAGE,
                     OBSERVATION_RECORD, PAYMENT_READ, PAYMENT_WRITE, REPORT_READ),
             Role.TEACHER, EnumSet.of(
-                    STUDENT_READ, CURRICULUM_READ, LESSON_RECORD, PROGRESS_RECORD, TARGET_MANAGE,
+                    STUDENT_READ, CLASS_READ, CURRICULUM_READ, LESSON_RECORD, PROGRESS_RECORD, TARGET_MANAGE,
                     OBSERVATION_RECORD, REPORT_READ));
 
     private RolePermissions() {

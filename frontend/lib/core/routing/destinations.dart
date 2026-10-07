@@ -56,7 +56,7 @@ final List<AppDestination> allDestinations = [
     icon: Icons.groups_outlined,
     selectedIcon: Icons.groups,
     label: (l) => l.navClasses,
-    isVisibleTo: (u) => u.can(Permissions.classManage) || u.can(Permissions.lessonRecord),
+    isVisibleTo: (u) => u.can(Permissions.classRead),
   ),
   AppDestination(
     id: 'lessons',
@@ -118,9 +118,7 @@ List<AppDestination> primaryDestinations(AuthUser user) {
       ? const ['dashboard', 'lessons', 'students', 'progress']
       : const ['dashboard', 'students', 'classes', 'payments'];
   final visible = visibleDestinations(user);
-  return [
-    for (final id in order) ...visible.where((d) => d.id == id),
-  ].take(4).toList(growable: false);
+  return [for (final id in order) ...visible.where((d) => d.id == id)].take(4).toList(growable: false);
 }
 
 List<AppDestination> secondaryDestinations(AuthUser user) {

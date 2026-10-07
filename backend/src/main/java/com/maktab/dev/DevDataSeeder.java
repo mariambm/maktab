@@ -12,16 +12,18 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Development-only fake accounts. Runs only with the {@code dev} profile and only on an empty user table. Students,
- * classes and lessons are added to the seed in later phases.
+ * Development-only fake accounts. Runs only with the {@code dev} profile and only on an empty user table. School data
+ * (classes, students, parents) is seeded afterwards by {@link DevSchoolDataSeeder}.
  */
 @Component
 @Profile("dev")
+@Order(1)
 public class DevDataSeeder implements ApplicationRunner {
 
     private static final Logger log = LoggerFactory.getLogger(DevDataSeeder.class);
