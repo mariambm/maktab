@@ -12,9 +12,13 @@ uniform, payments and reports. It replaces an Excel-based administration.
 
 ## Status
 
-Phase 1 (Foundation) is done: project setup, PostgreSQL with Flyway, login with JWT access tokens and rotating
-refresh tokens, roles and permissions, user administration API, audit log, the Maktab theme, and role-aware
-navigation in the app. Modules from Phase 2 onwards show a placeholder screen. See the roadmap in
+- Phase 1 (Foundation) is done: project setup, PostgreSQL with Flyway, login with JWT access tokens and rotating
+  refresh tokens, roles and permissions, user administration API, audit log, the Maktab theme, and role-aware
+  navigation in the app.
+- Phase 2 (Administration) is done: students, parents and guardians, classes with curriculum levels, weekly
+  schedules and teachers, and class enrolments with history. Teachers only see their own classes and students.
+
+Modules from Phase 3 onwards show a placeholder screen. See the roadmap in
 [docs/architecture.md](docs/architecture.md#roadmap).
 
 ## Run it locally
@@ -33,6 +37,10 @@ With the default `dev` profile the backend seeds fake accounts, all using `DEV_S
 | `admin@maktab.local` | ADMIN |
 | `administrator1@maktab.local`, `administrator2@maktab.local` | ADMINISTRATOR |
 | `teacher1@maktab.local` … `teacher4@maktab.local` | TEACHER |
+
+It also seeds a fake school once (when there are no students yet): 3 curriculum levels, 6 classes with schedules and
+teachers, 30 students and 20 parents, 8 of whom have two or more children. `teacher1` teaches *Saturday Beginners A*
+and *Sunday Qaida E*.
 
 Swagger UI (dev profile only): http://localhost:8080/swagger-ui.html
 

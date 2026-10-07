@@ -33,10 +33,13 @@ service layer.
 | `organisation` | The organisation entity |
 | `common` | Error format and handler, correlation id filter, paging |
 | `config` | Security, CORS, OpenAPI, clock |
-| `dev` | Development seed accounts (`dev` profile only) |
+| `student` | Students, parent links, class moves (Phase 2) |
+| `parent` | Parents and guardians (Phase 2) |
+| `classgroup` | Curriculum levels, classes, weekly schedules, teacher assignments, enrolments, `AccessScopeService` (Phase 2) |
+| `dev` | Development seed accounts and fake school data (`dev` profile only) |
 
-Modules for students, parents, classes, lessons, attendance, curriculum, progress, behaviour, uniform, payments and
-reports are added in their phases.
+Modules for lessons, attendance, curriculum, progress, behaviour, uniform, payments and reports are added in their
+phases.
 
 ## Authentication and authorisation
 
@@ -47,8 +50,10 @@ reports are added in their phases.
   permission changes take effect immediately. Authorities are the user's permissions plus `ROLE_<role>`.
 - Endpoints declare `@PreAuthorize("hasAuthority('…')")`. `EndpointSecurityCoverageTest` fails if any endpoint does
   not.
-- Lookups are scoped to the caller's organisation; out-of-scope ids return 404. From Phase 2 the same pattern adds a
-  class-assignment scope for teachers.
+- Lookups are scoped to the caller's organisation; out-of-scope ids return 404.
+- Student and class reads are also scoped by `AccessScope`: everything for ADMIN and ADMINISTRATOR, otherwise the
+  classes with an open `class_teacher` row for the caller. The scope is a query parameter, so filtering happens in
+  SQL. Changing an id in a request therefore cannot reach another teacher's students.
 - Five failed logins for an email within 15 minutes lock it for 15 minutes (HTTP 429).
 
 ## Differences from the proposal
@@ -58,6 +63,9 @@ reports are added in their phases.
 | Bucket4j for login rate limiting | A small in-memory `LoginAttemptService` | One backend instance needs no library; move to the database if the backend is scaled out |
 | `freezed` for Flutter models | `json_serializable` only | Phase 1 models are small; `freezed` can be added when models need copy/equality |
 | Spring Boot "current GA" | Spring Boot 4.1.1, Java 21 | Latest stable at Phase 1 start |
+| Teachers read classes through their existing permissions | New `CLASS_READ` permission (all roles) | Reading a class list is not "student" data; a clear permission keeps `CLASS_MANAGE` for changes only |
+| Optional Excel import of students in Phase 2 | Not built | Waits for a sample export of the current spreadsheet (fake or redacted data) |
+| `/api/students/{id}/summary` and per-module tabs | Profile shows details, class history and parents | Attendance, progress and observations arrive in Phases 3 and 4 |
 
 ## Flutter app (`frontend/lib`)
 
@@ -74,7 +82,7 @@ reports are added in their phases.
 ## Roadmap
 
 1. **Foundation** (done)
-2. Administration: students, parents, classes, class enrolments
+2. **Administration** (done): students, parents, classes, class enrolments
 3. Teaching: curriculum, lessons, attendance, Today's lessons
 4. Student development: progress, targets, behaviour, uniform
 5. Finance: payment periods, payments
