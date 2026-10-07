@@ -2,7 +2,8 @@ package com.maktab.user.domain;
 
 /**
  * Fine-grained rights checked on every endpoint. Whether a permission covers all classes or only the caller's
- * assigned classes is decided by the data scope (Phase 2), not by the permission itself.
+ * assigned classes is decided by the data scope ({@link com.maktab.common.AccessScope}), not by the permission
+ * itself.
  */
 public enum Permission {
     USER_MANAGE,
@@ -12,6 +13,7 @@ public enum Permission {
     STUDENT_WRITE,
     PARENT_READ,
     PARENT_WRITE,
+    CLASS_READ,
     CLASS_MANAGE,
     CURRICULUM_READ,
     CURRICULUM_WRITE,

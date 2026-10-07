@@ -2,6 +2,8 @@ package com.maktab.user.persistence;
 
 import com.maktab.user.domain.Role;
 import com.maktab.user.domain.User;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
@@ -30,4 +32,13 @@ public interface UserRepository extends JpaRepository<User, UUID> {
             """)
     Page<User> search(@Param("organisationId") UUID organisationId, @Param("search") String search,
             @Param("role") Role role, @Param("active") Boolean active, Pageable pageable);
+
+    @Query("""
+            select u from User u join u.roles r
+            where u.organisationId = :organisationId and u.active = true and r = :role
+            order by u.lastName, u.firstName
+            """)
+    List<User> findActiveWithRole(@Param("organisationId") UUID organisationId, @Param("role") Role role);
+
+    List<User> findByIdInAndOrganisationId(Collection<UUID> ids, UUID organisationId);
 }
