@@ -13,12 +13,9 @@ import com.maktab.progress.api.ProgressEntryRequest;
 import com.maktab.progress.api.ProgressScaleLevelResponse;
 import com.maktab.progress.api.RecordProgressRequest;
 import com.maktab.progress.api.StudentProgressResponse;
-import com.maktab.progress.domain.ProgressScaleLevel;
 import com.maktab.progress.domain.StudentProgress;
-import com.maktab.progress.persistence.ProgressScaleLevelRepository;
 import com.maktab.progress.persistence.StudentProgressRepository;
 import com.maktab.student.application.StudentAccess;
-import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -36,13 +33,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProgressService {
 
     private final StudentProgressRepository progress;
-    private final ProgressScaleLevelRepository scale;
+    private final ProgressScale scale;
     private final ClassGroupRepository classes;
     private final LessonAccess lessons;
     private final StudentAccess students;
     private final AuditService audit;
 
-    public ProgressService(StudentProgressRepository progress, ProgressScaleLevelRepository scale,
+    public ProgressService(StudentProgressRepository progress, ProgressScale scale,
             ClassGroupRepository classes, LessonAccess lessons, StudentAccess students, AuditService audit) {
         this.progress = progress;
         this.scale = scale;
@@ -54,7 +51,7 @@ public class ProgressService {
 
     @Transactional(readOnly = true)
     public List<ProgressScaleLevelResponse> scale(CurrentUser actor) {
-        return scale.findByOrganisationIdOrderByScore(actor.organisationId()).stream()
+        return scale.levels(actor.organisationId()).stream()
                 .map(level -> new ProgressScaleLevelResponse(level.getScore(), level.getLabel())).toList();
     }
 
@@ -69,9 +66,9 @@ public class ProgressService {
     public LessonProgressResponse record(CurrentUser actor, UUID lessonId, RecordProgressRequest request) {
         Lesson lesson = lessons.loadInScope(actor, lessonId);
         lessons.requireOnRoster(lesson, request.entries().stream().map(ProgressEntryRequest::studentId).toList());
-        Map<BigDecimal, ProgressScaleLevel> levels = levelsByScore(actor.organisationId());
+        ProgressScale.Lookup levels = scale.lookup(actor.organisationId());
         for (ProgressEntryRequest entry : request.entries()) {
-            if (!levels.containsKey(normalise(entry.score()))) {
+            if (levels.find(entry.score()).isEmpty()) {
                 throw new BusinessValidationException("entries", "A score is not on the progress scale");
             }
         }
@@ -83,7 +80,7 @@ public class ProgressService {
             if (isNew) {
                 record = new StudentProgress(lessonId, entry.studentId(), request.subject());
             }
-            record.record(levels.get(normalise(entry.score())).getScore(), blankToNull(entry.note()), actor.id());
+            record.record(levels.find(entry.score()).orElseThrow().getScore(), blankToNull(entry.note()), actor.id());
             if (isNew) {
                 // Saved once complete: a new row is inserted with the state it has at save time.
                 progress.save(record);
@@ -105,13 +102,10 @@ public class ProgressService {
                         .map(StudentProgressRepository.StudentProgressRow::getClassGroupId)
                         .collect(Collectors.toSet())).stream()
                 .collect(Collectors.toMap(ClassGroup::getId, ClassGroup::getName));
-        Map<BigDecimal, ProgressScaleLevel> levels = levelsByScore(actor.organisationId());
-        return rows.stream().map(row -> {
-            ProgressScaleLevel level = levels.get(normalise(row.getScore()));
-            return new StudentProgressResponse(row.getLessonId(), row.getLessonDate(), row.getClassGroupId(),
-                    classNames.get(row.getClassGroupId()), row.getSubject(), row.getScore(),
-                    level == null ? null : level.getLabel(), row.getNote());
-        }).toList();
+        ProgressScale.Lookup levels = scale.lookup(actor.organisationId());
+        return rows.stream().map(row -> new StudentProgressResponse(row.getLessonId(), row.getLessonDate(),
+                row.getClassGroupId(), classNames.get(row.getClassGroupId()), row.getSubject(), row.getScore(),
+                levels.labelOf(row.getScore()), row.getNote())).toList();
     }
 
     private LessonProgressResponse toResponse(UUID lessonId) {
@@ -121,16 +115,6 @@ public class ProgressService {
                         p.getNote()))
                 .toList();
         return new LessonProgressResponse(lessonId, scores);
-    }
-
-    private Map<BigDecimal, ProgressScaleLevel> levelsByScore(UUID organisationId) {
-        return scale.findByOrganisationIdOrderByScore(organisationId).stream()
-                .collect(Collectors.toMap(level -> normalise(level.getScore()), Function.identity()));
-    }
-
-    /** 4, 4.0 and 4.00 are the same score. */
-    private static BigDecimal normalise(BigDecimal score) {
-        return score.stripTrailingZeros();
     }
 
     private static String blankToNull(String value) {

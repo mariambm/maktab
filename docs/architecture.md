@@ -39,13 +39,13 @@ service layer.
 | `classgroup` | Curriculum levels, classes, weekly schedules, teacher assignments, enrolments, `AccessScopeService` (Phase 2) |
 | `curriculum` | Four-week periods, their weeks and lesson topics (Phase 3) |
 | `lesson` | Lessons, topics covered, the attendance register and attendance figures (Phase 3) |
-| `progress` | The progress scale and scores per lesson and subject (Phase 4) |
+| `progress` | The progress scale, scores per lesson and subject, targets per period and the class overview (Phase 4) |
 | `behaviour` | Behaviour observations per lesson (Phase 4) |
 | `uniform` | Uniform observations per lesson (Phase 4) |
 | `dev` | Development seed accounts and fake school data (`dev` profile only) |
 
 The Phase 4 modules reach lessons and students through `LessonAccess` and `StudentAccess`, so they apply the same
-scope as the register. Modules for targets, payments and reports are added in their phases.
+scope as the register. Modules for payments and reports are added in their phases.
 
 ## Authentication and authorisation
 

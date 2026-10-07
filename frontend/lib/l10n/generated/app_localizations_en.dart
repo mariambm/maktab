@@ -324,8 +324,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get studentCreated => 'Student added';
 
   @override
-  String get moreComingNote =>
-      'Targets and lesson history appear here in a later update.';
+  String get moreComingNote => 'Lesson history appears here in a later update.';
 
   @override
   String get relationshipMother => 'Mother';
@@ -1128,4 +1127,89 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get uniformOTHER => 'Other';
+
+  @override
+  String get targetsOverview => 'Targets';
+
+  @override
+  String get targetsNoRecords => 'No targets set yet.';
+
+  @override
+  String get addTarget => 'Add target';
+
+  @override
+  String get editTarget => 'Edit target';
+
+  @override
+  String get targetPeriod => 'Period';
+
+  @override
+  String get targetSubjectOptional => 'Subject (optional)';
+
+  @override
+  String get targetAnySubject => 'No particular subject';
+
+  @override
+  String get targetDescription => 'Target';
+
+  @override
+  String get targetDescriptionHint =>
+      'For example: recite Surah Al-Fatiha from memory';
+
+  @override
+  String get targetDescriptionRequired => 'Describe the target';
+
+  @override
+  String get targetPercentage => 'Target %';
+
+  @override
+  String get currentPercentage => 'Now %';
+
+  @override
+  String get percentageInvalid => '0 to 100';
+
+  @override
+  String get targetScore => 'Progress score (optional)';
+
+  @override
+  String get teacherNote => 'Teacher note (optional)';
+
+  @override
+  String get targetSaved => 'Target saved';
+
+  @override
+  String get targetNeedsClass => 'Put the student in a class to set targets.';
+
+  @override
+  String get targetNoPeriods =>
+      'This class\'s level has no curriculum periods yet.';
+
+  @override
+  String targetPercentages(String target, String current) {
+    return 'Target $target% · now $current%';
+  }
+
+  @override
+  String get progressChooseClass => 'Class';
+
+  @override
+  String get progressNoClasses => 'You have no classes yet.';
+
+  @override
+  String get progressNoPeriod =>
+      'No curriculum period is running for this class today.';
+
+  @override
+  String get progressNoStudents => 'No students in this class.';
+
+  @override
+  String get progressLatestScore => 'Latest score';
+
+  @override
+  String get progressNoScoreYet => 'No score yet this period';
+
+  @override
+  String progressPeriodOf(String period, String start, String end) {
+    return '$period · $start to $end';
+  }
 }

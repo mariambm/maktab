@@ -17,6 +17,7 @@ AuthUser testUser({
     Permissions.curriculumRead,
     Permissions.lessonRecord,
     Permissions.progressRecord,
+    Permissions.targetManage,
     Permissions.observationRecord,
     Permissions.reportRead,
   },

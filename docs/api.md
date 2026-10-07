@@ -88,6 +88,12 @@ classes answers `404 NOT_FOUND`, and a student who is not in the lesson's class 
 | GET | `/api/behaviour?studentId=` | `STUDENT_READ` | A student's observations, each with its lesson date |
 | GET, PUT | `/api/lessons/{id}/uniform` | `CLASS_READ`, `OBSERVATION_RECORD` | Uniform in the lesson: `{studentId, status, reason, note}`; `IN_ORDER` may not carry a reason |
 | GET | `/api/uniform?studentId=` | `STUDENT_READ` | A student's uniform records, each with its lesson date |
+| GET | `/api/targets?studentId=` | `STUDENT_READ` | All of a student's targets, the latest period first, each with its period |
+| POST | `/api/targets` | `TARGET_MANAGE` | `{studentId, curriculumPeriodId, subject?, description, targetPercentage?, currentPercentage?, progressScore?, teacherNote?}`. The period must belong to the level of the student's current class; percentages are 0 to 100 and the score must be on the scale |
+| PUT | `/api/targets/{id}` | `TARGET_MANAGE` | Update what can change; the student and period stay as they were. Another teacher's target answers `404` |
+| GET | `/api/progress/classes/{classId}` | `CLASS_READ` | The class at a glance: the period running today, and per student their latest score in that period and their targets for it |
+
+Targets are never deleted, so the targets of earlier periods stay available.
 
 Behaviour values: `GOOD_QURAN_RECITATION`, `LEARNED_ISLAMIC_STUDIES`, `LEARNED_NAMAZ_AND_DUAS`,
 `LEARNED_NAAT_OR_SPEECH`, `LISTENED_TO_TEACHER`, `BEEN_HELPFUL`, `ORGANISED`, `RESPECTFUL`, `GOOD_GROUP_WORK`,
