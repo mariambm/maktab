@@ -27,8 +27,7 @@ PostgreSQL 17. The schema changes only through Flyway migrations in
 | `V10__mosque_settings_and_subjects.sql` | The organisation becomes Jamiyat Tabligh UL Islam (GBP, Europe/London); the mosque's own absence reasons; `lesson_topic.subject` |
 | `V11__progress_behaviour_uniform.sql` | `progress_scale_level` (seeded with the mosque's scale), `student_progress`, `behaviour_record`, `behaviour_record_item`, `uniform_record` |
 | `V12__student_targets.sql` | `student_target` |
-
-Planned: payments.
+| `V13__payments.sql` | `payment_period`, `payment` |
 
 ## Phase 1 tables
 
@@ -140,6 +139,30 @@ student_target        (id, student_id → student, curriculum_period_id → curr
 - **Several behaviours per observation**: one `behaviour_record` per student per lesson, with its behaviours in
   `behaviour_record_item`.
 
+## Phase 5 tables
+
+```text
+payment_period (id, organisation_id → organisation, month date (first day), monthly_fee numeric(8,2) > 0,
+                created_by → app_user, …)
+                UNIQUE (organisation_id, month)
+payment        (id, payment_period_id → payment_period, student_id → student,
+                parent_guardian_id NULL → parent_guardian, expected_amount numeric(8,2) > 0,
+                amount_paid numeric(8,2) ≥ 0, paid_on NULL, payment_method NULL ∈ CASH|BANK_TRANSFER|CARD|OTHER,
+                note NULL, updated_by NULL → app_user, …)
+                UNIQUE (payment_period_id, student_id);  CHECK amount_paid ≤ expected_amount;
+                CHECK (amount_paid = 0 AND paid_on, payment_method NULL) OR (amount_paid > 0 AND both set)
+```
+
+- **A payment period is a calendar month** with the fee for that month, in the organisation's currency (GBP).
+- **Opening a month charges students**: everyone who was with the mosque during the month and in a class at some
+  point of it gets a `payment` row expecting the month's fee, with their primary contact as payer. Students who
+  join later are added with "Add students who joined"; a row can be removed while nothing has been paid on it.
+- **The status is never stored**: `PAID` when the amount paid reaches the amount expected, `PARTIALLY_PAID` when
+  something but not all was paid, `OUTSTANDING` when nothing was. It is worked out on every read, and the status
+  filter on `/api/payments` is written as the same comparisons in SQL.
+- **`amount_paid` is the total received for that month**, with the date and method of the payment; a family paying in
+  two parts updates the same row.
+
 ## Seed data
 
 Development accounts are created by `DevDataSeeder` when the `dev` profile is active and the user table is empty.
@@ -149,4 +172,6 @@ with two or more children), and three students who moved class four weeks ago so
 `DevTeachingDataSeeder` then adds two four-week curriculum periods per level with a topic per week, and eight weeks
 of past lessons with attendance; today's lesson is deliberately left unopened so the teacher's day has something to
 do. `DevDevelopmentDataSeeder` adds a Quran Recitation score for every student who attended a seeded lesson, plus
-some behaviour observations and uniform notes, and a target in the current period for some students. Seed data for the other modules is added with their phases.
+some behaviour observations and uniform notes, and a target in the current period for some students. `DevPaymentDataSeeder` opens the last two months and this one
+at £25.00: earlier months mostly paid, this month about half, so every status shows. Seed data for reports is added
+with its phase.

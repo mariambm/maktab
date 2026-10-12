@@ -105,6 +105,21 @@ modules built in later phases.
 - **Target form** (a sheet): period, an optional subject, the target itself, target and current percentage, a
   score on the mosque's scale and a teacher note. Only the target itself is required.
 
+## Phase 5 screens
+
+- **Payments**: every month, the latest first, with the fee, "£350.00 of £750.00 received" and a bar, and how many
+  paid, partly paid or have not paid yet. Administrators add a month by picking it (two months back to two ahead)
+  and the fee, which starts at last month's.
+- **A month**: expected, received and outstanding at the top, then every student's payment with their class and
+  status (text and icon, never colour alone). Filter by status, class or name. Tapping a student opens the payment
+  form: the amount expected, the amount paid with a "Paid in full" button, and once something is paid the date
+  (today by default) and how it was paid; the payer starts as the primary contact. A student with nothing paid can
+  be taken off the month. The menu changes the fee or adds students who joined since.
+- **Student Profile** gains a Payments card for those allowed to see payments: each month's status and what was
+  paid, when and how.
+- Teachers do not see Payments unless an administrator grants `PAYMENT_READ`; then they see only their own students
+  and cannot add months or change the fee.
+
 Create and edit routes need the module's write permission; a teacher typing `/students/new` is sent to the dashboard.
 Failed loads show the error with "Try again" rather than retrying silently.
 

@@ -18,6 +18,8 @@ import '../../features/modules/presentation/module_placeholder_screen.dart';
 import '../../features/parents/presentation/parent_detail_screen.dart';
 import '../../features/parents/presentation/parent_form_screen.dart';
 import '../../features/parents/presentation/parents_screen.dart';
+import '../../features/payments/presentation/payment_period_screen.dart';
+import '../../features/payments/presentation/payments_screen.dart';
 import '../../features/progress/presentation/progress_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/settings/presentation/user_detail_screen.dart';
@@ -129,6 +131,16 @@ final routerProvider = Provider<GoRouter>((ref) {
             ],
           ),
           GoRoute(path: '/progress', builder: (_, _) => const ProgressScreen()),
+          GoRoute(
+            path: '/payments',
+            builder: (_, _) => const PaymentsScreen(),
+            routes: [
+              GoRoute(
+                path: ':id',
+                builder: (_, state) => PaymentPeriodScreen(periodId: state.pathParameters['id']!),
+              ),
+            ],
+          ),
           for (final module in _placeholderModules)
             GoRoute(
               path: module.$1,
@@ -167,7 +179,6 @@ final routerProvider = Provider<GoRouter>((ref) {
 
 /// Modules built in later phases: (path, destination id, roadmap phase).
 const _placeholderModules = [
-  ('/payments', 'payments', 5),
   ('/reports', 'reports', 6),
 ];
 

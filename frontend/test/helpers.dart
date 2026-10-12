@@ -49,6 +49,7 @@ AuthUser adminUser() => testUser(
     Permissions.lessonRecord,
     Permissions.progressRecord,
     Permissions.paymentRead,
+    Permissions.paymentWrite,
     Permissions.reportRead,
   },
 );
