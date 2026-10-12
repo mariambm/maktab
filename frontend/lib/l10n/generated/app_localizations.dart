@@ -175,7 +175,7 @@ abstract class AppLocalizations {
   /// No description provided for @loginTitle.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Maktab'**
+  /// **'Welcome back'**
   String get loginTitle;
 
   /// No description provided for @loginSubtitle.
@@ -183,6 +183,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign in to continue'**
   String get loginSubtitle;
+
+  /// No description provided for @loginTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning and growing together'**
+  String get loginTagline;
 
   /// No description provided for @emailLabel.
   ///
@@ -2319,6 +2325,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{period} · {start} to {end}'**
   String progressPeriodOf(String period, String start, String end);
+
+  /// No description provided for @dashboardClasses.
+  ///
+  /// In en, this message translates to:
+  /// **'Classes'**
+  String get dashboardClasses;
+
+  /// No description provided for @dashboardStudents.
+  ///
+  /// In en, this message translates to:
+  /// **'Students'**
+  String get dashboardStudents;
+
+  /// No description provided for @dashboardLessonsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons today'**
+  String get dashboardLessonsToday;
+
+  /// No description provided for @dashboardTodaysLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s lessons'**
+  String get dashboardTodaysLessons;
+
+  /// No description provided for @dashboardNoLessonsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'No lessons today.'**
+  String get dashboardNoLessonsToday;
+
+  /// No description provided for @dashboardAllLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'All lessons'**
+  String get dashboardAllLessons;
+
+  /// No description provided for @dashboardOpen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get dashboardOpen;
+
+  /// No description provided for @dashboardView.
+  ///
+  /// In en, this message translates to:
+  /// **'View'**
+  String get dashboardView;
 
   /// No description provided for @paymentsEmpty.
   ///

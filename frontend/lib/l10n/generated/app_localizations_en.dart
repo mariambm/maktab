@@ -49,10 +49,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navMore => 'More';
 
   @override
-  String get loginTitle => 'Welcome to Maktab';
+  String get loginTitle => 'Welcome back';
 
   @override
   String get loginSubtitle => 'Sign in to continue';
+
+  @override
+  String get loginTagline => 'Learning and growing together';
 
   @override
   String get emailLabel => 'Email';
@@ -1212,6 +1215,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String progressPeriodOf(String period, String start, String end) {
     return '$period · $start to $end';
   }
+
+  @override
+  String get dashboardClasses => 'Classes';
+
+  @override
+  String get dashboardStudents => 'Students';
+
+  @override
+  String get dashboardLessonsToday => 'Lessons today';
+
+  @override
+  String get dashboardTodaysLessons => 'Today\'s lessons';
+
+  @override
+  String get dashboardNoLessonsToday => 'No lessons today.';
+
+  @override
+  String get dashboardAllLessons => 'All lessons';
+
+  @override
+  String get dashboardOpen => 'Open';
+
+  @override
+  String get dashboardView => 'View';
 
   @override
   String get paymentsEmpty => 'No months yet';
