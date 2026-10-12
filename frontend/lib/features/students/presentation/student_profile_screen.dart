@@ -16,6 +16,8 @@ import '../../behaviour/presentation/student_behaviour_card.dart';
 import '../../classes/data/classes_repository.dart';
 import '../../lessons/data/lessons_repository.dart';
 import '../../lessons/presentation/student_attendance_card.dart';
+import '../../payments/data/payments_repository.dart';
+import '../../payments/presentation/student_payments_card.dart';
 import '../../progress/data/progress_repository.dart';
 import '../../progress/presentation/student_progress_card.dart';
 import '../../progress/presentation/student_targets_card.dart';
@@ -40,6 +42,7 @@ class StudentProfileScreen extends ConsumerWidget {
     final l10n = AppLocalizations.of(context);
     final student = ref.watch(studentProvider(studentId));
     final canWrite = ref.watch(sessionControllerProvider).value?.can(Permissions.studentWrite) ?? false;
+    final canReadPayments = ref.watch(sessionControllerProvider).value?.can(Permissions.paymentRead) ?? false;
     final loaded = student.value;
 
     return Scaffold(
@@ -74,13 +77,14 @@ class StudentProfileScreen extends ConsumerWidget {
             ..invalidate(studentTargetsProvider(studentId))
             ..invalidate(studentProgressProvider(studentId))
             ..invalidate(studentBehaviourProvider(studentId))
-            ..invalidate(studentUniformProvider(studentId));
+            ..invalidate(studentUniformProvider(studentId))
+            ..invalidate(studentPaymentsProvider(studentId));
           return ref.refresh(studentProvider(studentId).future);
         },
         child: AsyncView(
           value: student,
           onRetry: () => ref.invalidate(studentProvider(studentId)),
-          data: (s) => _Profile(student: s, canWrite: canWrite),
+          data: (s) => _Profile(student: s, canWrite: canWrite, canReadPayments: canReadPayments),
         ),
       ),
     );
@@ -149,10 +153,11 @@ void refreshStudent(WidgetRef ref, String studentId) {
 }
 
 class _Profile extends StatelessWidget {
-  const _Profile({required this.student, required this.canWrite});
+  const _Profile({required this.student, required this.canWrite, required this.canReadPayments});
 
   final StudentDetail student;
   final bool canWrite;
+  final bool canReadPayments;
 
   @override
   Widget build(BuildContext context) {
@@ -230,6 +235,10 @@ class _Profile extends StatelessWidget {
                 StudentBehaviourCard(studentId: student.id),
                 const SizedBox(height: MaktabSpacing.sm),
                 StudentUniformCard(studentId: student.id),
+                if (canReadPayments) ...[
+                  const SizedBox(height: MaktabSpacing.sm),
+                  StudentPaymentsCard(studentId: student.id),
+                ],
                 const SizedBox(height: MaktabSpacing.md),
                 Text(
                   l10n.moreComingNote,

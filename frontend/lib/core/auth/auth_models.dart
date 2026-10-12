@@ -27,6 +27,7 @@ abstract final class Permissions {
   static const targetManage = 'TARGET_MANAGE';
   static const observationRecord = 'OBSERVATION_RECORD';
   static const paymentRead = 'PAYMENT_READ';
+  static const paymentWrite = 'PAYMENT_WRITE';
   static const reportRead = 'REPORT_READ';
 }
 

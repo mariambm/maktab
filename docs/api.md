@@ -102,6 +102,28 @@ Behaviour values: `GOOD_QURAN_RECITATION`, `LEARNED_ISLAMIC_STUDIES`, `LEARNED_N
 `LACK_OF_EFFORT`, `WASTING_TIME`, `SHOUTING`, `WALKING_OR_RUNNING_AROUND` (needs attention). Uniform statuses:
 `IN_ORDER`, `PARTIALLY_IN_ORDER`, `NOT_IN_ORDER`; reasons: `HIJAB_MISSING`, `SHIRT_NOT_ACCORDING_TO_UNIFORM`, `OTHER`.
 
+## Phase 5 endpoints
+
+Payments follow the student scope: someone who sees only some classes (a teacher granted `PAYMENT_READ`) sees
+only their own students' payments, and month totals count only those students. Adding a month and changing its
+fee affect every student, so they need access to every class (`403` otherwise). Amounts are in the
+organisation's currency, which every response carries as `currency`.
+
+| Method | Path | Permission | Purpose |
+| --- | --- | --- | --- |
+| GET | `/api/payment-periods` | `PAYMENT_READ` | Every month, the latest first: `{id, month: "2026-10", monthlyFee, currency, totals}` with `totals` = `{students, paid, partiallyPaid, outstanding, expectedTotal, paidTotal, outstandingTotal}` |
+| GET | `/api/payment-periods/{id}` | `PAYMENT_READ` | One month with its totals |
+| POST | `/api/payment-periods` | `PAYMENT_WRITE` | `{month, monthlyFee}` adds a month and charges every student enrolled during it; `409` if the month exists |
+| PUT | `/api/payment-periods/{id}` | `PAYMENT_WRITE` | `{monthlyFee}`: students still on the old fee move to the new one; refused when one of them already paid more than the new fee |
+| POST | `/api/payment-periods/{id}/payments` | `PAYMENT_WRITE` | Adds students who joined after the month was added: `{added, period}`. Safe to repeat |
+| GET | `/api/payments?periodId=&studentId=&status=&classId=&search=&page=&size=` | `PAYMENT_READ` | Payments, newest month first then by name: `{id, periodId, month, studentId, firstName, lastName, className, payer, expectedAmount, amountPaid, outstandingAmount, currency, status, paidOn, method, note}` |
+| PUT | `/api/payments/{id}` | `PAYMENT_WRITE` | `{expectedAmount, amountPaid, paidOn, method, parentGuardianId, note}`. `amountPaid` is the month's total and may not exceed `expectedAmount`; above zero it needs a date (not in the future) and a method; the payer must be one of the student's parents |
+| DELETE | `/api/payments/{id}` | `PAYMENT_WRITE` | Takes a student off a month; `409` once anything has been paid |
+
+Statuses (`PAID`, `PARTIALLY_PAID`, `OUTSTANDING`) are worked out from the amounts. Methods: `CASH`,
+`BANK_TRANSFER`, `CARD`, `OTHER`. Changes are audited as `PAYMENT_PERIOD_CREATED`, `PAYMENT_PERIOD_UPDATED`,
+`PAYMENT_UPDATED` and `PAYMENT_REMOVED`, with amounts but without the note.
+
 ## Permissions per role
 
 | Permission | ADMIN | ADMINISTRATOR | TEACHER |

@@ -20,8 +20,12 @@ uniform, payments and reports. It replaces an Excel-based administration.
 - Phase 3 (Teaching) is done: four-week curriculum periods with weekly topics, lessons taken from the weekly
   schedule, and a per-lesson attendance register (present, late with minutes, absent with a reason). Attendance
   figures are calculated on request and never stored.
+- Phase 4 (Student development) is done: scores per lesson and subject on the mosque's scale, behaviour and uniform
+  observations per lesson, and targets per four-week period.
+- Phase 5 (Finance) is done: months of fees in GBP, a payment per student and month with paid, partly paid and
+  outstanding worked out from the amounts, and month totals.
 
-Modules from Phase 4 onwards show a placeholder screen. See the roadmap in
+Reports still show a placeholder screen. See the roadmap in
 [docs/architecture.md](docs/architecture.md#roadmap).
 
 ## Run it locally
