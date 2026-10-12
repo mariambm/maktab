@@ -2373,6 +2373,306 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View'**
   String get dashboardView;
+
+  /// No description provided for @paymentsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No months yet'**
+  String get paymentsEmpty;
+
+  /// No description provided for @paymentsEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a month to start recording fees.'**
+  String get paymentsEmptyHint;
+
+  /// No description provided for @paymentsEmptyReadOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'No months have been added yet.'**
+  String get paymentsEmptyReadOnly;
+
+  /// No description provided for @addMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Add month'**
+  String get addMonth;
+
+  /// No description provided for @paymentMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Month'**
+  String get paymentMonth;
+
+  /// No description provided for @monthlyFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly fee'**
+  String get monthlyFee;
+
+  /// No description provided for @amountRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an amount above zero'**
+  String get amountRequired;
+
+  /// No description provided for @amountInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an amount in pounds and pence'**
+  String get amountInvalid;
+
+  /// No description provided for @monthAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Month added'**
+  String get monthAdded;
+
+  /// No description provided for @monthAddFeeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every student in a class that month is charged this fee.'**
+  String get monthAddFeeHint;
+
+  /// No description provided for @paymentStatusPAID.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid'**
+  String get paymentStatusPAID;
+
+  /// No description provided for @paymentStatusPARTIALLY_PAID.
+  ///
+  /// In en, this message translates to:
+  /// **'Partly paid'**
+  String get paymentStatusPARTIALLY_PAID;
+
+  /// No description provided for @paymentStatusOUTSTANDING.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding'**
+  String get paymentStatusOUTSTANDING;
+
+  /// No description provided for @paymentMethodCASH.
+  ///
+  /// In en, this message translates to:
+  /// **'Cash'**
+  String get paymentMethodCASH;
+
+  /// No description provided for @paymentMethodBANK_TRANSFER.
+  ///
+  /// In en, this message translates to:
+  /// **'Bank transfer'**
+  String get paymentMethodBANK_TRANSFER;
+
+  /// No description provided for @paymentMethodCARD.
+  ///
+  /// In en, this message translates to:
+  /// **'Card'**
+  String get paymentMethodCARD;
+
+  /// No description provided for @paymentMethodOTHER.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get paymentMethodOTHER;
+
+  /// No description provided for @paymentReceivedOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{paid} of {expected} received'**
+  String paymentReceivedOf(String paid, String expected);
+
+  /// No description provided for @paymentCounts.
+  ///
+  /// In en, this message translates to:
+  /// **'{paid} paid · {partly} partly paid · {outstanding} outstanding'**
+  String paymentCounts(int paid, int partly, int outstanding);
+
+  /// No description provided for @paymentOutstandingAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} outstanding'**
+  String paymentOutstandingAmount(String amount);
+
+  /// No description provided for @paymentReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get paymentReceived;
+
+  /// No description provided for @paymentExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected'**
+  String get paymentExpected;
+
+  /// No description provided for @paymentStillOutstanding.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding'**
+  String get paymentStillOutstanding;
+
+  /// No description provided for @paymentsNoMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No payments match'**
+  String get paymentsNoMatch;
+
+  /// No description provided for @paymentsNoMatchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Try another status, class or name.'**
+  String get paymentsNoMatchHint;
+
+  /// No description provided for @paymentsNoStudents.
+  ///
+  /// In en, this message translates to:
+  /// **'No students were in a class this month.'**
+  String get paymentsNoStudents;
+
+  /// No description provided for @recordPayment.
+  ///
+  /// In en, this message translates to:
+  /// **'Record payment'**
+  String get recordPayment;
+
+  /// No description provided for @amountExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount expected'**
+  String get amountExpected;
+
+  /// No description provided for @amountPaid.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount paid'**
+  String get amountPaid;
+
+  /// No description provided for @amountPaidTooMuch.
+  ///
+  /// In en, this message translates to:
+  /// **'This is more than the amount expected'**
+  String get amountPaidTooMuch;
+
+  /// No description provided for @paidInFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid in full'**
+  String get paidInFull;
+
+  /// No description provided for @paidOnLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date paid'**
+  String get paidOnLabel;
+
+  /// No description provided for @paymentMethodLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Method'**
+  String get paymentMethodLabel;
+
+  /// No description provided for @paymentMethodRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose how it was paid'**
+  String get paymentMethodRequired;
+
+  /// No description provided for @paidByLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid by'**
+  String get paidByLabel;
+
+  /// No description provided for @paidByNotRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'Not recorded'**
+  String get paidByNotRecorded;
+
+  /// No description provided for @paymentNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get paymentNote;
+
+  /// No description provided for @paymentSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment saved'**
+  String get paymentSaved;
+
+  /// No description provided for @removeFromMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove from this month'**
+  String get removeFromMonth;
+
+  /// No description provided for @removeFromMonthConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} will no longer be charged for {month}.'**
+  String removeFromMonthConfirm(String name, String month);
+
+  /// No description provided for @removedFromMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed from this month'**
+  String get removedFromMonth;
+
+  /// No description provided for @removeFromMonthNotAllowed.
+  ///
+  /// In en, this message translates to:
+  /// **'Set the amount paid to zero before removing a student from a month.'**
+  String get removeFromMonthNotAllowed;
+
+  /// No description provided for @changeFee.
+  ///
+  /// In en, this message translates to:
+  /// **'Change monthly fee'**
+  String get changeFee;
+
+  /// No description provided for @changeFeeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Students on the old fee move to the new one. Anyone with their own amount keeps it.'**
+  String get changeFeeHint;
+
+  /// No description provided for @feeChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly fee changed'**
+  String get feeChanged;
+
+  /// No description provided for @addNewStudents.
+  ///
+  /// In en, this message translates to:
+  /// **'Add students who joined'**
+  String get addNewStudents;
+
+  /// No description provided for @studentsAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Everyone is already on this month} =1{1 student added} other{{count} students added}}'**
+  String studentsAdded(int count);
+
+  /// No description provided for @studentPaymentsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments'**
+  String get studentPaymentsTitle;
+
+  /// No description provided for @studentNoPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'No fees recorded yet'**
+  String get studentNoPayments;
+
+  /// No description provided for @paymentPaidOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid {date}'**
+  String paymentPaidOn(String date);
 }
 
 class _AppLocalizationsDelegate

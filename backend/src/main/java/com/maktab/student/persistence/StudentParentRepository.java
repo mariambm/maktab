@@ -16,6 +16,8 @@ public interface StudentParentRepository extends JpaRepository<StudentParent, St
 
     List<StudentParent> findByIdParentGuardianIdIn(Collection<UUID> parentGuardianIds);
 
+    List<StudentParent> findByIdStudentIdInAndPrimaryContactTrue(Collection<UUID> studentIds);
+
     @Modifying(flushAutomatically = true, clearAutomatically = false)
     @Query("delete from StudentParent l where l.id.studentId = :studentId")
     void deleteByStudentId(@Param("studentId") UUID studentId);

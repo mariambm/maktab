@@ -1239,4 +1239,176 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dashboardView => 'View';
+
+  @override
+  String get paymentsEmpty => 'No months yet';
+
+  @override
+  String get paymentsEmptyHint => 'Add a month to start recording fees.';
+
+  @override
+  String get paymentsEmptyReadOnly => 'No months have been added yet.';
+
+  @override
+  String get addMonth => 'Add month';
+
+  @override
+  String get paymentMonth => 'Month';
+
+  @override
+  String get monthlyFee => 'Monthly fee';
+
+  @override
+  String get amountRequired => 'Enter an amount above zero';
+
+  @override
+  String get amountInvalid => 'Enter an amount in pounds and pence';
+
+  @override
+  String get monthAdded => 'Month added';
+
+  @override
+  String get monthAddFeeHint =>
+      'Every student in a class that month is charged this fee.';
+
+  @override
+  String get paymentStatusPAID => 'Paid';
+
+  @override
+  String get paymentStatusPARTIALLY_PAID => 'Partly paid';
+
+  @override
+  String get paymentStatusOUTSTANDING => 'Outstanding';
+
+  @override
+  String get paymentMethodCASH => 'Cash';
+
+  @override
+  String get paymentMethodBANK_TRANSFER => 'Bank transfer';
+
+  @override
+  String get paymentMethodCARD => 'Card';
+
+  @override
+  String get paymentMethodOTHER => 'Other';
+
+  @override
+  String paymentReceivedOf(String paid, String expected) {
+    return '$paid of $expected received';
+  }
+
+  @override
+  String paymentCounts(int paid, int partly, int outstanding) {
+    return '$paid paid · $partly partly paid · $outstanding outstanding';
+  }
+
+  @override
+  String paymentOutstandingAmount(String amount) {
+    return '$amount outstanding';
+  }
+
+  @override
+  String get paymentReceived => 'Received';
+
+  @override
+  String get paymentExpected => 'Expected';
+
+  @override
+  String get paymentStillOutstanding => 'Outstanding';
+
+  @override
+  String get paymentsNoMatch => 'No payments match';
+
+  @override
+  String get paymentsNoMatchHint => 'Try another status, class or name.';
+
+  @override
+  String get paymentsNoStudents => 'No students were in a class this month.';
+
+  @override
+  String get recordPayment => 'Record payment';
+
+  @override
+  String get amountExpected => 'Amount expected';
+
+  @override
+  String get amountPaid => 'Amount paid';
+
+  @override
+  String get amountPaidTooMuch => 'This is more than the amount expected';
+
+  @override
+  String get paidInFull => 'Paid in full';
+
+  @override
+  String get paidOnLabel => 'Date paid';
+
+  @override
+  String get paymentMethodLabel => 'Method';
+
+  @override
+  String get paymentMethodRequired => 'Choose how it was paid';
+
+  @override
+  String get paidByLabel => 'Paid by';
+
+  @override
+  String get paidByNotRecorded => 'Not recorded';
+
+  @override
+  String get paymentNote => 'Note';
+
+  @override
+  String get paymentSaved => 'Payment saved';
+
+  @override
+  String get removeFromMonth => 'Remove from this month';
+
+  @override
+  String removeFromMonthConfirm(String name, String month) {
+    return '$name will no longer be charged for $month.';
+  }
+
+  @override
+  String get removedFromMonth => 'Removed from this month';
+
+  @override
+  String get removeFromMonthNotAllowed =>
+      'Set the amount paid to zero before removing a student from a month.';
+
+  @override
+  String get changeFee => 'Change monthly fee';
+
+  @override
+  String get changeFeeHint =>
+      'Students on the old fee move to the new one. Anyone with their own amount keeps it.';
+
+  @override
+  String get feeChanged => 'Monthly fee changed';
+
+  @override
+  String get addNewStudents => 'Add students who joined';
+
+  @override
+  String studentsAdded(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count students added',
+      one: '1 student added',
+      zero: 'Everyone is already on this month',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get studentPaymentsTitle => 'Payments';
+
+  @override
+  String get studentNoPayments => 'No fees recorded yet';
+
+  @override
+  String paymentPaidOn(String date) {
+    return 'Paid $date';
+  }
 }

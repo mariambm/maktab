@@ -42,10 +42,12 @@ service layer.
 | `progress` | The progress scale, scores per lesson and subject, targets per period and the class overview (Phase 4) |
 | `behaviour` | Behaviour observations per lesson (Phase 4) |
 | `uniform` | Uniform observations per lesson (Phase 4) |
+| `payment` | Months of fees, payments per student and month totals (Phase 5) |
 | `dev` | Development seed accounts and fake school data (`dev` profile only) |
 
 The Phase 4 modules reach lessons and students through `LessonAccess` and `StudentAccess`, so they apply the same
-scope as the register. Modules for payments and reports are added in their phases.
+scope as the register. The `payment` module scopes payments by the student's current class the same way.
+Reports are added in their phase.
 
 ## Authentication and authorisation
 
