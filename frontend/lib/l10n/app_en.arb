@@ -13,8 +13,9 @@
   "navReports": "Reports",
   "navSettings": "Settings",
   "navMore": "More",
-  "loginTitle": "Welcome to Maktab",
+  "loginTitle": "Welcome back",
   "loginSubtitle": "Sign in to continue",
+  "loginTagline": "Learning and growing together",
   "emailLabel": "Email",
   "passwordLabel": "Password",
   "showPassword": "Show password",
@@ -534,5 +535,13 @@
   "progressLatestScore": "Latest score",
   "progressNoScoreYet": "No score yet this period",
   "progressPeriodOf": "{period} \u00b7 {start} to {end}",
-  "@progressPeriodOf": {"placeholders": {"period": {"type": "String"}, "start": {"type": "String"}, "end": {"type": "String"}}}
+  "@progressPeriodOf": {"placeholders": {"period": {"type": "String"}, "start": {"type": "String"}, "end": {"type": "String"}}},
+  "dashboardClasses": "Classes",
+  "dashboardStudents": "Students",
+  "dashboardLessonsToday": "Lessons today",
+  "dashboardTodaysLessons": "Today's lessons",
+  "dashboardNoLessonsToday": "No lessons today.",
+  "dashboardAllLessons": "All lessons",
+  "dashboardOpen": "Open",
+  "dashboardView": "View"
 }

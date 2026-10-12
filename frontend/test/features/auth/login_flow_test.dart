@@ -3,9 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:maktab/app.dart';
 import 'package:maktab/core/api/api_providers.dart';
+import 'package:maktab/core/api/page_result.dart';
 import 'package:maktab/core/auth/auth_repository.dart';
 import 'package:maktab/core/errors/api_exception.dart';
 import 'package:maktab/core/organisation/organisation_name.dart';
+import 'package:maktab/features/classes/data/classes_repository.dart';
+import 'package:maktab/features/lessons/data/lessons_repository.dart';
+import 'package:maktab/features/students/data/students_repository.dart';
 import 'package:mocktail/mocktail.dart';
 
 import '../../helpers.dart';
@@ -29,6 +33,12 @@ void main() {
         overrides: [
           authRepositoryProvider.overrideWithValue(repository),
           organisationNameProvider.overrideWith((ref) async => 'Jamiyat Tabligh UL Islam'),
+          // The dashboard's figures, so it does not reach for a server.
+          classesProvider.overrideWith((ref) async => []),
+          studentsProvider.overrideWith(
+            (ref, filter) async => const PageResult(items: [], page: 0, size: 20, totalItems: 0),
+          ),
+          lessonsOnDateProvider.overrideWith((ref, date) async => []),
         ],
         child: const MaktabApp(),
       ),
@@ -38,7 +48,7 @@ void main() {
 
   testWidgets('starts on the login screen when signed out', (tester) async {
     await pumpApp(tester);
-    expect(find.text('Welcome to Maktab'), findsOneWidget);
+    expect(find.text('Welcome back'), findsOneWidget);
     expect(find.text('Jamiyat Tabligh UL Islam'), findsOneWidget);
   });
 
@@ -59,9 +69,8 @@ void main() {
   });
 
   testWidgets("shows the server's message when sign-in fails", (tester) async {
-    when(() => repository.signIn(any(), any())).thenThrow(
-      const ApiException(code: 'UNAUTHENTICATED', statusCode: 401, message: 'Invalid email or password'),
-    );
+    when(() => repository.signIn(any(), any()))
+        .thenThrow(const ApiException(code: 'UNAUTHENTICATED', statusCode: 401, message: 'Invalid email or password'));
     await pumpApp(tester);
 
     await tester.enterText(find.byKey(const Key('login.email')), 'aisha@test.local');

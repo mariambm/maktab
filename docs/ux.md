@@ -15,22 +15,30 @@ Material 3 with `MaktabTheme.light()`:
 
 | Token | Value |
 | --- | --- |
-| Primary (deep teal) | `#0F5B5B` |
-| Primary dark | `#0A4242` |
+| Primary (deep green) | `#0E5240` |
+| Primary dark | `#0A3D30` |
+| Sidebar / selected item | `#0B4033` / `#1C6A54` |
+| Primary container (mint) | `#DDEFE7` |
 | Accent (gold, sparingly) | `#B8913A` |
-| Background (soft neutral) | `#F6F5F1` |
-| Surface | white |
-| Outline | `#DCD9D0` |
-| Corner radius | 12 |
+| Background | `#F4F6F5` |
+| Surface | white, with a `#E0E6E3` border instead of a shadow |
+| Status | green Present / Paid, orange Late / Partly paid, red Absent / Outstanding, always with a label |
+| Corner radius | 10 |
 | Spacing scale | 4, 8, 16, 24, 32 |
 
-The only decorative Islamic motif is a faint eight-pointed star pattern behind the logo on the login screen.
-The mosque's name sits under the logo there; if the server cannot be reached the screen simply shows the logo.
+The logo is a simple drawn mosque (dome with crescent, two minarets), so it stays sharp and takes any colour. On the
+sign-in screen a faint mosque skyline sits behind it, beside the "Welcome back" form on wide screens and above it on
+phones, together with the mosque's name; if the server cannot be reached the screen simply shows the logo. There
+are no other decorative motifs.
+
+The dashboard greets the user and shows a few figures in tiles (active classes, active students, lessons today,
+each only when the user may see them), then today's lessons with a button to open the register or view a lesson.
 
 ## Navigation
 
-Phones: a bottom bar with four role-specific destinations plus "More". Wide screens (≥ 840 px): a navigation rail
-with every permitted destination.
+Phones: a bottom bar with four role-specific destinations plus "More". Wide screens (≥ 840 px): a dark green
+sidebar with the logo and mosque name, every permitted destination, and Settings and Sign out at the bottom; a white
+top bar shows the mosque's name and the signed-in user's name, roles and initials.
 
 | Role | Bottom bar |
 | --- | --- |
