@@ -131,3 +131,23 @@ modules built in later phases.
 Create and edit routes need the module's write permission; a teacher typing `/students/new` is sent to the dashboard.
 Failed loads show the error with "Try again" rather than retrying silently.
 
+## Phase 6 screens
+
+- **Dashboard** gains "Last four weeks": attendance rate, late, absent, students below the threshold, targets behind
+  and, for users who may see payments, what is outstanding for the latest month. Each tile opens Reports; a figure
+  that needs attention carries a warning icon as well as its colour.
+- **Reports** has tabs for Attendance, Progress, Behaviour and, with payment access, Payments. Attendance and
+  Behaviour choose 4 weeks, 3 months or 12 months and a class (all classes by default); Progress chooses a class.
+  - Attendance: the rate, lessons, present, late and absent; each class with its percentage; the students below the
+    mosque's threshold, lowest first; and how often each absence reason was given.
+  - Progress: per class the period running now, its average score with a bar, and how many targets are behind; then
+    every student behind target. With one class chosen, its average per period shows how it is going.
+  - Behaviour: observations, good and needs-attention counts, the students for whom something that needs attention
+    came back three times or more, and every behaviour by how often it was seen.
+  - Payments: received, outstanding and expected over the last twelve months, each month with its counts, and who
+    still owes, most first.
+- **Student report** (from a student in any report, or the chart button on the Student Profile): attendance, progress
+  per subject, targets, behaviour and uniform for the chosen period (3 months by default), and fees for users who
+  may see payments.
+- Teachers see the same reports over their own classes, without Payments.
+

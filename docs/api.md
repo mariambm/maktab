@@ -124,6 +124,23 @@ Statuses (`PAID`, `PARTIALLY_PAID`, `OUTSTANDING`) are worked out from the amoun
 `BANK_TRANSFER`, `CARD`, `OTHER`. Changes are audited as `PAYMENT_PERIOD_CREATED`, `PAYMENT_PERIOD_UPDATED`,
 `PAYMENT_UPDATED` and `PAYMENT_REMOVED`, with amounts but without the note.
 
+## Phase 6 endpoints
+
+Reports are read-only and calculated on request; nothing is stored. Every report counts only the classes the caller
+may see: a lesson belongs to the class it was given in, so a teacher's reports cover the lessons of their own
+classes, and a `classId` outside their classes is `404`. Without `from` and `to` a report covers the last four
+weeks, today included; `from` must be on or before `to`, and the range may be at most a year (`400` otherwise).
+Attendance percentages count present and late as attended and are `null` when no register was taken.
+
+| Method | Path | Permission | Purpose |
+| --- | --- | --- | --- |
+| GET | `/api/reports/dashboard` | `REPORT_READ` | The dashboard figures: `attendance` of the last four weeks `{from, to, attendancePercentage, late, absent, studentsBelowThreshold, thresholdPercentage}`, `progress` `{targets, targetsBehind}` in the periods running now, and `payments` `{month, currency, totals}` for the latest month up to now (`null` without `PAYMENT_READ`) |
+| GET | `/api/reports/attendance?from=&to=&classId=` | `REPORT_READ` | `{from, to, thresholdPercentage, totals, absenceReasons: {SICK: 2, …}, classes: [{classId, className, counts}], belowThreshold: [{studentId, firstName, lastName, classId, className, counts}]}` with `counts` = `{lessons, records, present, late, absent, attendancePercentage}`; students lowest first |
+| GET | `/api/reports/progress?classId=` | `REPORT_READ` | Per active class the period running now, `students`, `scores`, `averageScore` (one decimal, all subjects), `targets` and `targetsBehind`; `behindTarget` lists every target whose current percentage is below the target percentage. With `classId`, `periods` gives the class's average per period for its last six periods |
+| GET | `/api/reports/behaviour?from=&to=&classId=` | `REPORT_READ` | `{from, to, observations, behaviours: [{behaviour, good, count}], recurringAtLeast: 3, recurring: [{studentId, firstName, lastName, className, behaviour, count, lastSeen}]}`; `recurring` lists a behaviour that needs attention seen three times or more for one student |
+| GET | `/api/reports/payments` | `REPORT_READ` and `PAYMENT_READ` | The last twelve months up to now `{currency, months, totals, studentsOwing: [{studentId, firstName, lastName, className, months, outstandingAmount}]}`, most owed first |
+| GET | `/api/reports/students/{id}?from=&to=` | `REPORT_READ` | One student: `attendance` with absence reasons, `progress` per subject (average, latest score and label), the `targets` of periods overlapping the range, `behaviour` counts, `uniform` `{inOrder, partiallyInOrder, notInOrder}`, and `payments` `{currency, months, monthsOwing, expectedTotal, paidTotal, outstandingTotal}` only for callers with `PAYMENT_READ`. `404` outside the caller's classes |
+
 ## Permissions per role
 
 | Permission | ADMIN | ADMINISTRATOR | TEACHER |

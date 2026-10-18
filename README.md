@@ -25,7 +25,10 @@ uniform, payments and reports. It replaces an Excel-based administration.
 - Phase 5 (Finance) is done: months of fees in GBP, a payment per student and month with paid, partly paid and
   outstanding worked out from the amounts, and month totals.
 
-Reports still show a placeholder screen. See the roadmap in
+- Phase 6 (Reporting) is done: dashboard figures for the last four weeks and reports on attendance, progress,
+  behaviour, fees and single students, all calculated on request over the classes the user may see.
+
+See the roadmap in
 [docs/architecture.md](docs/architecture.md#roadmap).
 
 ## Run it locally

@@ -43,11 +43,13 @@ service layer.
 | `behaviour` | Behaviour observations per lesson (Phase 4) |
 | `uniform` | Uniform observations per lesson (Phase 4) |
 | `payment` | Months of fees, payments per student and month totals (Phase 5) |
+| `report` | Read-only reports and dashboard figures, counted from the other modules' tables on request (Phase 6) |
 | `dev` | Development seed accounts and fake school data (`dev` profile only) |
 
 The Phase 4 modules reach lessons and students through `LessonAccess` and `StudentAccess`, so they apply the same
 scope as the register. The `payment` module scopes payments by the student's current class the same way.
-Reports are added in their phase.
+The `report` module only reads: its aggregate queries (`ReportQueries`) take the caller's `AccessScope` like the
+other repositories, so a report counts exactly the lessons, students and payments the caller could open one by one.
 
 ## Authentication and authorisation
 
@@ -92,8 +94,8 @@ Reports are added in their phase.
 
 1. **Foundation** (done)
 2. **Administration** (done): students, parents, classes, class enrolments
-3. Teaching: curriculum, lessons, attendance, Today's lessons
-4. Student development: progress, targets, behaviour, uniform
-5. Finance: payment periods, payments
-6. Reporting: dashboards and reports
+3. **Teaching** (done): curriculum, lessons, attendance, Today's lessons
+4. **Student development** (done): progress, targets, behaviour, uniform
+5. **Finance** (done): payment periods, payments
+6. **Reporting** (done): dashboard figures, attendance, progress, behaviour, payment and student reports
 7. Quality: security, permission, performance, UX and accessibility reviews

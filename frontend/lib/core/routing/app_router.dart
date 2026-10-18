@@ -14,13 +14,14 @@ import '../../features/curriculum/presentation/curriculum_screen.dart';
 import '../../features/dashboard/presentation/dashboard_screen.dart';
 import '../../features/lessons/presentation/lesson_detail_screen.dart';
 import '../../features/lessons/presentation/lessons_screen.dart';
-import '../../features/modules/presentation/module_placeholder_screen.dart';
 import '../../features/parents/presentation/parent_detail_screen.dart';
 import '../../features/parents/presentation/parent_form_screen.dart';
 import '../../features/parents/presentation/parents_screen.dart';
 import '../../features/payments/presentation/payment_period_screen.dart';
 import '../../features/payments/presentation/payments_screen.dart';
 import '../../features/progress/presentation/progress_screen.dart';
+import '../../features/reports/presentation/reports_screen.dart';
+import '../../features/reports/presentation/student_report_screen.dart';
 import '../../features/settings/presentation/settings_screen.dart';
 import '../../features/settings/presentation/user_detail_screen.dart';
 import '../../features/settings/presentation/user_form_screen.dart';
@@ -63,6 +64,10 @@ final routerProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: 'edit',
                     builder: (_, state) => StudentFormScreen(studentId: state.pathParameters['id']),
+                  ),
+                  GoRoute(
+                    path: 'report',
+                    builder: (_, state) => StudentReportScreen(studentId: state.pathParameters['id']!),
                   ),
                 ],
               ),
@@ -141,11 +146,7 @@ final routerProvider = Provider<GoRouter>((ref) {
               ),
             ],
           ),
-          for (final module in _placeholderModules)
-            GoRoute(
-              path: module.$1,
-              builder: (context, _) => ModulePlaceholderScreen(destinationId: module.$2, phase: module.$3),
-            ),
+          GoRoute(path: '/reports', builder: (_, _) => const ReportsScreen()),
           GoRoute(
             path: '/settings',
             builder: (_, _) => const SettingsScreen(),
@@ -176,10 +177,5 @@ final routerProvider = Provider<GoRouter>((ref) {
   ref.onDispose(router.dispose);
   return router;
 });
-
-/// Modules built in later phases: (path, destination id, roadmap phase).
-const _placeholderModules = [
-  ('/reports', 'reports', 6),
-];
 
 AppDestination destinationById(String id) => allDestinations.firstWhere((d) => d.id == id);
