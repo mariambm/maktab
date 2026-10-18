@@ -110,20 +110,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your lessons for today will appear here once classes are set up.';
 
   @override
-  String get adminDashboardHint =>
-      'An overview of attendance, progress and payments will appear here.';
-
-  @override
-  String moduleComingTitle(String module) {
-    return '$module is on its way';
-  }
-
-  @override
-  String moduleComingBody(int phase) {
-    return 'This part of Maktab is built in phase $phase of the roadmap.';
-  }
-
-  @override
   String get changePasswordTitle => 'Change password';
 
   @override
@@ -1411,4 +1397,251 @@ class AppLocalizationsEn extends AppLocalizations {
   String paymentPaidOn(String date) {
     return 'Paid $date';
   }
+
+  @override
+  String get reportsTabAttendance => 'Attendance';
+
+  @override
+  String get reportsTabProgress => 'Progress';
+
+  @override
+  String get reportsTabBehaviour => 'Behaviour';
+
+  @override
+  String get reportsTabPayments => 'Payments';
+
+  @override
+  String get reportRangeFourWeeks => '4 weeks';
+
+  @override
+  String get reportRangeThreeMonths => '3 months';
+
+  @override
+  String get reportRangeYear => '12 months';
+
+  @override
+  String reportDates(String from, String to) {
+    return '$from – $to';
+  }
+
+  @override
+  String get reportAttendanceRate => 'Attendance rate';
+
+  @override
+  String get reportLessons => 'Lessons';
+
+  @override
+  String get reportByClass => 'By class';
+
+  @override
+  String get reportAbsenceReasons => 'Absence reasons';
+
+  @override
+  String reportBelowThreshold(int threshold) {
+    return 'Below $threshold%';
+  }
+
+  @override
+  String reportBelowThresholdNone(int threshold) {
+    return 'Everyone is at or above $threshold%.';
+  }
+
+  @override
+  String reportAttendedOf(int attended, int total) {
+    return '$attended of $total attended';
+  }
+
+  @override
+  String reportLateAbsent(int late, int absent) {
+    return '$late late · $absent absent';
+  }
+
+  @override
+  String get reportNoRegisters => 'No registers were taken in this period.';
+
+  @override
+  String get reportNoClasses => 'No classes to report on.';
+
+  @override
+  String get reportNoPeriod => 'No period running now';
+
+  @override
+  String get reportAverageScore => 'Average score';
+
+  @override
+  String reportAverageOf(String average) {
+    return '$average of 5';
+  }
+
+  @override
+  String get reportNoScores => 'No scores yet';
+
+  @override
+  String reportTargetsBehind(int behind, int total) {
+    return '$behind of $total targets behind';
+  }
+
+  @override
+  String get reportNoTargetsSet => 'No targets set';
+
+  @override
+  String get reportBehindTarget => 'Behind target';
+
+  @override
+  String get reportBehindTargetNone => 'No one is behind their target.';
+
+  @override
+  String reportCurrentOfTarget(String current, String target) {
+    return 'Now $current% · target $target%';
+  }
+
+  @override
+  String get reportPeriodTrend => 'Average score per period';
+
+  @override
+  String reportScoreCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count scores',
+      one: '1 score',
+      zero: 'No scores',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get reportObservations => 'Observations';
+
+  @override
+  String get reportGood => 'Good';
+
+  @override
+  String get reportNeedsAttention => 'Needs attention';
+
+  @override
+  String get reportMostSeen => 'Seen most often';
+
+  @override
+  String reportRecurring(int count) {
+    return 'Came back $count times or more';
+  }
+
+  @override
+  String reportRecurringNone(int count) {
+    return 'Nothing that needs attention came back $count times or more.';
+  }
+
+  @override
+  String reportTimes(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count times',
+      one: 'once',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String reportLastSeen(String date) {
+    return 'last $date';
+  }
+
+  @override
+  String get reportNoObservations => 'No behaviour noted in this period.';
+
+  @override
+  String get reportReceived => 'Received';
+
+  @override
+  String get reportOutstanding => 'Outstanding';
+
+  @override
+  String get reportExpected => 'Expected';
+
+  @override
+  String reportFees(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count fees',
+      one: '1 fee',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get reportMonths => 'Months';
+
+  @override
+  String get reportStudentsOwing => 'Still owing';
+
+  @override
+  String get reportNobodyOwes => 'Nobody owes anything for these months.';
+
+  @override
+  String reportMonthsOwing(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count months',
+      one: '1 month',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get reportNoMonths => 'No months have been added yet.';
+
+  @override
+  String get reportUniform => 'Uniform';
+
+  @override
+  String get reportUniformNone => 'No uniform notes in this period.';
+
+  @override
+  String get reportTargets => 'Targets';
+
+  @override
+  String get reportNoTargets => 'No targets in this period.';
+
+  @override
+  String get reportNoProgress => 'No scores in this period.';
+
+  @override
+  String reportProgressLatest(String score, String label, String date) {
+    return 'Latest $score $label · $date';
+  }
+
+  @override
+  String get reportStudentFees => 'Fees';
+
+  @override
+  String get reportNoFees => 'No fees in this period.';
+
+  @override
+  String get studentReport => 'Report';
+
+  @override
+  String get dashboardLastFourWeeks => 'Last four weeks';
+
+  @override
+  String get dashboardAttendance => 'Attendance';
+
+  @override
+  String dashboardBelowThreshold(int threshold) {
+    return 'Below $threshold%';
+  }
+
+  @override
+  String get dashboardBehindTarget => 'Behind target';
+
+  @override
+  String dashboardOutstanding(String month) {
+    return 'Outstanding $month';
+  }
+
+  @override
+  String get dashboardViewReports => 'View reports';
 }

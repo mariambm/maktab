@@ -22,8 +22,8 @@ public interface LessonAttendanceRepository extends JpaRepository<LessonAttendan
                    a.absenceReason as absenceReason, a.note as note
             from LessonAttendance a join Lesson l on l.id = a.lessonId
             where a.studentId = :studentId
-              and (:from is null or l.lessonDate >= :from)
-              and (:to is null or l.lessonDate <= :to)
+              and (cast(:from as LocalDate) is null or l.lessonDate >= :from)
+              and (cast(:to as LocalDate) is null or l.lessonDate <= :to)
             order by l.lessonDate desc, l.startTime desc
             """)
     List<StudentAttendanceRow> findForStudent(@Param("studentId") UUID studentId, @Param("from") LocalDate from,
@@ -34,8 +34,8 @@ public interface LessonAttendanceRepository extends JpaRepository<LessonAttendan
             select a.status as status, count(a) as total from LessonAttendance a
             join Lesson l on l.id = a.lessonId
             where a.studentId in :studentIds
-              and (:from is null or l.lessonDate >= :from)
-              and (:to is null or l.lessonDate <= :to)
+              and (cast(:from as LocalDate) is null or l.lessonDate >= :from)
+              and (cast(:to as LocalDate) is null or l.lessonDate <= :to)
             group by a.status
             """)
     List<StatusCount> countByStatus(@Param("studentIds") Collection<UUID> studentIds,

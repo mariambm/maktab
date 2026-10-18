@@ -286,24 +286,6 @@ abstract class AppLocalizations {
   /// **'Your lessons for today will appear here once classes are set up.'**
   String get teacherDashboardHint;
 
-  /// No description provided for @adminDashboardHint.
-  ///
-  /// In en, this message translates to:
-  /// **'An overview of attendance, progress and payments will appear here.'**
-  String get adminDashboardHint;
-
-  /// No description provided for @moduleComingTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'{module} is on its way'**
-  String moduleComingTitle(String module);
-
-  /// No description provided for @moduleComingBody.
-  ///
-  /// In en, this message translates to:
-  /// **'This part of Maktab is built in phase {phase} of the roadmap.'**
-  String moduleComingBody(int phase);
-
   /// No description provided for @changePasswordTitle.
   ///
   /// In en, this message translates to:
@@ -2673,6 +2655,378 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Paid {date}'**
   String paymentPaidOn(String date);
+
+  /// No description provided for @reportsTabAttendance.
+  ///
+  /// In en, this message translates to:
+  /// **'Attendance'**
+  String get reportsTabAttendance;
+
+  /// No description provided for @reportsTabProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get reportsTabProgress;
+
+  /// No description provided for @reportsTabBehaviour.
+  ///
+  /// In en, this message translates to:
+  /// **'Behaviour'**
+  String get reportsTabBehaviour;
+
+  /// No description provided for @reportsTabPayments.
+  ///
+  /// In en, this message translates to:
+  /// **'Payments'**
+  String get reportsTabPayments;
+
+  /// No description provided for @reportRangeFourWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'4 weeks'**
+  String get reportRangeFourWeeks;
+
+  /// No description provided for @reportRangeThreeMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'3 months'**
+  String get reportRangeThreeMonths;
+
+  /// No description provided for @reportRangeYear.
+  ///
+  /// In en, this message translates to:
+  /// **'12 months'**
+  String get reportRangeYear;
+
+  /// No description provided for @reportDates.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} – {to}'**
+  String reportDates(String from, String to);
+
+  /// No description provided for @reportAttendanceRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Attendance rate'**
+  String get reportAttendanceRate;
+
+  /// No description provided for @reportLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons'**
+  String get reportLessons;
+
+  /// No description provided for @reportByClass.
+  ///
+  /// In en, this message translates to:
+  /// **'By class'**
+  String get reportByClass;
+
+  /// No description provided for @reportAbsenceReasons.
+  ///
+  /// In en, this message translates to:
+  /// **'Absence reasons'**
+  String get reportAbsenceReasons;
+
+  /// No description provided for @reportBelowThreshold.
+  ///
+  /// In en, this message translates to:
+  /// **'Below {threshold}%'**
+  String reportBelowThreshold(int threshold);
+
+  /// No description provided for @reportBelowThresholdNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Everyone is at or above {threshold}%.'**
+  String reportBelowThresholdNone(int threshold);
+
+  /// No description provided for @reportAttendedOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{attended} of {total} attended'**
+  String reportAttendedOf(int attended, int total);
+
+  /// No description provided for @reportLateAbsent.
+  ///
+  /// In en, this message translates to:
+  /// **'{late} late · {absent} absent'**
+  String reportLateAbsent(int late, int absent);
+
+  /// No description provided for @reportNoRegisters.
+  ///
+  /// In en, this message translates to:
+  /// **'No registers were taken in this period.'**
+  String get reportNoRegisters;
+
+  /// No description provided for @reportNoClasses.
+  ///
+  /// In en, this message translates to:
+  /// **'No classes to report on.'**
+  String get reportNoClasses;
+
+  /// No description provided for @reportNoPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'No period running now'**
+  String get reportNoPeriod;
+
+  /// No description provided for @reportAverageScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Average score'**
+  String get reportAverageScore;
+
+  /// No description provided for @reportAverageOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{average} of 5'**
+  String reportAverageOf(String average);
+
+  /// No description provided for @reportNoScores.
+  ///
+  /// In en, this message translates to:
+  /// **'No scores yet'**
+  String get reportNoScores;
+
+  /// No description provided for @reportTargetsBehind.
+  ///
+  /// In en, this message translates to:
+  /// **'{behind} of {total} targets behind'**
+  String reportTargetsBehind(int behind, int total);
+
+  /// No description provided for @reportNoTargetsSet.
+  ///
+  /// In en, this message translates to:
+  /// **'No targets set'**
+  String get reportNoTargetsSet;
+
+  /// No description provided for @reportBehindTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Behind target'**
+  String get reportBehindTarget;
+
+  /// No description provided for @reportBehindTargetNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No one is behind their target.'**
+  String get reportBehindTargetNone;
+
+  /// No description provided for @reportCurrentOfTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Now {current}% · target {target}%'**
+  String reportCurrentOfTarget(String current, String target);
+
+  /// No description provided for @reportPeriodTrend.
+  ///
+  /// In en, this message translates to:
+  /// **'Average score per period'**
+  String get reportPeriodTrend;
+
+  /// No description provided for @reportScoreCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No scores} =1{1 score} other{{count} scores}}'**
+  String reportScoreCount(int count);
+
+  /// No description provided for @reportObservations.
+  ///
+  /// In en, this message translates to:
+  /// **'Observations'**
+  String get reportObservations;
+
+  /// No description provided for @reportGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get reportGood;
+
+  /// No description provided for @reportNeedsAttention.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs attention'**
+  String get reportNeedsAttention;
+
+  /// No description provided for @reportMostSeen.
+  ///
+  /// In en, this message translates to:
+  /// **'Seen most often'**
+  String get reportMostSeen;
+
+  /// No description provided for @reportRecurring.
+  ///
+  /// In en, this message translates to:
+  /// **'Came back {count} times or more'**
+  String reportRecurring(int count);
+
+  /// No description provided for @reportRecurringNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing that needs attention came back {count} times or more.'**
+  String reportRecurringNone(int count);
+
+  /// No description provided for @reportTimes.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{once} other{{count} times}}'**
+  String reportTimes(int count);
+
+  /// No description provided for @reportLastSeen.
+  ///
+  /// In en, this message translates to:
+  /// **'last {date}'**
+  String reportLastSeen(String date);
+
+  /// No description provided for @reportNoObservations.
+  ///
+  /// In en, this message translates to:
+  /// **'No behaviour noted in this period.'**
+  String get reportNoObservations;
+
+  /// No description provided for @reportReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get reportReceived;
+
+  /// No description provided for @reportOutstanding.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding'**
+  String get reportOutstanding;
+
+  /// No description provided for @reportExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected'**
+  String get reportExpected;
+
+  /// No description provided for @reportFees.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 fee} other{{count} fees}}'**
+  String reportFees(int count);
+
+  /// No description provided for @reportMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'Months'**
+  String get reportMonths;
+
+  /// No description provided for @reportStudentsOwing.
+  ///
+  /// In en, this message translates to:
+  /// **'Still owing'**
+  String get reportStudentsOwing;
+
+  /// No description provided for @reportNobodyOwes.
+  ///
+  /// In en, this message translates to:
+  /// **'Nobody owes anything for these months.'**
+  String get reportNobodyOwes;
+
+  /// No description provided for @reportMonthsOwing.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 month} other{{count} months}}'**
+  String reportMonthsOwing(int count);
+
+  /// No description provided for @reportNoMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'No months have been added yet.'**
+  String get reportNoMonths;
+
+  /// No description provided for @reportUniform.
+  ///
+  /// In en, this message translates to:
+  /// **'Uniform'**
+  String get reportUniform;
+
+  /// No description provided for @reportUniformNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No uniform notes in this period.'**
+  String get reportUniformNone;
+
+  /// No description provided for @reportTargets.
+  ///
+  /// In en, this message translates to:
+  /// **'Targets'**
+  String get reportTargets;
+
+  /// No description provided for @reportNoTargets.
+  ///
+  /// In en, this message translates to:
+  /// **'No targets in this period.'**
+  String get reportNoTargets;
+
+  /// No description provided for @reportNoProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'No scores in this period.'**
+  String get reportNoProgress;
+
+  /// No description provided for @reportProgressLatest.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest {score} {label} · {date}'**
+  String reportProgressLatest(String score, String label, String date);
+
+  /// No description provided for @reportStudentFees.
+  ///
+  /// In en, this message translates to:
+  /// **'Fees'**
+  String get reportStudentFees;
+
+  /// No description provided for @reportNoFees.
+  ///
+  /// In en, this message translates to:
+  /// **'No fees in this period.'**
+  String get reportNoFees;
+
+  /// No description provided for @studentReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Report'**
+  String get studentReport;
+
+  /// No description provided for @dashboardLastFourWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'Last four weeks'**
+  String get dashboardLastFourWeeks;
+
+  /// No description provided for @dashboardAttendance.
+  ///
+  /// In en, this message translates to:
+  /// **'Attendance'**
+  String get dashboardAttendance;
+
+  /// No description provided for @dashboardBelowThreshold.
+  ///
+  /// In en, this message translates to:
+  /// **'Below {threshold}%'**
+  String dashboardBelowThreshold(int threshold);
+
+  /// No description provided for @dashboardBehindTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'Behind target'**
+  String get dashboardBehindTarget;
+
+  /// No description provided for @dashboardOutstanding.
+  ///
+  /// In en, this message translates to:
+  /// **'Outstanding {month}'**
+  String dashboardOutstanding(String month);
+
+  /// No description provided for @dashboardViewReports.
+  ///
+  /// In en, this message translates to:
+  /// **'View reports'**
+  String get dashboardViewReports;
 }
 
 class _AppLocalizationsDelegate

@@ -8,17 +8,22 @@ import '../../../core/auth/session_controller.dart';
 import '../../../core/formatting.dart';
 import '../../../core/theme/maktab_colors.dart';
 import '../../../core/theme/maktab_spacing.dart';
+import '../../../core/widgets/stat_tile.dart';
+import '../../../core/widgets/state_views.dart';
 import '../../../l10n/generated/app_localizations.dart';
 import '../../classes/data/classes_repository.dart';
 import '../../lessons/data/lesson_models.dart';
 import '../../lessons/data/lessons_repository.dart';
+import '../../payments/presentation/payment_labels.dart';
+import '../../reports/data/report_models.dart';
+import '../../reports/data/reports_repository.dart';
 import '../../students/data/student_models.dart';
 import '../../students/data/students_repository.dart';
 
 final _longDate = DateFormat('EEEE d MMMM yyyy', 'en');
 
-/// The dashboard: a greeting, a few figures the user may see, and today's lessons. Reports and their overview come
-/// in Phase 6.
+/// The dashboard: a greeting, a few figures the user may see, today's lessons, and the last four weeks at a glance
+/// with a way into the reports.
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
@@ -48,22 +53,22 @@ class DashboardScreen extends ConsumerWidget {
             style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
           ),
           const SizedBox(height: MaktabSpacing.md),
-          _StatRow(
+          StatRow(
             tiles: [
               if (classes != null)
-                _StatTile(
+                StatTile(
                   value: '${classes.where((c) => c.active).length}',
                   label: l10n.dashboardClasses,
                   color: MaktabColors.primaryDark,
                 ),
               if (students != null)
-                _StatTile(
+                StatTile(
                   value: '${students.totalItems}',
                   label: l10n.dashboardStudents,
                   color: MaktabColors.primaryDark,
                 ),
               if (lessons?.value != null)
-                _StatTile(
+                StatTile(
                   value: '${lessons!.value!.length}',
                   label: l10n.dashboardLessonsToday,
                   color: MaktabColors.success,
@@ -71,75 +76,8 @@ class DashboardScreen extends ConsumerWidget {
             ],
           ),
           if (lessons != null) ...[const SizedBox(height: MaktabSpacing.md), _TodaysLessons(lessons: lessons)],
-          if (!user.isTeacherOnly) ...[
-            const SizedBox(height: MaktabSpacing.md),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(MaktabSpacing.md),
-                child: Row(
-                  children: [
-                    Icon(Icons.insights_outlined, color: theme.colorScheme.primary),
-                    const SizedBox(width: MaktabSpacing.md),
-                    Expanded(child: Text(l10n.adminDashboardHint)),
-                  ],
-                ),
-              ),
-            ),
-          ],
+          if (user.can(Permissions.reportRead)) ...[const SizedBox(height: MaktabSpacing.md), const _RecentFigures()],
         ],
-      ),
-    );
-  }
-}
-
-/// Puts the figures side by side, sharing the width on a phone and at most 180 wide each on a large screen.
-class _StatRow extends StatelessWidget {
-  const _StatRow({required this.tiles});
-
-  final List<Widget> tiles;
-
-  @override
-  Widget build(BuildContext context) {
-    if (tiles.isEmpty) {
-      return const SizedBox.shrink();
-    }
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        const gap = MaktabSpacing.sm;
-        final width = ((constraints.maxWidth - gap * (tiles.length - 1)) / tiles.length).clamp(0.0, 180.0);
-        return Wrap(
-          spacing: gap,
-          runSpacing: gap,
-          children: [for (final tile in tiles) SizedBox(width: width, child: tile)],
-        );
-      },
-    );
-  }
-}
-
-class _StatTile extends StatelessWidget {
-  const _StatTile({required this.value, required this.label, required this.color});
-
-  final String value;
-  final String label;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: MaktabSpacing.md, horizontal: MaktabSpacing.sm),
-        child: Column(
-          children: [
-            Text(
-              value,
-              style: theme.textTheme.headlineMedium?.copyWith(color: color, fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(height: MaktabSpacing.xs),
-            Text(label, style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
-          ],
-        ),
       ),
     );
   }
@@ -205,6 +143,98 @@ class _TodaysLessons extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Attendance of the last four weeks, targets behind and the latest month's fees, each opening the report behind it.
+class _RecentFigures extends ConsumerWidget {
+  const _RecentFigures();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context);
+    final theme = Theme.of(context);
+    final figures = ref.watch(dashboardFiguresProvider);
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(MaktabSpacing.md, MaktabSpacing.md, MaktabSpacing.md, MaktabSpacing.xs),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(l10n.dashboardLastFourWeeks, style: theme.textTheme.titleMedium),
+            const SizedBox(height: MaktabSpacing.sm),
+            switch (figures) {
+              AsyncData(:final value) => _figureTiles(context, value, l10n),
+              AsyncError(:final error) => Row(
+                children: [
+                  Expanded(child: Text(errorMessage(error, l10n), style: theme.textTheme.bodyMedium)),
+                  TextButton(onPressed: () => ref.invalidate(dashboardFiguresProvider), child: Text(l10n.retry)),
+                ],
+              ),
+              _ => const Padding(
+                padding: EdgeInsets.all(MaktabSpacing.md),
+                child: Center(child: CircularProgressIndicator()),
+              ),
+            },
+            Align(
+              alignment: Alignment.centerLeft,
+              child: TextButton(onPressed: () => context.go('/reports'), child: Text(l10n.dashboardViewReports)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _figureTiles(BuildContext context, DashboardFigures figures, AppLocalizations l10n) {
+    final attendance = figures.attendance;
+    final percentage = attendance.attendancePercentage;
+    final low = percentage != null && percentage < attendance.thresholdPercentage;
+    final payments = figures.payments;
+    void open() => context.go('/reports');
+    return StatRow(
+      tiles: [
+        StatTile(
+          value: percentage == null ? '–' : '$percentage%',
+          label: l10n.dashboardAttendance,
+          color: low ? MaktabColors.warning : MaktabColors.success,
+          icon: low ? Icons.warning_amber_rounded : null,
+          onTap: open,
+        ),
+        StatTile(
+          value: '${attendance.late}',
+          label: l10n.attendanceLATE,
+          color: attendance.late > 0 ? MaktabColors.warning : MaktabColors.primaryDark,
+          onTap: open,
+        ),
+        StatTile(
+          value: '${attendance.absent}',
+          label: l10n.attendanceABSENT,
+          color: attendance.absent > 0 ? MaktabColors.danger : MaktabColors.primaryDark,
+          onTap: open,
+        ),
+        StatTile(
+          value: '${attendance.studentsBelowThreshold}',
+          label: l10n.dashboardBelowThreshold(attendance.thresholdPercentage),
+          color: attendance.studentsBelowThreshold > 0 ? MaktabColors.warning : MaktabColors.primaryDark,
+          icon: attendance.studentsBelowThreshold > 0 ? Icons.warning_amber_rounded : null,
+          onTap: open,
+        ),
+        StatTile(
+          value: '${figures.progress.targetsBehind}',
+          label: l10n.dashboardBehindTarget,
+          color: figures.progress.targetsBehind > 0 ? MaktabColors.warning : MaktabColors.primaryDark,
+          onTap: open,
+        ),
+        if (payments != null)
+          StatTile(
+            value: formatMoney(payments.totals.outstandingTotal, payments.currency),
+            label: l10n.dashboardOutstanding(formatMonth(payments.month)),
+            color: payments.totals.outstandingTotal > 0 ? MaktabColors.danger : MaktabColors.success,
+            onTap: open,
+          ),
+      ],
     );
   }
 }

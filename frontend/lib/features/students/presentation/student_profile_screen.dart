@@ -43,12 +43,19 @@ class StudentProfileScreen extends ConsumerWidget {
     final student = ref.watch(studentProvider(studentId));
     final canWrite = ref.watch(sessionControllerProvider).value?.can(Permissions.studentWrite) ?? false;
     final canReadPayments = ref.watch(sessionControllerProvider).value?.can(Permissions.paymentRead) ?? false;
+    final canReadReports = ref.watch(sessionControllerProvider).value?.can(Permissions.reportRead) ?? false;
     final loaded = student.value;
 
     return Scaffold(
       appBar: AppBar(
         title: Text(loaded?.displayName ?? l10n.navStudents),
         actions: [
+          if (canReadReports && loaded != null)
+            IconButton(
+              tooltip: l10n.studentReport,
+              icon: const Icon(Icons.insert_chart_outlined),
+              onPressed: () => context.push('/students/$studentId/report'),
+            ),
           if (canWrite && loaded != null) ...[
             IconButton(
               tooltip: l10n.editStudent,

@@ -29,6 +29,9 @@ String? resolveRedirect({required AsyncValue<AuthUser?> session, required String
   if (location.startsWith(Routes.users) && !user.can(Permissions.userManage)) {
     return Routes.dashboard;
   }
+  if (Uri.parse(location).pathSegments.lastOrNull == 'report' && !user.can(Permissions.reportRead)) {
+    return Routes.dashboard;
+  }
   final writePermission = _writePermissionFor(location);
   if (writePermission != null && !user.can(writePermission)) {
     return Routes.dashboard;
