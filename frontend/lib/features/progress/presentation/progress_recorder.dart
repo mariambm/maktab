@@ -56,6 +56,9 @@ class _ProgressForm extends ConsumerStatefulWidget {
 class _ProgressFormState extends ConsumerState<_ProgressForm> {
   late String _subject = _defaultSubject(widget.lesson);
   late Map<String, double> _scores = widget.saved.scoresFor(_subject);
+
+  /// Unsaved scores of the other subjects, kept while the teacher switches subject.
+  final Map<String, Map<String, double>> _drafts = {};
   bool _saving = false;
 
   /// The subject of the first topic this week, which is usually what the teacher scores; Quran otherwise.
@@ -100,8 +103,9 @@ class _ProgressFormState extends ConsumerState<_ProgressForm> {
                 DropdownMenuItem(value: subject, child: Text(subjectLabel(subject, l10n))),
             ],
             onChanged: (subject) => setState(() {
+              _drafts[_subject] = _scores;
               _subject = subject!;
-              _scores = widget.saved.scoresFor(_subject);
+              _scores = _drafts.remove(_subject) ?? widget.saved.scoresFor(_subject);
             }),
           ),
         ),

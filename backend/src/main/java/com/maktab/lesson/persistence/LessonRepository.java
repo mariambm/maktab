@@ -20,21 +20,25 @@ public interface LessonRepository extends JpaRepository<Lesson, UUID> {
 
     List<Lesson> findByClassGroupIdInAndLessonDate(Collection<UUID> classGroupIds, LocalDate lessonDate);
 
-    /** One lesson, but only when it belongs to a class the caller may see. */
+    String IN_ORGANISATION = """
+            exists (select 1 from ClassGroup c where c.id = l.classGroupId and c.organisationId = :organisationId)
+            """;
+
+    /** One lesson, but only when it belongs to a class of the caller's organisation that the caller may see. */
     @Query("""
             select l from Lesson l
             where l.id = :id and (:allClasses = true or l.classGroupId in :classIds)
-            """)
-    Optional<Lesson> findInScope(@Param("id") UUID id, @Param("allClasses") boolean allClasses,
-            @Param("classIds") Collection<UUID> classIds);
+              and\s""" + IN_ORGANISATION)
+    Optional<Lesson> findInScope(@Param("id") UUID id, @Param("organisationId") UUID organisationId,
+            @Param("allClasses") boolean allClasses, @Param("classIds") Collection<UUID> classIds);
 
     @Query("""
             select l from Lesson l
             where (:allClasses = true or l.classGroupId in :classIds)
               and (:classId is null or l.classGroupId = :classId)
-              and (:from is null or l.lessonDate >= :from)
-              and (:to is null or l.lessonDate <= :to)
-            """)
-    Page<Lesson> search(@Param("classId") UUID classId, @Param("from") LocalDate from, @Param("to") LocalDate to,
+              and (cast(:from as LocalDate) is null or l.lessonDate >= :from)
+              and (cast(:to as LocalDate) is null or l.lessonDate <= :to)
+              and\s""" + IN_ORGANISATION)
+    Page<Lesson> search(@Param("organisationId") UUID organisationId, @Param("classId") UUID classId, @Param("from") LocalDate from, @Param("to") LocalDate to,
             @Param("allClasses") boolean allClasses, @Param("classIds") Collection<UUID> classIds, Pageable pageable);
 }

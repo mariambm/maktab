@@ -21,4 +21,9 @@ abstract final class MaktabColors {
   static const warningContainer = Color(0xFFFDEEDC);
   static const danger = Color(0xFFC62828);
   static const dangerContainer = Color(0xFFFBE4E4);
+
+  /// [success] and [warning] are too light for small text (below 4.5:1); they are for icons and large figures.
+  /// Small text on a status container uses these darker shades instead.
+  static const onSuccessContainer = Color(0xFF146B43);
+  static const onWarningContainer = Color(0xFF8A4600);
 }

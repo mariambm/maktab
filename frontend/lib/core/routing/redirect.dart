@@ -53,6 +53,7 @@ String? _writePermissionFor(String location) {
     'students' => Permissions.studentWrite,
     'parents' => Permissions.parentWrite,
     'classes' => Permissions.classManage,
+    'curriculum' => Permissions.curriculumWrite,
     _ => null,
   };
 }

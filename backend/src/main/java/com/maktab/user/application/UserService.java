@@ -21,6 +21,7 @@ import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class UserService {
+
+    private static final Set<Permission> ADMIN_ONLY =
+            Set.of(Permission.USER_MANAGE, Permission.SETTINGS_MANAGE, Permission.AUDIT_READ);
 
     private static final String ENTITY = "User";
 
@@ -56,7 +60,8 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserResponse get(CurrentUser actor, UUID id) {
-        return UserResponse.from(load(actor, id));
+        return UserResponse.from(users.findByIdAndOrganisationId(id, actor.organisationId())
+                .orElseThrow(() -> new NotFoundException(ENTITY)));
     }
 
     @Transactional
@@ -65,6 +70,7 @@ public class UserService {
         if (users.existsByOrganisationIdAndEmail(actor.organisationId(), email)) {
             throw new ConflictException("A user with this email already exists");
         }
+        requireAdminToGrant(actor, request.roles(), Set.of());
         String temporaryPassword = passwordGenerator.generate();
         User user = new User(actor.organisationId(), email, passwordEncoder.encode(temporaryPassword),
                 request.firstName().trim(), request.lastName().trim(), request.roles());
@@ -109,6 +115,7 @@ public class UserService {
     @Transactional
     public UserResponse replaceRoles(CurrentUser actor, UUID id, Set<Role> roles) {
         User user = load(actor, id);
+        requireAdminToGrant(actor, roles, Set.of());
         if (user.getId().equals(actor.id()) && user.hasRole(Role.ADMIN) && !roles.contains(Role.ADMIN)) {
             throw new BusinessValidationException("roles", "You cannot remove your own ADMIN role");
         }
@@ -122,6 +129,7 @@ public class UserService {
     @Transactional
     public UserResponse replaceGrantedPermissions(CurrentUser actor, UUID id, Set<Permission> permissions) {
         User user = load(actor, id);
+        requireAdminToGrant(actor, Set.of(), permissions);
         Set<Permission> before = user.getGrantedPermissions();
         user.replaceGrantedPermissions(permissions);
         audit.record(actor, AuditAction.USER_PERMISSIONS_CHANGED, ENTITY, id, Map.of("grantedPermissions", before),
@@ -139,8 +147,26 @@ public class UserService {
         return new CreatedUserResponse(UserResponse.from(user), temporaryPassword);
     }
 
+    /** Loads a user to change. Only an ADMIN may change an ADMIN account, so USER_MANAGE alone cannot take one over. */
     private User load(CurrentUser actor, UUID id) {
-        return users.findByIdAndOrganisationId(id, actor.organisationId())
+        User user = users.findByIdAndOrganisationId(id, actor.organisationId())
                 .orElseThrow(() -> new NotFoundException(ENTITY));
+        if (user.hasRole(Role.ADMIN) && !actor.hasRole(Role.ADMIN)) {
+            throw new AccessDeniedException("Only an admin can change an admin account");
+        }
+        return user;
+    }
+
+    /**
+     * Someone granted USER_MANAGE without being ADMIN must not be able to hand out admin powers, to others or to
+     * themselves.
+     */
+    private static void requireAdminToGrant(CurrentUser actor, Set<Role> roles, Set<Permission> permissions) {
+        if (actor.hasRole(Role.ADMIN)) {
+            return;
+        }
+        if (roles.contains(Role.ADMIN) || permissions.stream().anyMatch(ADMIN_ONLY::contains)) {
+            throw new AccessDeniedException("Only an admin can grant admin rights");
+        }
     }
 }

@@ -162,7 +162,8 @@ class AttendanceEntry {
       status: next,
       minutesLate: next == AttendanceStatuses.late ? (minutesLate ?? this.minutesLate) : null,
       absenceReason: next == AttendanceStatuses.absent ? (absenceReason ?? this.absenceReason) : null,
-      note: note ?? this.note,
+      // The note field is hidden for a present student, so a note typed earlier must not be saved unseen.
+      note: next == AttendanceStatuses.present ? null : (note ?? this.note),
     );
   }
 
@@ -184,6 +185,15 @@ class OpenLessonDraft {
     this.startTime,
     this.endTime,
   });
+
+  /// Opens the lesson behind a slot of a day's list: a scheduled slot by its schedule, an extra lesson by its times.
+  factory OpenLessonDraft.forSlot(LessonSummary slot) => OpenLessonDraft(
+    classGroupId: slot.classGroupId,
+    lessonDate: slot.lessonDate,
+    classScheduleId: slot.classScheduleId,
+    startTime: slot.classScheduleId == null ? slot.startTime : null,
+    endTime: slot.classScheduleId == null ? slot.endTime : null,
+  );
 
   final String classGroupId;
   final DateTime lessonDate;

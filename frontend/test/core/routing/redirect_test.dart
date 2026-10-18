@@ -49,10 +49,13 @@ void main() {
     expect(go(teacher, '/students/s1/edit'), Routes.dashboard);
     expect(go(teacher, '/classes/new'), Routes.dashboard);
     expect(go(teacher, '/parents/new'), Routes.dashboard);
+    expect(go(teacher, '/curriculum/p1'), isNull);
+    expect(go(teacher, '/curriculum/new'), Routes.dashboard);
+    expect(go(teacher, '/curriculum/p1/edit'), Routes.dashboard);
   });
 
   test('an admin can open create and edit screens', () {
-    for (final path in ['/students/new', '/students/s1/edit', '/parents/new', '/classes/c1/edit']) {
+    for (final path in ['/students/new', '/students/s1/edit', '/parents/new', '/classes/c1/edit', '/curriculum/new']) {
       expect(go(AsyncData(adminUser()), path), isNull, reason: path);
     }
   });

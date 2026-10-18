@@ -99,8 +99,8 @@ class AttendanceChip extends StatelessWidget {
     final low = percentage != null && percentage! < threshold;
     final (background, foreground, icon) = switch (percentage) {
       null => (MaktabColors.outline, MaktabColors.primaryDark, Icons.remove),
-      _ when low => (MaktabColors.warningContainer, MaktabColors.warning, Icons.warning_amber_rounded),
-      _ => (MaktabColors.successContainer, MaktabColors.success, Icons.check_circle_outline),
+      _ when low => (MaktabColors.warningContainer, MaktabColors.onWarningContainer, Icons.warning_amber_rounded),
+      _ => (MaktabColors.successContainer, MaktabColors.onSuccessContainer, Icons.check_circle_outline),
     };
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

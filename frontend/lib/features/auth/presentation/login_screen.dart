@@ -152,7 +152,11 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 260, width: double.infinity, child: _BrandPanel(compact: true)),
+              // At least 260 high, but taller when a large system font or a long mosque name needs it.
+              ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 260, minWidth: double.infinity),
+                child: const _BrandPanel(compact: true),
+              ),
               form,
             ],
           ),

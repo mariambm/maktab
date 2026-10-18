@@ -16,7 +16,7 @@ abstract final class MaktabTheme {
       onSecondaryContainer: MaktabColors.primaryDark,
       tertiary: MaktabColors.gold,
       tertiaryContainer: MaktabColors.warningContainer,
-      onTertiaryContainer: const Color(0xFF8A4600),
+      onTertiaryContainer: MaktabColors.onWarningContainer,
       surface: MaktabColors.surface,
       outlineVariant: MaktabColors.outline,
       error: MaktabColors.danger,

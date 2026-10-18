@@ -44,7 +44,7 @@ public class RefreshTokenService {
     @Transactional(noRollbackFor = InvalidRefreshTokenException.class)
     public Rotation rotate(String rawToken) {
         Instant now = clock.instant();
-        RefreshToken current = repository.findByTokenHash(hash(rawToken))
+        RefreshToken current = repository.findForRotation(hash(rawToken))
                 .orElseThrow(InvalidRefreshTokenException::new);
         if (current.isRevoked()) {
             repository.revokeFamily(current.getFamilyId(), now);

@@ -52,6 +52,28 @@ class LessonIntegrationTest extends SchoolApi {
     }
 
     @Test
+    void theLessonListFiltersOnDatesAndShowsATeacherOnlyTheirClasses() throws Exception {
+        Session admin = loginAs(Role.ADMIN);
+        Session teacher = loginAs(Role.TEACHER);
+        UUID classId = createClass(admin);
+        UUID otherClass = createClass(admin);
+        assignTeachers(admin, classId, teacher.user().id());
+        LocalDate today = LocalDate.now();
+        UUID recent = openLesson(admin, classId, today.minusDays(7).toString(), "10:00", "12:00");
+        openLesson(admin, classId, today.minusDays(21).toString(), "10:00", "12:00");
+        openLesson(admin, otherClass, today.minusDays(7).toString(), "10:00", "12:00");
+
+        mvc.perform(as(teacher, get("/api/lessons")).param("classId", classId.toString())
+                        .param("from", today.minusDays(10).toString()).param("to", TODAY))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.items", hasSize(1)))
+                .andExpect(jsonPath("$.items[0].id").value(recent.toString()));
+        mvc.perform(as(teacher, get("/api/lessons")).param("classId", otherClass.toString()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.items", hasSize(0)));
+    }
+
+    @Test
     void attendanceIsSavedForTheWholeClassAtOnce() throws Exception {
         Session admin = loginAs(Role.ADMIN);
         Session teacher = loginAs(Role.TEACHER);

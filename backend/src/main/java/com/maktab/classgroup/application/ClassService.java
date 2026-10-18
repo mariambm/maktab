@@ -44,6 +44,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -90,6 +91,7 @@ public class ClassService {
 
     @Transactional
     public CurriculumLevelResponse createLevel(CurrentUser actor, CreateCurriculumLevelRequest request) {
+        requireWholeOrganisation(actor);
         String name = request.name().trim();
         if (levels.existsByOrganisationIdAndNameIgnoreCase(actor.organisationId(), name)) {
             throw new ConflictException("A curriculum level with this name already exists");
@@ -134,6 +136,7 @@ public class ClassService {
 
     @Transactional
     public ClassResponse create(CurrentUser actor, ClassRequest request) {
+        requireWholeOrganisation(actor);
         String name = request.name().trim();
         requireLevel(actor, request.curriculumLevelId());
         if (classes.existsByOrganisationIdAndNameIgnoreCase(actor.organisationId(), name)) {
@@ -231,9 +234,21 @@ public class ClassService {
                 .orElseThrow(() -> new NotFoundException("Class"));
     }
 
+    /** Changing a class, its teachers or its timetable is an administrator's job, even with CLASS_MANAGE granted. */
     private ClassGroup load(CurrentUser actor, UUID id) {
+        requireWholeOrganisation(actor);
         return classes.findByIdAndOrganisationId(id, actor.organisationId())
                 .orElseThrow(() -> new NotFoundException("Class"));
+    }
+
+    /**
+     * Class management must not let a user widen their own scope, for example by assigning themselves to another
+     * teacher's class, so it needs access to every class.
+     */
+    private void requireWholeOrganisation(CurrentUser actor) {
+        if (!scopes.scopeFor(actor).allClasses()) {
+            throw new AccessDeniedException("Only administrators can manage classes");
+        }
     }
 
     private void requireLevel(CurrentUser actor, UUID levelId) {

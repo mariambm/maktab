@@ -61,9 +61,9 @@ class_group      (id, organisation_id, curriculum_level_id → curriculum_level,
 class_schedule   (id, class_group_id → class_group, weekday 1..7 (ISO, Monday = 1), start_time, end_time)
                   CHECK end_time > start_time;  UNIQUE (class_group_id, weekday, start_time)
 class_teacher    (id, class_group_id → class_group, teacher_user_id → app_user, start_date, end_date NULL)
-                  at most one open row per (class, teacher)
+                  CHECK end_date >= start_date;  at most one open row per (class, teacher)
 class_enrollment (id, student_id → student, class_group_id → class_group, start_date, end_date NULL)
-                  at most one open row per student
+                  CHECK end_date >= start_date;  at most one open row per student
 ```
 
 - **History is never overwritten.** Moving a student closes the open `class_enrollment` row (its `end_date` becomes
@@ -76,9 +76,9 @@ class_enrollment (id, student_id → student, class_group_id → class_group, st
 ## Phase 3 tables
 
 ```text
-curriculum_period     (id, organisation_id, curriculum_level_id → curriculum_level, number, name,
-                       start_date, end_date)
-                       CHECK end_date = start_date + 27 (four weeks);  UNIQUE (curriculum_level_id, number)
+curriculum_period     (id, curriculum_level_id → curriculum_level, number, name, start_date, end_date)
+                       CHECK number > 0;  CHECK end_date = start_date + 27 (four weeks);
+                       UNIQUE (curriculum_level_id, number)
 curriculum_week       (id, curriculum_period_id → curriculum_period, week_number 1..4, is_review)
                        UNIQUE (curriculum_period_id, week_number)
 lesson_topic          (id, curriculum_week_id → curriculum_week, subject NULL ∈ QURAN_RECITATION|ISLAMIC_STUDIES|
@@ -173,5 +173,5 @@ with two or more children), and three students who moved class four weeks ago so
 of past lessons with attendance; today's lesson is deliberately left unopened so the teacher's day has something to
 do. `DevDevelopmentDataSeeder` adds a Quran Recitation score for every student who attended a seeded lesson, plus
 some behaviour observations and uniform notes, and a target in the current period for some students. `DevPaymentDataSeeder` opens the last two months and this one
-at £25.00: earlier months mostly paid, this month about half, so every status shows. Seed data for reports is added
-with its phase.
+at £25.00: earlier months mostly paid, this month about half, so every status shows. Reports need no seed data of their own: they are counted from the
+rows above.

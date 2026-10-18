@@ -12,6 +12,9 @@ spring:
     properties:
       hibernate:
         jdbc.time_zone: UTC
+        # Loads element collections (behaviours of a record, roles of a user) for many rows in one query, not one
+        # query per row.
+        default_batch_fetch_size: 100
   flyway:
     enabled: true
     locations: classpath:db/migration
