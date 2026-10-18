@@ -26,12 +26,12 @@ Each module has the same shape: `api/` (controllers, request/response DTOs), `ap
 authorisation), `domain/` (JPA entities, enums), `persistence/` (Spring Data repositories). Entities never leave the
 service layer.
 
-| Module | Phase 1 contents |
+| Module | Contents |
 | --- | --- |
 | `auth` | Login, refresh, logout, `/api/me`, password change, access and refresh tokens, login throttling, JWT-to-user conversion |
 | `user` | Users, roles, permissions (`RolePermissions`), user administration API |
 | `audit` | Audit log writer (`AuditService`) and read API |
-| `organisation` | The organisation entity |
+| `organisation` | The organisation entity, its calendar (time zone, today) and the public mosque name endpoint |
 | `common` | Error format and handler, correlation id filter, paging |
 | `config` | Security, CORS, OpenAPI, clock |
 | `student` | Students, parent links, class moves (Phase 2) |
@@ -98,4 +98,5 @@ other repositories, so a report counts exactly the lessons, students and payment
 4. **Student development** (done): progress, targets, behaviour, uniform
 5. **Finance** (done): payment periods, payments
 6. **Reporting** (done): dashboard figures, attendance, progress, behaviour, payment and student reports
-7. Quality: security, permission, performance, UX and accessibility reviews
+7. **Quality** (done): security, permission, performance, UX, accessibility, test and documentation reviews; see
+   [quality-review.md](quality-review.md)

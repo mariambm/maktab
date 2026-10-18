@@ -111,6 +111,13 @@ class AuthIntegrationTest extends IntegrationTest {
     }
 
     @Test
+    void aRequestInTheWrongFormatIsABadRequestNotAServerError() throws Exception {
+        mvc.perform(post("/api/auth/login").contentType(MediaType.TEXT_PLAIN).content("hello"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.error").value("MALFORMED_REQUEST"));
+    }
+
+    @Test
     void malformedJsonIsRejectedWithoutDetails() throws Exception {
         mvc.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON).content("{not json"))
                 .andExpect(status().isBadRequest())

@@ -12,6 +12,7 @@ import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
+import org.springframework.web.ErrorResponse;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -102,6 +103,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     ResponseEntity<ApiError> handleUnexpected(Exception ex, HttpServletRequest request) {
+        // Other request errors Spring raises itself (wrong content type, missing header, ...) are the client's
+        // mistake: answer 400 without an error log, so they cannot flood the logs with stack traces.
+        if (ex instanceof ErrorResponse response && response.getStatusCode().is4xxClientError()) {
+            log.debug("Rejected request on {}: {}", request.getRequestURI(), ex.getClass().getSimpleName());
+            return respond(ErrorCode.MALFORMED_REQUEST, "The request could not be read", request, null);
+        }
         log.error("Unexpected error on {} {}", request.getMethod(), request.getRequestURI(), ex);
         return respond(ErrorCode.INTERNAL_ERROR, "Something went wrong. Please try again.", request, null);
     }

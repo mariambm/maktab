@@ -69,6 +69,13 @@ void main() {
     });
   });
 
+  test('setting a student back to present drops the note, whose field is then hidden', () {
+    const absent = AttendanceEntry(studentId: 's1', status: AttendanceStatuses.absent, note: 'Called in');
+
+    expect(absent.copyWith(status: AttendanceStatuses.late).note, 'Called in');
+    expect(absent.copyWith(status: AttendanceStatuses.present).note, isNull);
+  });
+
   test('a scheduled slot that nobody opened yet has no id, and opening it sends the slot', () async {
     final slot = {
       'id': null,

@@ -138,7 +138,8 @@ public class LessonService {
     public PageResponse<LessonSummaryResponse> search(CurrentUser actor, UUID classId, LocalDate from, LocalDate to,
             Pageable pageable) {
         AccessScope scope = scopes.scopeFor(actor);
-        Page<Lesson> page = lessons.search(classId, from, to, scope.allClasses(), scope.queryClassIds(), pageable);
+        Page<Lesson> page = lessons.search(actor.organisationId(), classId, from, to, scope.allClasses(),
+                scope.queryClassIds(), pageable);
         Map<UUID, ClassGroup> classById = classes.findByIdIn(page.getContent().stream()
                         .map(Lesson::getClassGroupId).collect(Collectors.toSet())).stream()
                 .collect(Collectors.toMap(ClassGroup::getId, Function.identity()));
@@ -322,7 +323,7 @@ public class LessonService {
 
     private Lesson loadInScope(CurrentUser actor, UUID id) {
         AccessScope scope = scopes.scopeFor(actor);
-        return lessons.findInScope(id, scope.allClasses(), scope.queryClassIds())
+        return lessons.findInScope(id, actor.organisationId(), scope.allClasses(), scope.queryClassIds())
                 .orElseThrow(() -> new NotFoundException(ENTITY));
     }
 

@@ -56,18 +56,19 @@ DashboardFigures figures({bool withPayments = false}) => DashboardFigures.fromJs
       : null,
 });
 
-Widget app(AuthUser user, List<LessonSummary> lessons, {bool withPayments = false}) => ProviderScope(
-  overrides: [
-    sessionControllerProvider.overrideWith(() => SignedInSession(user)),
-    classesProvider.overrideWith((ref) async => []),
-    studentsProvider.overrideWith(
-      (ref, filter) async => const PageResult(items: [], page: 0, size: 20, totalItems: 30),
-    ),
-    lessonsOnDateProvider.overrideWith((ref, date) async => lessons),
-    dashboardFiguresProvider.overrideWith((ref) async => figures(withPayments: withPayments)),
-  ],
-  child: localized(const DashboardScreen()),
-);
+Widget app(AuthUser user, List<LessonSummary> lessons, {bool withPayments = false, Object? lessonsError}) =>
+    ProviderScope(
+      overrides: [
+        sessionControllerProvider.overrideWith(() => SignedInSession(user)),
+        classesProvider.overrideWith((ref) async => []),
+        studentsProvider.overrideWith(
+          (ref, filter) async => const PageResult(items: [], page: 0, size: 20, totalItems: 30),
+        ),
+        lessonsOnDateProvider.overrideWith((ref, date) async => lessonsError == null ? lessons : throw lessonsError),
+        dashboardFiguresProvider.overrideWith((ref) async => figures(withPayments: withPayments)),
+      ],
+      child: localized(const DashboardScreen()),
+    );
 
 void main() {
   setUpAll(() => initializeDateFormatting('en'));
@@ -106,5 +107,13 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('No lessons today.'), findsOneWidget);
+  });
+
+  testWidgets('when today\'s lessons cannot be loaded the dashboard says so and offers a retry', (tester) async {
+    await tester.pumpWidget(app(testUser(), [], lessonsError: Exception('offline')));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(CircularProgressIndicator), findsNothing);
+    expect(find.widgetWithText(TextButton, 'Try again'), findsOneWidget);
   });
 }

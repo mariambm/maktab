@@ -38,7 +38,7 @@ public class LessonAccess {
     @Transactional(readOnly = true)
     public Lesson loadInScope(CurrentUser actor, UUID lessonId) {
         AccessScope scope = scopes.scopeFor(actor);
-        return lessons.findInScope(lessonId, scope.allClasses(), scope.queryClassIds())
+        return lessons.findInScope(lessonId, actor.organisationId(), scope.allClasses(), scope.queryClassIds())
                 .orElseThrow(() -> new NotFoundException("Lesson"));
     }
 

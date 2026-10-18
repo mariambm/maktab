@@ -24,9 +24,10 @@ uniform, payments and reports. It replaces an Excel-based administration.
   observations per lesson, and targets per four-week period.
 - Phase 5 (Finance) is done: months of fees in GBP, a payment per student and month with paid, partly paid and
   outstanding worked out from the amounts, and month totals.
-
 - Phase 6 (Reporting) is done: dashboard figures for the last four weeks and reports on attendance, progress,
   behaviour, fees and single students, all calculated on request over the classes the user may see.
+- Phase 7 (Quality) is done: security, permission, performance, UX, accessibility, test and documentation reviews;
+  findings and what was fixed are in [docs/quality-review.md](docs/quality-review.md).
 
 See the roadmap in
 [docs/architecture.md](docs/architecture.md#roadmap).
@@ -50,7 +51,9 @@ With the default `dev` profile the backend seeds fake accounts, all using `DEV_S
 
 It also seeds a fake school once (when there are no students yet): 3 curriculum levels, 6 classes with schedules and
 teachers, 30 students and 20 parents, 8 of whom have two or more children. `teacher1` teaches *Saturday Beginners A*
-and *Sunday Qaida E*.
+and *Sunday Qaida E*. On top of that come curriculum periods, eight weeks of past lessons with attendance, scores,
+behaviour and uniform notes, targets, and three months of fees, so every screen and report has data; see
+[docs/database.md](docs/database.md) for the details.
 
 Swagger UI (dev profile only): http://localhost:8080/swagger-ui.html
 
@@ -81,6 +84,6 @@ Both suites run in GitHub Actions on every push and pull request (`.github/workf
 
 - Secrets come only from environment variables; `.env` is git-ignored. Never commit real values.
 - Passwords are hashed with BCrypt; tokens and passwords are never logged or written to the audit log.
-- Every endpoint other than login/refresh/logout requires a token and declares a permission; a test fails the build
+- Every endpoint other than login/refresh/logout and the public mosque name requires a token and declares a permission; a test fails the build
   if a new endpoint is added without one.
 - Error responses never contain stack traces; each carries a correlation id that matches the server log.

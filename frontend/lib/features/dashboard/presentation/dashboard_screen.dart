@@ -75,7 +75,10 @@ class DashboardScreen extends ConsumerWidget {
                 ),
             ],
           ),
-          if (lessons != null) ...[const SizedBox(height: MaktabSpacing.md), _TodaysLessons(lessons: lessons)],
+          if (lessons != null) ...[
+            const SizedBox(height: MaktabSpacing.md),
+            _TodaysLessons(lessons: lessons, today: today),
+          ],
           if (user.can(Permissions.reportRead)) ...[const SizedBox(height: MaktabSpacing.md), const _RecentFigures()],
         ],
       ),
@@ -83,16 +86,46 @@ class DashboardScreen extends ConsumerWidget {
   }
 }
 
-class _TodaysLessons extends StatelessWidget {
-  const _TodaysLessons({required this.lessons});
+class _TodaysLessons extends ConsumerStatefulWidget {
+  const _TodaysLessons({required this.lessons, required this.today});
 
   final AsyncValue<List<LessonSummary>> lessons;
+  final DateTime today;
+
+  @override
+  ConsumerState<_TodaysLessons> createState() => _TodaysLessonsState();
+}
+
+class _TodaysLessonsState extends ConsumerState<_TodaysLessons> {
+  bool _opening = false;
+
+  /// Opens the lesson straight from the dashboard, so the teacher lands on its register in one tap.
+  Future<void> _open(LessonSummary lesson) async {
+    setState(() => _opening = true);
+    try {
+      final opened = await ref.read(lessonsRepositoryProvider).open(OpenLessonDraft.forSlot(lesson));
+      if (!mounted) {
+        return;
+      }
+      setState(() => _opening = false);
+      await context.push('/lessons/${opened.id}');
+      ref.invalidate(lessonsOnDateProvider(widget.today));
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+      setState(() => _opening = false);
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(errorMessage(error, AppLocalizations.of(context)))));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
     final muted = theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant);
+    final lessons = widget.lessons;
     final list = lessons.value;
     return Card(
       child: Padding(
@@ -102,7 +135,17 @@ class _TodaysLessons extends StatelessWidget {
           children: [
             Text(l10n.dashboardTodaysLessons, style: theme.textTheme.titleMedium),
             const SizedBox(height: MaktabSpacing.sm),
-            if (list == null)
+            if (lessons case AsyncError(:final error) when list == null)
+              Row(
+                children: [
+                  Expanded(child: Text(errorMessage(error, l10n), style: theme.textTheme.bodyMedium)),
+                  TextButton(
+                    onPressed: () => ref.invalidate(lessonsOnDateProvider(widget.today)),
+                    child: Text(l10n.retry),
+                  ),
+                ],
+              )
+            else if (list == null)
               const Padding(
                 padding: EdgeInsets.all(MaktabSpacing.md),
                 child: Center(child: CircularProgressIndicator()),
@@ -131,7 +174,10 @@ class _TodaysLessons extends StatelessWidget {
                             onPressed: () => context.push('/lessons/${lesson.id}'),
                             child: Text(l10n.dashboardView),
                           )
-                        : FilledButton(onPressed: () => context.go('/lessons'), child: Text(l10n.dashboardOpen)),
+                        : FilledButton(
+                            onPressed: _opening ? null : () => _open(lesson),
+                            child: Text(l10n.dashboardOpen),
+                          ),
                   ],
                 ),
                 const Divider(height: MaktabSpacing.lg),

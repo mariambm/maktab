@@ -1,10 +1,12 @@
 package com.maktab.auth.persistence;
 
 import com.maktab.auth.domain.RefreshToken;
+import jakarta.persistence.LockModeType;
 import java.time.Instant;
 import java.util.Optional;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,6 +14,11 @@ import org.springframework.data.repository.query.Param;
 public interface RefreshTokenRepository extends JpaRepository<RefreshToken, UUID> {
 
     Optional<RefreshToken> findByTokenHash(String tokenHash);
+
+    /** Locks the row, so two refreshes with the same token run one after the other and the second sees reuse. */
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select t from RefreshToken t where t.tokenHash = :tokenHash")
+    Optional<RefreshToken> findForRotation(@Param("tokenHash") String tokenHash);
 
     @Modifying
     @Query("update RefreshToken t set t.revokedAt = :at where t.familyId = :familyId and t.revokedAt is null")

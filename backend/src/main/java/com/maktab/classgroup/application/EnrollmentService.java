@@ -9,6 +9,7 @@ import com.maktab.classgroup.domain.ClassEnrollment;
 import com.maktab.classgroup.domain.ClassGroup;
 import com.maktab.classgroup.persistence.ClassEnrollmentRepository;
 import com.maktab.classgroup.persistence.ClassGroupRepository;
+import com.maktab.common.AccessScope;
 import com.maktab.common.BusinessValidationException;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -33,12 +34,14 @@ public class EnrollmentService {
 
     private final ClassEnrollmentRepository enrollments;
     private final ClassGroupRepository classes;
+    private final AccessScopeService scopes;
     private final AuditService audit;
 
     public EnrollmentService(ClassEnrollmentRepository enrollments, ClassGroupRepository classes,
-            AuditService audit) {
+            AccessScopeService scopes, AuditService audit) {
         this.enrollments = enrollments;
         this.classes = classes;
+        this.scopes = scopes;
         this.audit = audit;
     }
 
@@ -70,11 +73,14 @@ public class EnrollmentService {
 
     /**
      * Puts the student in {@code classId} from {@code startDate}, closing their current enrolment on that date.
-     * The class must be active and different from the current one.
+     * The class must be active, different from the current one and one the caller may see, so a teacher cannot place
+     * students in another teacher's class.
      */
     @Transactional
     public EnrollmentResponse enrol(CurrentUser actor, UUID studentId, UUID classId, LocalDate startDate) {
-        ClassGroup target = classes.findByIdAndOrganisationId(classId, actor.organisationId())
+        AccessScope scope = scopes.scopeFor(actor);
+        ClassGroup target = classes.findInScope(classId, actor.organisationId(), scope.allClasses(),
+                        scope.queryClassIds())
                 .orElseThrow(() -> new BusinessValidationException("classId", "Class not found"));
         if (!target.isActive()) {
             throw new BusinessValidationException("classId", "This class is inactive");

@@ -1,6 +1,9 @@
 # API
 
-Base path `/api`. JSON only. Every endpoint except login, refresh and logout needs `Authorization: Bearer <token>`.
+Base path `/api`. JSON only. Every endpoint except login, refresh, logout and `GET /api/public/organisation` needs
+`Authorization: Bearer <token>`. An account that still has a temporary password (new, or reset by an admin) has no
+permissions until it sets its own password: only `/api/me` and `PUT /api/me/password` answer, everything else is
+`403`.
 With the `dev` profile the live OpenAPI document is at `/v3/api-docs` and Swagger UI at `/swagger-ui.html`.
 
 ## Phase 1 endpoints
@@ -20,8 +23,11 @@ With the `dev` profile the live OpenAPI document is at `/v3/api-docs` and Swagge
 | PATCH | `/api/users/{id}/status` | `USER_MANAGE` | Activate or deactivate (ends their sessions) |
 | PUT | `/api/users/{id}/roles` | `USER_MANAGE` | Replace roles (cannot remove your own ADMIN) |
 | PUT | `/api/users/{id}/permissions` | `USER_MANAGE` | Replace extra permission grants, e.g. `PAYMENT_READ` for a teacher |
+
+Only an ADMIN can give the ADMIN role or `USER_MANAGE`, `SETTINGS_MANAGE` or `AUDIT_READ`, or change an ADMIN's
+account; anyone else with `USER_MANAGE` gets `403` for those.
 | POST | `/api/users/{id}/password-reset` | `USER_MANAGE` | New temporary password; ends their sessions |
-| GET | `/api/audit-log?entityType=&entityId=&userId=&from=&to=` | `AUDIT_READ` | Audit entries, newest first |
+| GET | `/api/audit-log?entityType=&entityId=&userId=&from=&to=&page=&size=` | `AUDIT_READ` | Audit entries, newest first |
 
 ## Phase 2 endpoints
 
@@ -52,7 +58,13 @@ they are currently assigned to and the students currently in them. Any other id 
 | POST | `/api/curriculum-levels` | `CLASS_MANAGE` | Create a level |
 | GET | `/api/teachers` | `CLASS_MANAGE` | Active teachers to assign |
 
-Lists return `{ "items": [...], "page": 0, "size": 25, "totalItems": 7 }`.
+Lists return `{ "items": [...], "page": 0, "size": 25, "totalItems": 7 }`. The default page size is 25 and the
+maximum 100; `/api/payments` defaults to 50 with a maximum of 200.
+
+Permissions granted to a teacher one by one still stop at their own classes: `PARENT_READ` shows only the families
+of children currently in their classes (and only those children); class management (`POST /api/classes`, changes
+to a class, its teachers or timetable, `POST /api/curriculum-levels`) needs an admin role, so a teacher cannot add
+themselves to another class; and a student can only be placed in a class the caller may see.
 
 ## Phase 3 endpoints
 
@@ -146,6 +158,8 @@ Attendance percentages count present and late as attended and are `null` when no
 | Permission | ADMIN | ADMINISTRATOR | TEACHER |
 | --- | --- | --- | --- |
 | `USER_MANAGE`, `SETTINGS_MANAGE`, `AUDIT_READ` | yes | no | no |
+
+`SETTINGS_MANAGE` is reserved: no endpoint uses it yet, because the mosque's settings have no API so far.
 | `STUDENT_READ`, `CLASS_READ` | yes | yes | yes (assigned classes only) |
 | `STUDENT_WRITE`, `PARENT_READ`, `PARENT_WRITE`, `CLASS_MANAGE`, `CURRICULUM_WRITE` | yes | yes | no |
 | `CURRICULUM_READ`, `LESSON_RECORD`, `PROGRESS_RECORD`, `TARGET_MANAGE`, `OBSERVATION_RECORD`, `REPORT_READ` | yes | yes | yes |

@@ -198,7 +198,7 @@ class _SidebarItem extends StatelessWidget {
             selected: selected,
             button: true,
             child: ConstrainedBox(
-              constraints: const BoxConstraints(minHeight: 44),
+              constraints: const BoxConstraints(minHeight: MaktabSpacing.touchTarget),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Row(
@@ -239,7 +239,8 @@ class _TopBar extends ConsumerWidget {
     final mosque = ref.watch(organisationNameProvider).value;
     final initials = '${user.firstName.characters.firstOrNull ?? ''}${user.lastName.characters.firstOrNull ?? ''}';
     return Container(
-      height: 64,
+      // A minimum, not a fixed height, so the two lines of text still fit with a large system font.
+      constraints: const BoxConstraints(minHeight: 64),
       padding: const EdgeInsets.symmetric(horizontal: MaktabSpacing.lg),
       decoration: const BoxDecoration(
         color: MaktabColors.surface,

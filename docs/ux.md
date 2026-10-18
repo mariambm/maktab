@@ -50,9 +50,9 @@ module by URL redirects to the dashboard, and the backend refuses the data regar
 
 ## Phase 1 screens
 
-Login, change password (forced after a temporary password), dashboard (greeting and what will appear), settings
-(account, change password, sign out, Users & Permissions for ADMIN), a users list, and placeholders for
-modules built in later phases.
+Login, change password (forced after a temporary password; the server also refuses everything else until it is
+changed), dashboard, settings (account, change password, sign out, Users & Permissions for ADMIN) and a users list.
+Every module now has its own screen; the Phase 1 placeholders are gone.
 
 ## Phase 2 screens
 
@@ -151,3 +151,16 @@ Failed loads show the error with "Try again" rather than retrying silently.
   may see payments.
 - Teachers see the same reports over their own classes, without Payments.
 
+
+## Phase 7 changes
+
+- The dashboard's **Open** button opens the lesson straight away; if today's lessons cannot be loaded the card says
+  so with a **Try again** button instead of spinning.
+- Opening a lesson from the Lessons list shows a progress bar while the server opens it.
+- Switching subject in **Progress** keeps the scores already entered for the other subject until they are saved.
+- Setting a student back to Present clears their attendance note, since the note field is then hidden.
+- Small text on a status colour uses darker shades (`onSuccessContainer`, `onWarningContainer`) so it meets WCAG AA
+  (4.5:1); the lighter `success` and `warning` stay for icons and large figures.
+- Sidebar items are at least 48 px high; the top bar and the compact sign-in header grow with large text instead of
+  clipping it.
+- Empty and error screens can be pulled to refresh.

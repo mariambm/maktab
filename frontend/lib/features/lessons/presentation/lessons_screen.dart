@@ -41,6 +41,8 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
       body: Column(
         children: [
           _DayBar(date: _date, isToday: _date == today, onChange: (date) => setState(() => _date = date)),
+          // Opening a lesson waits for the server; show that the tap was taken.
+          if (_opening) const LinearProgressIndicator(),
           Expanded(
             child: RefreshIndicator(
               onRefresh: () => ref.refresh(lessonsOnDateProvider(_date).future),
@@ -81,17 +83,7 @@ class _LessonsScreenState extends ConsumerState<LessonsScreen> {
     }
     setState(() => _opening = true);
     try {
-      final opened = await ref
-          .read(lessonsRepositoryProvider)
-          .open(
-            OpenLessonDraft(
-              classGroupId: lesson.classGroupId,
-              lessonDate: lesson.lessonDate,
-              classScheduleId: lesson.classScheduleId,
-              startTime: lesson.classScheduleId == null ? lesson.startTime : null,
-              endTime: lesson.classScheduleId == null ? lesson.endTime : null,
-            ),
-          );
+      final opened = await ref.read(lessonsRepositoryProvider).open(OpenLessonDraft.forSlot(lesson));
       if (!mounted) {
         return;
       }

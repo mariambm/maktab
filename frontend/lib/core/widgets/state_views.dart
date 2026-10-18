@@ -24,6 +24,8 @@ class MessageView extends StatelessWidget {
     final theme = Theme.of(context);
     return Center(
       child: SingleChildScrollView(
+        // Scrollable even when short, so pull-to-refresh also works on an empty or error screen.
+        physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.all(MaktabSpacing.lg),
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 420),

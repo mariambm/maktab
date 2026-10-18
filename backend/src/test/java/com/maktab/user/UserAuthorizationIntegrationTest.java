@@ -162,6 +162,77 @@ class UserAuthorizationIntegrationTest extends IntegrationTest {
                 .andExpect(jsonPath("$.items[0].id").value(teacher.user().id().toString()));
     }
 
+    @Test
+    void aTemporaryPasswordOnlyLetsTheUserSetTheirOwnPassword() throws Exception {
+        Session admin = loginAs(Role.ADMIN);
+        String email = "temp-" + UUID.randomUUID().toString().substring(0, 8) + "@test.local";
+        String created = mvc.perform(post("/api/users").header("Authorization", admin.bearer())
+                        .contentType(MediaType.APPLICATION_JSON).content(newUser(email)))
+                .andExpect(status().isCreated()).andReturn().getResponse().getContentAsString();
+        String temporaryPassword = JsonPath.read(created, "$.temporaryPassword");
+        String login = mvc.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON)
+                        .content(json(email, temporaryPassword)))
+                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
+        String bearer = "Bearer " + JsonPath.read(login, "$.accessToken");
+
+        // Calling the API directly, past the app's change-password screen, gets nothing.
+        mvc.perform(get("/api/classes").header("Authorization", bearer)).andExpect(status().isForbidden());
+        mvc.perform(get("/api/me").header("Authorization", bearer))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.mustChangePassword").value(true));
+
+        mvc.perform(put("/api/me/password").header("Authorization", bearer).contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"currentPassword\":\"" + temporaryPassword
+                                + "\",\"newPassword\":\"A-new-password-1\"}"))
+                .andExpect(status().isNoContent());
+        mvc.perform(get("/api/classes").header("Authorization", bearer)).andExpect(status().isOk());
+    }
+
+    @Test
+    void aPasswordResetIssuesATemporaryPasswordAndEndsTheUsersSessions() throws Exception {
+        Session admin = loginAs(Role.ADMIN);
+        Session teacher = loginAs(Role.TEACHER);
+
+        String body = mvc.perform(post("/api/users/{id}/password-reset", teacher.user().id())
+                        .header("Authorization", admin.bearer()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.user.mustChangePassword").value(true))
+                .andExpect(jsonPath("$.temporaryPassword").isNotEmpty())
+                .andReturn().getResponse().getContentAsString();
+
+        mvc.perform(post("/api/auth/refresh").contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"refreshToken\":\"" + teacher.refreshToken() + "\"}"))
+                .andExpect(status().isUnauthorized());
+        mvc.perform(post("/api/auth/login").contentType(MediaType.APPLICATION_JSON)
+                        .content(json(teacher.user().email(), JsonPath.read(body, "$.temporaryPassword"))))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void aUserManagerWhoIsNotAdminCannotHandOutAdminRights() throws Exception {
+        Session admin = loginAs(Role.ADMIN);
+        Session manager = loginAs(Role.ADMINISTRATOR);
+        Session teacher = loginAs(Role.TEACHER);
+        mvc.perform(put("/api/users/{id}/permissions", manager.user().id()).header("Authorization", admin.bearer())
+                        .contentType(MediaType.APPLICATION_JSON).content("{\"permissions\":[\"USER_MANAGE\"]}"))
+                .andExpect(status().isOk());
+
+        mvc.perform(put("/api/users/{id}/roles", manager.user().id()).header("Authorization", manager.bearer())
+                        .contentType(MediaType.APPLICATION_JSON).content("{\"roles\":[\"ADMIN\"]}"))
+                .andExpect(status().isForbidden());
+        mvc.perform(put("/api/users/{id}/permissions", teacher.user().id()).header("Authorization", manager.bearer())
+                        .contentType(MediaType.APPLICATION_JSON).content("{\"permissions\":[\"AUDIT_READ\"]}"))
+                .andExpect(status().isForbidden());
+        mvc.perform(post("/api/users/{id}/password-reset", admin.user().id())
+                        .header("Authorization", manager.bearer()))
+                .andExpect(status().isForbidden());
+
+        // Everyday rights are still theirs to give.
+        mvc.perform(put("/api/users/{id}/permissions", teacher.user().id()).header("Authorization", manager.bearer())
+                        .contentType(MediaType.APPLICATION_JSON).content("{\"permissions\":[\"PAYMENT_READ\"]}"))
+                .andExpect(status().isOk());
+    }
+
     private static String newUser(String email) {
         return "{\"email\":\"" + email + "\",\"firstName\":\"Sara\",\"lastName\":\"Ahmed\",\"roles\":[\"TEACHER\"]}";
     }
